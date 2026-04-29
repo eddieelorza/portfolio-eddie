@@ -1,14 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../../lib/utils.js';
 
 const springConfig = { duration: 0.3, ease: 'easeInOut' };
 
-export default function BottomMenuBar({
-  items,
-  className,
-  initialActive = 0,
-}) {
+function BottomMenuBar({ items, className, initialActive = 0 }) {
   const [hoverIndex, setHoverIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(initialActive);
   const menuRef = useRef(null);
@@ -110,3 +106,5 @@ export default function BottomMenuBar({
     </div>
   );
 }
+
+export default memo(BottomMenuBar);
