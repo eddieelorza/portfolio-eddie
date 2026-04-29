@@ -5,8 +5,8 @@ import TextRotator from './ui/TextRotator.jsx';
 import SparklesText from './ui/SparklesText.jsx';
 import InteractiveGradientBackground from './ui/InteractiveGradientBackground.jsx';
 import { PrimaryCTA, GhostCTA } from './ui/HeroButtons.jsx';
-import avatarImg from '../assets/avatar.svg';
-import profileImg from '../assets/profile.svg';
+import avatarImg from '../assets/avatar.webp';
+import profileImg from '../assets/profile.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -24,6 +24,7 @@ export default function Hero() {
     <section
       id="top"
       className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28"
+      style={{ isolation: 'isolate' }}
     >
       <InteractiveGradientBackground intensity={0.8} opacity={0.45} />
       <div
@@ -32,10 +33,7 @@ export default function Hero() {
       />
       <div
         className="absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-[100px]"
-        style={{
-          background: 'rgb(var(--accent) / 0.18)',
-          willChange: 'transform',
-        }}
+        style={{ background: 'rgb(var(--accent) / 0.18)' }}
       />
 
       <div className="container-page relative">

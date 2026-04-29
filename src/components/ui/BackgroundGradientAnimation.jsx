@@ -42,7 +42,6 @@ export default function BackgroundGradientAnimation({
         style={{
           filter: 'blur(50px)',
           transform: 'translateZ(0)',
-          willChange: 'transform',
         }}
       >
         <div

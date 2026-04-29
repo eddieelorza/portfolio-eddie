@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { cn } from '../../lib/utils.js';
 
 const glowColorMap = {
@@ -16,42 +16,33 @@ export default function GlowCard({
   glowColor = 'purple',
 }) {
   const cardRef = useRef(null);
+  const rafRef = useRef(null);
+  const pendingRef = useRef(null);
 
-  useEffect(() => {
-    const reduced = window.matchMedia?.(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-    if (reduced) return;
-
-    let rafId = null;
-    let pending = null;
-
-    const apply = () => {
-      rafId = null;
-      const e = pending;
-      if (!e || !cardRef.current) return;
-      const rect = cardRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const xp = rect.width ? x / rect.width : 0;
-      const yp = rect.height ? y / rect.height : 0;
-      cardRef.current.style.setProperty('--x', x.toFixed(2));
-      cardRef.current.style.setProperty('--xp', xp.toFixed(2));
-      cardRef.current.style.setProperty('--y', y.toFixed(2));
-      cardRef.current.style.setProperty('--yp', yp.toFixed(2));
-    };
-
-    const syncPointer = (e) => {
-      pending = e;
-      if (rafId == null) rafId = requestAnimationFrame(apply);
-    };
-
-    document.addEventListener('pointermove', syncPointer, { passive: true });
-    return () => {
-      document.removeEventListener('pointermove', syncPointer);
-      if (rafId != null) cancelAnimationFrame(rafId);
-    };
+  const apply = useCallback(() => {
+    rafRef.current = null;
+    const e = pendingRef.current;
+    if (!e || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xp = rect.width ? x / rect.width : 0;
+    const yp = rect.height ? y / rect.height : 0;
+    cardRef.current.style.setProperty('--x', x.toFixed(2));
+    cardRef.current.style.setProperty('--xp', xp.toFixed(2));
+    cardRef.current.style.setProperty('--y', y.toFixed(2));
+    cardRef.current.style.setProperty('--yp', yp.toFixed(2));
   }, []);
+
+  const onPointerMove = useCallback(
+    (e) => {
+      pendingRef.current = e;
+      if (rafRef.current == null) {
+        rafRef.current = requestAnimationFrame(apply);
+      }
+    },
+    [apply]
+  );
 
   const { base, spread } = glowColorMap[glowColor] || glowColorMap.purple;
 
@@ -86,6 +77,7 @@ export default function GlowCard({
     <div
       ref={cardRef}
       data-glow
+      onPointerMove={onPointerMove}
       style={inlineStyles}
       className={cn(
         'edge-glow relative rounded-[18px] shadow-[0_1rem_2rem_-1rem_black]',

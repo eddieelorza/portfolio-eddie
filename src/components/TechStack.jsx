@@ -75,7 +75,7 @@ const techs = [
 
 function TechBadge({ name, Icon, color }) {
   return (
-    <div className="group flex h-20 w-44 shrink-0 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-5 backdrop-blur transition hover:border-white/25 hover:bg-white/[0.06]">
+    <div className="group flex h-20 w-44 shrink-0 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-5 transition hover:border-white/25 hover:bg-white/[0.06]">
       <span
         className="grid h-11 w-11 place-items-center rounded-xl bg-white/[0.04] transition group-hover:scale-110"
         style={{ boxShadow: `0 0 30px ${color}22` }}

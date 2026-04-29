@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { Award, ExternalLink, GraduationCap } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import SectionHeading from './SectionHeading.jsx';
-import graduationImg from '../assets/graduation.jpeg';
+import graduationImg from '../assets/graduation.webp';
 
 const bulletsContainer = {
   hidden: {},
@@ -43,7 +43,6 @@ export default function EducationSection() {
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="relative"
-              style={{ willChange: 'transform' }}
             >
               <div
                 aria-hidden
@@ -59,7 +58,6 @@ export default function EducationSection() {
                 whileHover={{ scale: 1.015 }}
                 transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="relative h-[340px] overflow-hidden bg-ink-800 md:h-[480px]"
-                style={{ willChange: 'transform' }}
               >
                 <img
                   src={graduationImg}
@@ -82,7 +80,6 @@ export default function EducationSection() {
                 ease: [0.22, 1, 0.36, 1],
               }}
               className="relative z-10 -mt-6 flex min-h-[390px] flex-col border-t border-white/10 bg-ink-950/80 p-5 backdrop-blur md:mt-0 md:min-h-[480px] md:border-l md:border-t-0 md:bg-ink-950/65 md:p-8"
-              style={{ willChange: 'transform' }}
             >
               <div className="flex items-start gap-3">
                 <span

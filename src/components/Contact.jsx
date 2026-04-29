@@ -60,7 +60,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7 }}
-          style={{ scale, willChange: 'transform' }}
+          style={{ scale }}
           className="relative overflow-hidden rounded-3xl border border-white/10 p-8 md:p-14"
         >
           <motion.div

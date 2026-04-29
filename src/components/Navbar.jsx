@@ -20,7 +20,7 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-x-0 top-0 z-50"
-      style={{ transform: 'translateZ(0)', willChange: 'transform' }}
+      style={{ transform: 'translateZ(0)' }}
     >
       <div className="container-page mt-4">
         <nav className="flex items-center justify-between gap-2 rounded-full px-3 py-2 lg:glass-soft">

@@ -97,7 +97,6 @@ export default function InteractiveGradientBackground({
           backgroundBlendMode:
             'overlay, overlay, difference, difference, difference, normal',
           transition: 'opacity 0.5s ease',
-          willChange: 'background-position',
         }}
       />
       <div
