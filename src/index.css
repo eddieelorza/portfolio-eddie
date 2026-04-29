@@ -1,0 +1,276 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: 124 92 255;
+  --accent-soft: 167 139 250;
+  --accent-glow: 91 140 255;
+}
+
+[data-theme='purple'] {
+  --accent: 124 92 255;
+  --accent-soft: 167 139 250;
+  --accent-glow: 91 140 255;
+}
+[data-theme='cyan'] {
+  --accent: 6 182 212;
+  --accent-soft: 103 232 249;
+  --accent-glow: 14 165 233;
+}
+[data-theme='orange'] {
+  --accent: 249 115 22;
+  --accent-soft: 251 191 36;
+  --accent-glow: 234 88 12;
+}
+[data-theme='green'] {
+  --accent: 34 197 94;
+  --accent-soft: 110 231 183;
+  --accent-glow: 16 185 129;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    background-color: #06060a;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.4s ease;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.4);
+    color: #fff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-6 md:px-10;
+  }
+
+  .glass {
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-xl;
+  }
+
+  .glass-soft {
+    @apply border border-white/10 bg-ink-900/55 backdrop-blur-md;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium text-white/70;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 transition hover:bg-white/90 hover:shadow-[0_10px_30px_-10px_rgba(255,255,255,0.4)];
+  }
+
+  .btn-accent {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--accent)),
+      rgb(var(--accent-glow))
+    );
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-white/85 transition hover:border-white/30 hover:bg-white/[0.06];
+  }
+
+  .card {
+    @apply relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 transition;
+  }
+
+  .card-hover {
+    @apply hover:-translate-y-1 hover:border-white/20;
+  }
+  .card-hover:hover {
+    box-shadow: 0 30px 80px -30px rgb(var(--accent) / 0.45);
+  }
+
+  .section-eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em];
+    color: rgb(var(--accent-soft));
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-br from-white via-white bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #ffffff 50%,
+      rgb(var(--accent-soft)) 100%
+    );
+  }
+
+  .gradient-animated {
+    background-image: linear-gradient(
+      90deg,
+      rgb(var(--accent)),
+      rgb(var(--accent-glow)),
+      rgb(var(--accent-soft)),
+      #ffffff,
+      rgb(var(--accent))
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hue-pan 14s linear infinite;
+  }
+
+  .ring-accent {
+    box-shadow: 0 0 0 1px rgb(var(--accent) / 0.4),
+      0 0 60px -10px rgb(var(--accent) / 0.5);
+  }
+}
+
+.bg-grid {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    );
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.9),
+    transparent 70%
+  );
+}
+
+.bg-dots {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 18px 18px;
+}
+
+.shimmer-border {
+  position: relative;
+  isolation: isolate;
+}
+.shimmer-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    rgb(var(--accent) / 0) 0%,
+    rgb(var(--accent) / 0.7) 30%,
+    rgb(var(--accent-glow) / 0) 60%
+  );
+  background-size: 200% 100%;
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: hue-pan 14s linear infinite;
+  pointer-events: none;
+}
+
+.edge-glow {
+  position: relative;
+  isolation: isolate;
+}
+.edge-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--edge-angle, 0deg),
+    transparent 0%,
+    rgb(var(--accent) / 0.85) 20%,
+    rgb(var(--accent-glow) / 0.85) 40%,
+    transparent 60%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+.edge-glow:hover::after {
+  opacity: 1;
+  animation: edge-spin 3.5s linear infinite;
+}
+@property --edge-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes edge-spin {
+  to {
+    --edge-angle: 360deg;
+  }
+}
+
+.gradient-blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.gradient-blobs > div {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  border-radius: 9999px;
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  filter: blur(60px);
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a10;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f1f2b;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--accent) / 0.6);
+}
