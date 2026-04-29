@@ -131,6 +131,9 @@ function HeroVisual({ avatarLabel, photoLabel }) {
         <img
           src={profileImg}
           alt="Eddie Elorza"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
           className="h-full w-full object-cover"
         />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink-900 to-transparent" />
@@ -159,6 +162,9 @@ function HeroVisual({ avatarLabel, photoLabel }) {
           <img
             src={avatarImg}
             alt="Avatar"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
             className="relative h-full w-full object-contain text-[rgb(var(--accent))]"
           />
         </div>

@@ -63,6 +63,7 @@ export default function EducationSection() {
                   src={graduationImg}
                   alt={e.photoAlt}
                   loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover brightness-90 contrast-105"
                 />
 
