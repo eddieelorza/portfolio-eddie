@@ -6,8 +6,6 @@ import { useLanguage } from '../contexts/LanguageContext.jsx';
 
 const WEB3FORMS_ACCESS_KEY =  import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
-console.log('ENV:', import.meta.env);
-
 export default function ContactForm({ onSuccess }) {
   const { t } = useLanguage();
   const f = t.contact.form;
