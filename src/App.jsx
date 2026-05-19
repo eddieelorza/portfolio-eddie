@@ -2,6 +2,7 @@ import { lazy, Suspense, useMemo } from 'react';
 import {
   User,
   Briefcase,
+  Workflow,
   GraduationCap,
   FolderKanban,
   Layers,
@@ -16,6 +17,9 @@ import BottomMenuBar from './components/ui/BottomMenuBar.jsx';
 
 const About = lazy(() => import('./components/About.jsx'));
 const Experience = lazy(() => import('./components/Experience.jsx'));
+const ProductExecution = lazy(() =>
+  import('./components/ProductExecution.jsx')
+);
 const EducationSection = lazy(() =>
   import('./components/EducationSection.jsx')
 );
@@ -38,6 +42,7 @@ function MobileNav() {
     () => [
       { href: '#about', label: t.nav.about, icon: User },
       { href: '#experience', label: t.nav.experience, icon: Briefcase },
+      { href: '#product', label: t.nav.product, icon: Workflow },
       { href: '#education', label: t.nav.education, icon: GraduationCap },
       { href: '#projects', label: t.nav.projects, icon: FolderKanban },
       { href: '#stack', label: t.nav.stack, icon: Layers },
@@ -64,6 +69,7 @@ export default function App() {
             <Suspense fallback={<SectionFallback />}>
               <About />
               <Experience />
+              <ProductExecution />
               <EducationSection />
               <Projects />
               <TechStack />
