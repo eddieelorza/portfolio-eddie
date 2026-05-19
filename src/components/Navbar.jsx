@@ -8,6 +8,7 @@ export default function Navbar() {
   const links = [
     { href: '#about', label: t.nav.about },
     { href: '#experience', label: t.nav.experience },
+    { href: '#product', label: t.nav.product },
     { href: '#education', label: t.nav.education },
     { href: '#projects', label: t.nav.projects },
     { href: '#stack', label: t.nav.stack },
