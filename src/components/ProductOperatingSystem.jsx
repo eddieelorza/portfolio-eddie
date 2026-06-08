@@ -533,29 +533,6 @@ function GridView({ data }) {
             <p className="mt-4 text-sm leading-relaxed text-white/70">
               {item.content}
             </p>
-            <div className="mt-5">
-              <div className="flex items-center justify-between text-xs text-white/60">
-                <span>{data.strengthLabel}</span>
-                <span className="font-mono text-white/80">{item.strength}%</span>
-              </div>
-              <div
-                className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10"
-                role="progressbar"
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-valuenow={item.strength}
-                aria-label={data.strengthLabel}
-              >
-                <div
-                  className="h-full rounded-full"
-                  style={{
-                    width: `${item.strength}%`,
-                    background:
-                      'linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent-glow)))',
-                  }}
-                />
-              </div>
-            </div>
           </motion.article>
         );
       })}
