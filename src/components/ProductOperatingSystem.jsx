@@ -309,8 +309,11 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
       <div
         className="absolute left-1/2 -translate-x-1/2"
         style={{
+          // z-40 keeps the dialog above the orbital nodes (10..30) but
+          // strictly BELOW the global Navbar (fixed, z-50) and the
+          // BottomMenuBar (z-50) so it never overlaps fixed chrome.
           top: `calc(50% + ${dialogTopY}px)`,
-          zIndex: 50,
+          zIndex: 40,
           pointerEvents: activeItem ? 'auto' : 'none',
         }}
         onClick={(e) => e.stopPropagation()}
