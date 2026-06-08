@@ -47,8 +47,11 @@ const ROTATION_STEP = 0.15;
 const TICK_MS = 50;
 const RADIUS_LG = 200;
 const RADIUS_XL = 230;
-// Dialog sits this many px below the active node (matches original's top-20-ish offset).
-const DIALOG_OFFSET = 88;
+// Gap between the active node's bottom edge and the dialog's top edge
+// (active node label sits inside this gap, plus a small tick).
+const DIALOG_GAP = 56;
+// Active node icon radius in px (h-11 = 44 → r = 22).
+const NODE_RADIUS = 22;
 // Smooth CSS transition for the orbital rotation (same family as original's duration-700).
 const ORBIT_TRANSITION =
   'transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease';
@@ -200,12 +203,12 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
     if (!e.currentTarget.contains(e.relatedTarget)) setIsFocused(false);
   }, []);
 
-  // The dialog always sits at the visual top of the orbit (where the
-  // active node lands after centerViewOnNode), offset down by DIALOG_OFFSET.
-  // It does NOT move between activations; only the orbit and the
-  // inner content rotate/swap underneath.
-  const dialogX = 0;
-  const dialogY = -radius + DIALOG_OFFSET;
+  // The dialog is anchored by its TOP edge (not centered) so the
+  // active node — which sits at the visual top of the orbit after
+  // centerViewOnNode — stays fully visible above the card.
+  // dialogTopY is the dialog's top edge measured from the container's
+  // vertical center; everything below extends downward.
+  const dialogTopY = -radius + NODE_RADIUS + DIALOG_GAP;
 
   return (
     <div
@@ -267,9 +270,9 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
                   ? 'rgb(var(--accent-soft))'
                   : 'rgba(255,255,255,0.18)',
                 color: isActive ? '#fff' : 'rgba(255,255,255,0.85)',
-                transform: `scale(${isActive ? 1.25 : pos.scale})`,
+                transform: `scale(${isActive ? 1.35 : pos.scale})`,
                 boxShadow: isActive
-                  ? '0 12px 40px -12px rgb(var(--accent) / 0.6)'
+                  ? '0 16px 50px -12px rgb(var(--accent) / 0.7), 0 0 0 6px rgb(var(--accent) / 0.12)'
                   : 'none',
                 transition:
                   'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), background 300ms ease, border-color 300ms ease, box-shadow 300ms ease',
@@ -278,14 +281,19 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
               <Icon className="h-5 w-5" />
             </span>
             <span
-              className="pointer-events-none absolute left-1/2 mt-3 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors"
+              className="pointer-events-none absolute left-1/2 mt-3 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em]"
               style={{
                 top: '100%',
+                transform: isActive
+                  ? 'translateX(-50%) scale(1.15)'
+                  : 'translateX(-50%)',
+                transformOrigin: 'center top',
                 color: isActive
                   ? '#fff'
                   : isRelated
                   ? 'rgba(255,255,255,0.85)'
                   : 'rgba(255,255,255,0.55)',
+                transition: 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms ease',
               }}
             >
               {item.title}
@@ -294,15 +302,14 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
         );
       })}
 
-      {/* Floating detail — anchored to the active node's resting position
-          (top of the orbit). Stops click propagation so clicking inside
-          doesn't trigger the container backdrop close. */}
+      {/* Floating detail — anchored by its TOP edge to a fixed point just
+          below the active node's resting position (top of the orbit), so
+          the active node always stays visible above the card. Stops click
+          propagation so clicks inside don't trigger the backdrop close. */}
       <div
-        className="absolute"
+        className="absolute left-1/2 -translate-x-1/2"
         style={{
-          left: '50%',
-          top: '50%',
-          transform: `translate(calc(-50% + ${dialogX}px), calc(-50% + ${dialogY}px))`,
+          top: `calc(50% + ${dialogTopY}px)`,
           zIndex: 50,
           pointerEvents: activeItem ? 'auto' : 'none',
         }}
@@ -320,7 +327,7 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
               aria-modal="false"
               aria-labelledby="product-os-dialog-title"
               id="product-os-dialog"
-              className="relative w-[min(92vw,400px)] rounded-2xl border border-white/10 bg-[#08080b]/90 p-6 shadow-2xl backdrop-blur-xl md:p-7"
+              className="relative w-[min(92vw,320px)] rounded-2xl border border-white/10 bg-[#08080b]/90 p-5 shadow-2xl backdrop-blur-xl md:p-6"
             >
               {/* Tick mark connecting dialog to the active node */}
               <span
