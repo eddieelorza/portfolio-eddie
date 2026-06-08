@@ -19,14 +19,18 @@ import useMediaQuery from '../hooks/useMediaQuery.js';
 /**
  * ProductOperatingSystem
  *
- * Radial orbital visualization of the product operating model.
- * - Desktop (lg+): orbital interaction with auto-rotation + floating
- *   detail dialog rendered ABSOLUTELY inside the orbital container
- *   (no layout push, no CLS).
- * - Mobile/tablet: graceful fallback to a card grid using the site
- *   design system (.card, .chip, edge-glow).
+ * Radial orbital visualization of the product operating model,
+ * matching the original component's interaction:
+ *   - Click a node → orbit re-centers that node to the top
+ *     (centerViewOnNode) and a detail card appears anchored at
+ *     the top of the orbit, attached to the active node.
+ *   - Click outside (container backdrop) → close, resume rotation.
+ *   - Click another node (or a related capability) → orbit rotates
+ *     smoothly to the new node; detail content swaps in place.
+ *   - Auto-rotation pauses on active / hover / focus / reduced-motion.
  *
- * Data lives in `t.product` (see translations.js). Icons map by id.
+ * Desktop (lg+): orbital. Mobile/tablet: card grid (same data,
+ * same copy, no overflow).
  */
 
 const ICONS = {
@@ -38,11 +42,16 @@ const ICONS = {
   delivery: Rocket,
 };
 
-// Rotation: ~3°/s (≈120s per revolution). Slow + premium.
-const ROTATION_STEP = 0.15; // degrees per tick
+// ≈3°/s (~120s per revolution).
+const ROTATION_STEP = 0.15;
 const TICK_MS = 50;
-const RADIUS_LG = 200; // px, default desktop orbit radius
-const RADIUS_XL = 230; // px, ≥1280px
+const RADIUS_LG = 200;
+const RADIUS_XL = 230;
+// Dialog sits this many px below the active node (matches original's top-20-ish offset).
+const DIALOG_OFFSET = 88;
+// Smooth CSS transition for the orbital rotation (same family as original's duration-700).
+const ORBIT_TRANSITION =
+  'transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease';
 
 function getIcon(id) {
   return ICONS[id] || Sparkles;
@@ -99,7 +108,7 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
   const paused =
     reduceMotion || activeId !== null || isHovering || isFocused;
 
-  // Auto-rotation loop. Paused when not needed.
+  // Auto-rotation loop.
   useEffect(() => {
     if (paused) return undefined;
     const id = setInterval(() => {
@@ -121,7 +130,7 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
     return () => document.removeEventListener('keydown', onKey);
   }, [activeId, onSelect]);
 
-  // Restore focus to the triggering node when the dialog closes.
+  // Restore focus to the trigger when the dialog closes.
   useEffect(() => {
     if (activeId || !triggerRef.current) return;
     const node = triggerRef.current;
@@ -135,6 +144,33 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
     });
   }, [activeId]);
 
+  // Rotate the orbit so the chosen node lands at angle 270° (visual top).
+  // Same idea as the original's centerViewOnNode.
+  const centerViewOnNode = useCallback(
+    (id) => {
+      const idx = data.items.findIndex((it) => it.id === id);
+      if (idx < 0) return;
+      const baseAngle = (idx / data.items.length) * 360;
+      setAngle(((270 - baseAngle) % 360 + 360) % 360);
+    },
+    [data.items]
+  );
+
+  const select = useCallback(
+    (id, e) => {
+      if (e) e.stopPropagation();
+      if (id === activeId) {
+        onSelect(null);
+        return;
+      }
+      if (e?.currentTarget) triggerRef.current = e.currentTarget;
+      centerViewOnNode(id);
+      onSelect(id);
+    },
+    [activeId, onSelect, centerViewOnNode]
+  );
+
+  // Per-node orbital position (depth, opacity, scale, z-index).
   const positions = useMemo(() => {
     const total = data.items.length;
     return data.items.map((_, index) => {
@@ -142,25 +178,39 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
       const rad = (a * Math.PI) / 180;
       const x = radius * Math.cos(rad);
       const y = radius * Math.sin(rad);
-      const depth = (1 + Math.sin(rad)) / 2; // 0..1 (back → front)
+      const depth = (1 + Math.sin(rad)) / 2; // 0..1
       const opacity = 0.5 + 0.5 * depth;
       const scale = 0.9 + 0.18 * depth;
-      const zIndex = Math.round(10 + 20 * depth); // 10..30, all below overlay (40)
+      const zIndex = Math.round(10 + 20 * depth); // 10..30
       return { x, y, opacity, scale, zIndex };
     });
   }, [data.items, angle, radius]);
 
   const activeRelated = activeItem ? activeItem.related : [];
 
+  // Container backdrop click closes — matches the original's handleContainerClick.
+  const handleBackdrop = useCallback(
+    (e) => {
+      if (e.target === containerRef.current) onSelect(null);
+    },
+    [onSelect]
+  );
+
   const handleBlur = useCallback((e) => {
     if (!e.currentTarget.contains(e.relatedTarget)) setIsFocused(false);
   }, []);
 
-  const close = useCallback(() => onSelect(null), [onSelect]);
+  // The dialog always sits at the visual top of the orbit (where the
+  // active node lands after centerViewOnNode), offset down by DIALOG_OFFSET.
+  // It does NOT move between activations; only the orbit and the
+  // inner content rotate/swap underneath.
+  const dialogX = 0;
+  const dialogY = -radius + DIALOG_OFFSET;
 
   return (
     <div
       ref={containerRef}
+      onClick={handleBackdrop}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onFocus={() => setIsFocused(true)}
@@ -168,7 +218,6 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
       className="relative mx-auto mt-6 min-h-[620px] w-full max-w-3xl md:min-h-[720px] xl:max-w-4xl"
       aria-label={data.title}
     >
-      {/* Decorative center hub */}
       <CenterHub />
 
       {/* Decorative orbit ring */}
@@ -190,15 +239,7 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
           <button
             key={item.id}
             type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              if (isActive) {
-                close();
-              } else {
-                triggerRef.current = e.currentTarget;
-                onSelect(item.id);
-              }
-            }}
+            onClick={(e) => select(item.id, e)}
             aria-expanded={isActive}
             aria-controls="product-os-dialog"
             className="group absolute focus:outline-none"
@@ -208,12 +249,12 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
               transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
               zIndex: pos.zIndex,
               opacity: isDimmed ? 0.28 : pos.opacity,
-              transition: 'opacity 300ms ease',
+              transition: ORBIT_TRANSITION,
             }}
           >
             <span
               aria-hidden
-              className="relative grid h-11 w-11 place-items-center rounded-full border transition group-focus-visible:ring-2 group-focus-visible:ring-white/40 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-ink-950"
+              className="relative grid h-11 w-11 place-items-center rounded-full border group-focus-visible:ring-2 group-focus-visible:ring-white/40 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-ink-950"
               style={{
                 background: isActive
                   ? 'linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))'
@@ -226,18 +267,18 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
                   ? 'rgb(var(--accent-soft))'
                   : 'rgba(255,255,255,0.18)',
                 color: isActive ? '#fff' : 'rgba(255,255,255,0.85)',
-                transform: `scale(${isActive ? 1.18 : pos.scale})`,
+                transform: `scale(${isActive ? 1.25 : pos.scale})`,
                 boxShadow: isActive
                   ? '0 12px 40px -12px rgb(var(--accent) / 0.6)'
                   : 'none',
                 transition:
-                  'transform 250ms ease, background 250ms ease, border-color 250ms ease, box-shadow 250ms ease',
+                  'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), background 300ms ease, border-color 300ms ease, box-shadow 300ms ease',
               }}
             >
               <Icon className="h-5 w-5" />
             </span>
             <span
-              className="pointer-events-none absolute left-1/2 mt-3 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em] transition"
+              className="pointer-events-none absolute left-1/2 mt-3 -translate-x-1/2 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em] transition-colors"
               style={{
                 top: '100%',
                 color: isActive
@@ -253,44 +294,50 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
         );
       })}
 
-      {/* Floating detail (absolute inside the orbital container) */}
-      <AnimatePresence>
-        {activeItem && (
-          <>
-            <motion.button
-              key="pos-overlay"
-              type="button"
-              onClick={close}
-              aria-label={data.closeLabel}
-              tabIndex={-1}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="absolute inset-0 z-40 cursor-default bg-black/20 backdrop-blur-[1px]"
-            />
+      {/* Floating detail — anchored to the active node's resting position
+          (top of the orbit). Stops click propagation so clicking inside
+          doesn't trigger the container backdrop close. */}
+      <div
+        className="absolute"
+        style={{
+          left: '50%',
+          top: '50%',
+          transform: `translate(calc(-50% + ${dialogX}px), calc(-50% + ${dialogY}px))`,
+          zIndex: 50,
+          pointerEvents: activeItem ? 'auto' : 'none',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <AnimatePresence mode="wait">
+          {activeItem && (
             <motion.div
-              key={`pos-dialog-${activeItem.id}`}
+              key={activeItem.id}
+              initial={{ opacity: 0, scale: 0.96, y: -6 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: -6 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               role="dialog"
-              aria-modal="true"
+              aria-modal="false"
               aria-labelledby="product-os-dialog-title"
               id="product-os-dialog"
-              initial={{ opacity: 0, scale: 0.96, y: 6 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 6 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute left-1/2 top-1/2 z-50 w-[min(92vw,520px)] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/10 bg-[#08080b]/90 p-6 shadow-2xl backdrop-blur-xl md:p-8"
+              className="relative w-[min(92vw,400px)] rounded-2xl border border-white/10 bg-[#08080b]/90 p-6 shadow-2xl backdrop-blur-xl md:p-7"
             >
+              {/* Tick mark connecting dialog to the active node */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -top-3 left-1/2 h-3 w-px -translate-x-1/2"
+                style={{ background: 'rgba(255,255,255,0.35)' }}
+              />
               <DetailDialog
                 item={activeItem}
                 items={data.items}
                 data={data}
-                onSelect={onSelect}
+                onSelect={select}
               />
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
@@ -328,7 +375,7 @@ function DetailDialog({ item, items, data, onSelect }) {
     .map((rid) => items.find((it) => it.id === rid))
     .filter(Boolean);
 
-  // Auto-focus the close button so Escape / Tab flow has a clear start.
+  // Auto-focus close button on open so Escape / Tab have a clear start.
   useEffect(() => {
     closeBtnRef.current?.focus({ preventScroll: true });
   }, [item.id]);
@@ -338,7 +385,7 @@ function DetailDialog({ item, items, data, onSelect }) {
       <button
         ref={closeBtnRef}
         type="button"
-        onClick={() => onSelect(null)}
+        onClick={(e) => onSelect(null, e)}
         aria-label={data.closeLabel}
         className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-white/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
       >
@@ -414,7 +461,7 @@ function DetailDialog({ item, items, data, onSelect }) {
                 <button
                   key={r.id}
                   type="button"
-                  onClick={() => onSelect(r.id)}
+                  onClick={(e) => onSelect(r.id, e)}
                   className="chip transition hover:border-white/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
                 >
                   <RelatedIcon
