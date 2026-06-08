@@ -201,9 +201,9 @@ export const translations = {
       description:
         'Indicadores del impacto operativo y de negocio detrás de los productos que he ayudado a construir y sostener.',
       items: [
-        { value: '+5', label: 'años de experiencia' },
+        { value: '+6', label: 'años de experiencia' },
         { value: '+6M', label: 'transacciones procesadas' },
-        { value: '1', label: 'año liderando' },
+        { value: '2', label: 'años liderando' },
         { value: '−70%', label: 'incidencias en producción' },
       ],
     },
@@ -433,9 +433,9 @@ export const translations = {
       description:
         "Operational and business signals behind the products I've helped build and sustain.",
       items: [
-        { value: '+5', label: 'years of experience' },
+        { value: '+6', label: 'years of experience' },
         { value: '+6M', label: 'transactions processed' },
-        { value: '1', label: 'year leading' },
+        { value: '2', label: 'years leading' },
         { value: '−70%', label: 'production incidents' },
       ],
     },
