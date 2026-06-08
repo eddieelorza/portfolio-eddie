@@ -17,8 +17,8 @@ import BottomMenuBar from './components/ui/BottomMenuBar.jsx';
 
 const About = lazy(() => import('./components/About.jsx'));
 const Experience = lazy(() => import('./components/Experience.jsx'));
-const ProductExecution = lazy(() =>
-  import('./components/ProductExecution.jsx')
+const ProductOperatingSystem = lazy(() =>
+  import('./components/ProductOperatingSystem.jsx')
 );
 const EducationSection = lazy(() =>
   import('./components/EducationSection.jsx')
@@ -69,7 +69,7 @@ export default function App() {
             <Suspense fallback={<SectionFallback />}>
               <About />
               <Experience />
-              <ProductExecution />
+              <ProductOperatingSystem />
               <EducationSection />
               <Projects />
               <TechStack />

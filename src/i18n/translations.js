@@ -84,40 +84,73 @@ export const translations = {
       ],
     },
     product: {
-      eyebrow: 'Product & Execution',
-      title: 'Cómo construyo y entrego producto',
+      eyebrow: 'Product OS',
+      title: 'Sistema operativo de producto',
       description:
-        'Más allá del código: priorizo, alineo equipos y entrego con foco en impacto de negocio y confiabilidad operativa.',
+        'Una forma de convertir retos fintech, IA y operación en productos escalables con impacto de negocio.',
+      strengthLabel: 'Operating Strength',
+      relatedLabel: 'Capacidades relacionadas',
+      closeLabel: 'Cerrar',
+      categories: {
+        core: 'Core',
+        strategic: 'Strategic',
+        'ai-enabled': 'AI-enabled',
+        execution: 'Execution',
+      },
       items: [
         {
-          title: 'Payments & Fintech',
-          description:
-            'Construyo y evoluciono productos de pago, flujos operativos y plataformas financieras en entornos de alto volumen.',
+          id: 'payments',
+          title: 'Pagos & Fintech',
+          category: 'core',
+          strength: 95,
+          content:
+            'Construcción y evolución de productos de pago, flujos de checkout y procesos financieros en entornos de alto volumen.',
+          related: ['discovery', 'prioritization', 'delivery'],
         },
         {
+          id: 'discovery',
           title: 'Product Discovery',
-          description:
-            'Convierto retos operativos y necesidades del usuario en oportunidades de producto validadas.',
+          category: 'strategic',
+          strength: 90,
+          content:
+            'Conversión de dolores operativos, necesidades de usuario y restricciones de negocio en oportunidades de producto validadas.',
+          related: ['payments', 'prioritization', 'stakeholders'],
         },
         {
-          title: 'Prioritization & Strategy',
-          description:
-            'Evalúo trade-offs entre impacto de negocio, esfuerzo técnico y riesgo operativo.',
+          id: 'prioritization',
+          title: 'Priorización & Estrategia',
+          category: 'strategic',
+          strength: 92,
+          content:
+            'Evaluación de trade-offs entre impacto de negocio, esfuerzo técnico, riesgo operativo y valor estratégico.',
+          related: ['discovery', 'payments', 'delivery'],
         },
         {
-          title: 'AI-Powered Solutions',
-          description:
-            'Aplico IA y automatización para optimizar procesos, reducir esfuerzo manual y mejorar la toma de decisiones.',
+          id: 'ai',
+          title: 'Automatización con IA',
+          category: 'ai-enabled',
+          strength: 88,
+          content:
+            'Aplicación de IA y automatización para reducir trabajo manual, mejorar decisiones y escalar procesos operativos.',
+          related: ['discovery', 'stakeholders', 'delivery'],
         },
         {
-          title: 'Stakeholder Alignment',
-          description:
-            'Conecto negocio, operaciones e ingeniería para entregar resultados sostenibles.',
+          id: 'stakeholders',
+          title: 'Alineación de Stakeholders',
+          category: 'execution',
+          strength: 85,
+          content:
+            'Conexión entre negocio, operación, compliance e ingeniería alrededor de objetivos y prioridades compartidas.',
+          related: ['discovery', 'prioritization', 'ai'],
         },
         {
+          id: 'delivery',
           title: 'Product Delivery',
-          description:
-            'Llevo iniciativas de concepto a lanzamiento, asegurando escalabilidad, confiabilidad y valor de negocio.',
+          category: 'execution',
+          strength: 90,
+          content:
+            'Ejecución de iniciativas desde discovery hasta producción, balanceando escalabilidad, confiabilidad y valor de negocio.',
+          related: ['payments', 'prioritization', 'ai', 'stakeholders'],
         },
       ],
     },
@@ -316,40 +349,73 @@ export const translations = {
       ],
     },
     product: {
-      eyebrow: 'Product & Execution',
-      title: 'How I build and ship product',
+      eyebrow: 'Product OS',
+      title: 'Product Operating System',
       description:
-        'Beyond code: I prioritize, align teams and deliver with a focus on business impact and operational reliability.',
+        'A system for turning fintech, AI and operational challenges into scalable product outcomes.',
+      strengthLabel: 'Operating Strength',
+      relatedLabel: 'Related Capabilities',
+      closeLabel: 'Close',
+      categories: {
+        core: 'Core',
+        strategic: 'Strategic',
+        'ai-enabled': 'AI-enabled',
+        execution: 'Execution',
+      },
       items: [
         {
+          id: 'payments',
           title: 'Payments & Fintech',
-          description:
-            'Building and evolving payment products, operational workflows and financial platforms in high-volume environments.',
+          category: 'core',
+          strength: 95,
+          content:
+            'Building and evolving payment products, checkout flows and financial workflows in high-volume environments.',
+          related: ['discovery', 'prioritization', 'delivery'],
         },
         {
+          id: 'discovery',
           title: 'Product Discovery',
-          description:
-            'Turning operational challenges and user needs into validated product opportunities.',
+          category: 'strategic',
+          strength: 90,
+          content:
+            'Turning operational pain points, user needs and business constraints into validated product opportunities.',
+          related: ['payments', 'prioritization', 'stakeholders'],
         },
         {
+          id: 'prioritization',
           title: 'Prioritization & Strategy',
-          description:
-            'Evaluating trade-offs between business impact, technical effort and operational risk.',
+          category: 'strategic',
+          strength: 92,
+          content:
+            'Evaluating trade-offs between business impact, technical effort, operational risk and strategic value.',
+          related: ['discovery', 'payments', 'delivery'],
         },
         {
-          title: 'AI-Powered Solutions',
-          description:
-            'Applying AI and automation to optimize processes, reduce manual effort and improve decision-making.',
+          id: 'ai',
+          title: 'AI Automation',
+          category: 'ai-enabled',
+          strength: 88,
+          content:
+            'Applying AI and automation to reduce manual work, improve decision-making and scale operational processes.',
+          related: ['discovery', 'stakeholders', 'delivery'],
         },
         {
+          id: 'stakeholders',
           title: 'Stakeholder Alignment',
-          description:
-            'Connecting business, operations and engineering teams to deliver sustainable outcomes.',
+          category: 'execution',
+          strength: 85,
+          content:
+            'Connecting business, operations, compliance and engineering teams around shared outcomes and priorities.',
+          related: ['discovery', 'prioritization', 'ai'],
         },
         {
+          id: 'delivery',
           title: 'Product Delivery',
-          description:
-            'Driving initiatives from concept to launch while ensuring scalability, reliability and business value.',
+          category: 'execution',
+          strength: 90,
+          content:
+            'Driving initiatives from discovery to production while balancing scalability, reliability and business value.',
+          related: ['payments', 'prioritization', 'ai', 'stakeholders'],
         },
       ],
     },
