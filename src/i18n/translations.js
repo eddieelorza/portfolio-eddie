@@ -155,17 +155,97 @@ export const translations = {
       ],
     },
     education: {
-      eyebrow: 'Estudios',
-      title: 'Maestría en Inteligencia Artificial Aplicada',
-      description: 'IA aplicada a producto, datos y sistemas reales.',
-      cardLabel: 'Tecnológico de Monterrey',
-      cardTitle: 'Software Inteligente',
-      photoAlt: 'Eddie Elorza · graduación',
-      meta: ['2024', 'Promedio 3.8/4', 'Grupo estudiantil'],
-      highlights: [
-        'Machine learning y análisis de datos aplicados a producto.',
-        'Implementación de soluciones de IA en sistemas reales.',
-        'Liderazgo y gobernanza de proyectos tecnológicos.',
+      eyebrow: 'Educación y Certificaciones',
+      title: 'IA Aplicada, Producto y Datos',
+      description:
+        'Una base de credenciales que combina inteligencia artificial, product ownership, analítica de datos y ejecución técnica.',
+      featuredLabel: 'Credencial destacada',
+      stats: [
+        'MSc IA Aplicada',
+        'PSPO I',
+        'AI & Data',
+        'Cloud Foundations',
+      ],
+      steps: [
+        {
+          id: 'applied_ai',
+          title: 'IA Aplicada',
+          content:
+            'Maestría y especialización avanzada enfocadas en aplicar inteligencia artificial al negocio, la automatización y la toma de decisiones.',
+        },
+        {
+          id: 'product_ownership',
+          title: 'Product Ownership',
+          content:
+            'Certificación PSPO I de Scrum.org que respalda product ownership, gestión de backlog, priorización y entrega orientada a valor.',
+        },
+        {
+          id: 'data_analytics',
+          title: 'Datos y Analítica',
+          content:
+            'Formación en data science, visualización y decisiones basadas en KPIs para conectar la estrategia de producto con resultados medibles.',
+        },
+        {
+          id: 'technical_foundations',
+          title: 'Fundamentos Técnicos',
+          content:
+            'Bases en cloud, ingeniería y agile que soportan la entrega de producto escalable y la colaboración cross-funcional.',
+        },
+      ],
+      tabs: [
+        {
+          id: 'ai',
+          label: 'AI',
+          subtitle: 'Especialización',
+          title: 'IA aplicada a producto',
+          highlight: 'Maestría en Inteligencia Artificial Aplicada',
+          items: [
+            'IA y Machine Learning',
+            'IA aplicada al negocio',
+            'Automatización y workflows inteligentes',
+            'Toma de decisiones con IA',
+          ],
+        },
+        {
+          id: 'product',
+          label: 'Producto',
+          subtitle: 'Ownership',
+          title: 'Estrategia y entrega de producto',
+          highlight: 'Professional Scrum Product Owner I (PSPO I)',
+          items: [
+            'Product Ownership',
+            'Roadmaps y prioridades',
+            'Backlog y priorización',
+            'Entrega orientada a valor',
+          ],
+        },
+        {
+          id: 'data',
+          label: 'Data',
+          subtitle: 'Analítica',
+          title: 'Decisiones basadas en datos',
+          highlight:
+            'Certificados avanzados en Data Science y Data Visualization',
+          items: [
+            'Data Science',
+            'Data Visualization',
+            'KPIs y métricas',
+            'Dashboards e insights',
+          ],
+        },
+        {
+          id: 'cloud',
+          label: 'Cloud',
+          subtitle: 'Fundamentos',
+          title: 'Fundamentos de entrega',
+          highlight: 'Microsoft Azure Fundamentals · Scrum Fundamentals',
+          items: [
+            'Azure Fundamentals',
+            'Scrum Fundamentals',
+            'Fundamentos de delivery',
+            'Pensamiento de producto con visión cloud',
+          ],
+        },
       ],
       certificates: [
         {
@@ -420,17 +500,97 @@ export const translations = {
       ],
     },
     education: {
-      eyebrow: 'Education',
-      title: 'MSc in Applied Artificial Intelligence',
-      description: 'AI applied to product, data and real-world systems.',
-      cardLabel: 'Tecnológico de Monterrey',
-      cardTitle: 'Intelligent Software',
-      photoAlt: 'Eddie Elorza · graduation',
-      meta: ['2024', 'GPA 3.8/4', 'Student group'],
-      highlights: [
-        'Applied machine learning and data analysis for product.',
-        'Implementing AI solutions in real-world systems.',
-        'Leadership and governance of technology projects.',
+      eyebrow: 'Education & Certifications',
+      title: 'Applied AI, Product & Data',
+      description:
+        'A credential stack combining artificial intelligence, product ownership, data analytics and technical execution.',
+      featuredLabel: 'Featured credential',
+      stats: [
+        'MSc Applied AI',
+        'PSPO I',
+        'AI & Data',
+        'Cloud Foundations',
+      ],
+      steps: [
+        {
+          id: 'applied_ai',
+          title: 'Applied AI',
+          content:
+            "Master's degree and advanced specialization focused on applying artificial intelligence to business, automation and decision-making.",
+        },
+        {
+          id: 'product_ownership',
+          title: 'Product Ownership',
+          content:
+            'Scrum.org PSPO I certification supporting product ownership, backlog management, prioritization and value-driven delivery.',
+        },
+        {
+          id: 'data_analytics',
+          title: 'Data & Analytics',
+          content:
+            'Training in data science, visualization and KPI-driven decision-making to connect product strategy with measurable outcomes.',
+        },
+        {
+          id: 'technical_foundations',
+          title: 'Technical Foundations',
+          content:
+            'Cloud, engineering and agile foundations that support scalable product delivery and cross-functional collaboration.',
+        },
+      ],
+      tabs: [
+        {
+          id: 'ai',
+          label: 'AI',
+          subtitle: 'Specialization',
+          title: 'AI applied to product',
+          highlight: 'MSc in Applied Artificial Intelligence',
+          items: [
+            'AI & Machine Learning',
+            'Applied AI for business',
+            'Automation & intelligent workflows',
+            'Decision-making with AI',
+          ],
+        },
+        {
+          id: 'product',
+          label: 'Product',
+          subtitle: 'Ownership',
+          title: 'Product strategy & delivery',
+          highlight: 'Professional Scrum Product Owner I (PSPO I)',
+          items: [
+            'Product Ownership',
+            'Roadmaps & priorities',
+            'Backlog & prioritization',
+            'Value-driven delivery',
+          ],
+        },
+        {
+          id: 'data',
+          label: 'Data',
+          subtitle: 'Analytics',
+          title: 'Data-informed decisions',
+          highlight:
+            'Advanced Certificates in Data Science and Data Visualization',
+          items: [
+            'Data Science',
+            'Data Visualization',
+            'KPIs & metrics',
+            'Dashboards & insights',
+          ],
+        },
+        {
+          id: 'cloud',
+          label: 'Cloud',
+          subtitle: 'Foundations',
+          title: 'Delivery foundations',
+          highlight: 'Microsoft Azure Fundamentals · Scrum Fundamentals',
+          items: [
+            'Azure Fundamentals',
+            'Scrum Fundamentals',
+            'Delivery foundations',
+            'Cloud-aware product thinking',
+          ],
+        },
       ],
       certificates: [
         {
