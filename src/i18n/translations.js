@@ -85,7 +85,7 @@ export const translations = {
     },
     product: {
       eyebrow: 'Product OS',
-      title: 'Sistema operativo de producto',
+      title: 'Mi forma de construir producto',
       description:
         'Una forma de convertir retos fintech, IA y operación en productos escalables con impacto de negocio.',
       strengthLabel: 'Operating Strength',
