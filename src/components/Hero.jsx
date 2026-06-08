@@ -32,7 +32,8 @@ export default function Hero() {
         style={{ transform: 'translateZ(0)' }}
       />
       <div
-        className="absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-[100px]"
+        aria-hidden
+        className="absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-3xl"
         style={{ background: 'rgb(var(--accent) / 0.18)' }}
       />
 
@@ -130,10 +131,12 @@ function HeroVisual({ avatarLabel, photoLabel }) {
       >
         <img
           src={profileImg}
-          alt="Eddie Elorza"
+          alt="Eddie Elorza Ruiz, Product Engineer"
           loading="eager"
           decoding="async"
           fetchPriority="high"
+          width="280"
+          height="380"
           className="h-full w-full object-cover"
         />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink-900 to-transparent" />
@@ -161,10 +164,12 @@ function HeroVisual({ avatarLabel, photoLabel }) {
           />
           <img
             src={avatarImg}
-            alt="Avatar"
+            alt=""
             loading="eager"
             decoding="async"
-            fetchPriority="high"
+            fetchPriority="low"
+            width="200"
+            height="200"
             className="relative h-full w-full object-contain text-[rgb(var(--accent))]"
           />
         </div>

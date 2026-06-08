@@ -1,18 +1,76 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Code2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import LanguageToggle from './LanguageToggle.jsx';
 
+const SECTION_IDS = [
+  'about',
+  'experience',
+  'product',
+  'education',
+  'projects',
+  'stack',
+  'impact',
+];
+
+function useActiveSection() {
+  const [active, setActive] = useState(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      return;
+    }
+
+    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      Boolean
+    );
+    if (sections.length === 0) return;
+
+    const visibility = new Map();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          visibility.set(entry.target.id, entry.intersectionRatio);
+        }
+        let bestId = null;
+        let bestRatio = 0;
+        for (const [id, ratio] of visibility) {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = id;
+          }
+        }
+        if (bestRatio > 0) setActive(bestId);
+      },
+      {
+        // Trigger near the top of the viewport so the active link matches
+        // the section the user is reading, not the one entering at the bottom.
+        rootMargin: '-30% 0px -55% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  return active;
+}
+
 export default function Navbar() {
   const { t } = useLanguage();
+  const active = useActiveSection();
+
   const links = [
-    { href: '#about', label: t.nav.about },
-    { href: '#experience', label: t.nav.experience },
-    { href: '#product', label: t.nav.product },
-    { href: '#education', label: t.nav.education },
-    { href: '#projects', label: t.nav.projects },
-    { href: '#stack', label: t.nav.stack },
-    { href: '#impact', label: t.nav.impact },
+    { href: '#about', id: 'about', label: t.nav.about },
+    { href: '#experience', id: 'experience', label: t.nav.experience },
+    { href: '#product', id: 'product', label: t.nav.product },
+    { href: '#education', id: 'education', label: t.nav.education },
+    { href: '#projects', id: 'projects', label: t.nav.projects },
+    { href: '#stack', id: 'stack', label: t.nav.stack },
+    { href: '#impact', id: 'impact', label: t.nav.impact },
   ];
 
   return (
@@ -41,16 +99,25 @@ export default function Navbar() {
           </a>
 
           <ul className="hidden items-center gap-1 lg:flex">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  className="rounded-full px-3 py-1.5 text-sm text-white/70 transition hover:bg-white/[0.06] hover:text-white"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
+            {links.map((l) => {
+              const isActive = active === l.id;
+              return (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    aria-current={isActive ? 'true' : undefined}
+                    className={
+                      'rounded-full px-3 py-1.5 text-sm transition ' +
+                      (isActive
+                        ? 'bg-white/[0.08] text-white'
+                        : 'text-white/70 hover:bg-white/[0.06] hover:text-white')
+                    }
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="flex items-center gap-2">
