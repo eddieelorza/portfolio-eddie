@@ -1,16 +1,19 @@
 import { motion } from 'motion/react';
 import {
-  Map,
+  CreditCard,
+  Compass,
+  Target,
+  Sparkles,
   Users,
   Rocket,
-  ShieldCheck,
-  Compass,
-  GitMerge,
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import SectionHeading from './SectionHeading.jsx';
 
-const ICONS = [Map, Users, Rocket, ShieldCheck, Compass, GitMerge];
+// Order matches t.product.items:
+// Payments & Fintech, Product Discovery, Prioritization & Strategy,
+// AI-Powered Solutions, Stakeholder Alignment, Product Delivery
+const ICONS = [CreditCard, Compass, Target, Sparkles, Users, Rocket];
 
 export default function ProductExecution() {
   const { t } = useLanguage();

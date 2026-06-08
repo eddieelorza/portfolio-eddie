@@ -12,46 +12,47 @@ export const translations = {
       cta: 'Hablemos',
     },
     hero: {
-      badge: 'Disponible para nuevas oportunidades.',
+      badge: 'Disponible para nuevas oportunidades · Producto · AI · Fintech',
       title1: 'Construyo',
       titleHighlight: 'productos escalables',
       rotatingWords: [
         'productos escalables',
         'experiencias premium',
-        'soluciones de negocio',
+        'soluciones con IA',
+        'plataformas fintech',
       ],
       title2: 'que mueven productos reales.',
       subtitle:
-        'Ingeniero orientado a producto con experiencia en fintech, pagos y plataformas de alto tráfico. Me enfoco en construir soluciones escalables, confiables y alineadas a objetivos de negocio.',
-      ctaProjects: 'Ver proyectos',
-      ctaContact: 'Contáctame',
+        'Product Engineer con 6+ años en fintech y pagos. Combino producto, ingeniería e IA para entregar plataformas escalables, confiables y alineadas con objetivos de negocio.',
+      ctaProjects: 'Ver iniciativas',
+      ctaContact: 'Hablemos',
       avatarLabel: 'El que construye el producto',
       photoLabel: 'El que lidera la ejecución',
     },
     about: {
       eyebrow: 'Sobre mí',
-      title: 'Ingeniería orientada a producto, donde cada decisión impacta al negocio',
-      p1: 'He construido productos y sistemas en fintech, donde una decisión técnica se traduce directamente en impacto para el usuario y para el negocio.',
-      p2: 'Trabajo en la intersección entre producto e ingeniería: equilibro objetivos de negocio con decisiones técnicas y colaboro con equipos cross-funcionales para entregar soluciones que funcionan en producción.',
-      p3: 'He liderado equipos, coordinado entregas con stakeholders y vendors, y sostenido la calidad de plataformas de alto tráfico que no pueden fallar.',
-      tags: ['Product Engineering', 'Liderazgo técnico', 'Fintech & Pagos', 'Sistemas escalables'],
+      title: 'Producto e ingeniería, en partes iguales.',
+      p1: '6+ años construyendo producto en fintech y pagos. Combino criterio técnico, foco en negocio y experiencia liderando equipos para entregar plataformas que escalan y no fallan.',
+      p2: 'Trabajo en la intersección entre producto e ingeniería: traduzco necesidades de negocio en decisiones técnicas, prioridades de roadmap y entregas medibles. Colaboro cerca de operaciones, vendors y stakeholders.',
+      p3: 'MSc en Inteligencia Artificial Aplicada y PSPO I. Aplico IA y automatización para reducir esfuerzo operativo y mejorar la toma de decisiones.',
+      tags: ['Product Engineering', 'Fintech & Pagos', 'AI & Automation', 'PSPO I · MSc AI'],
     },
     experience: {
       eyebrow: 'Experiencia',
-      title: 'Construyendo y liderando producto en sistemas de alto tráfico',
+      title: 'Liderando producto en sistemas de alto tráfico',
       description:
-        'Trayectoria construyendo plataformas de fintech y pagos donde la escalabilidad, la confiabilidad y el impacto de negocio son críticos.',
+        'Trayectoria construyendo y liderando producto en fintech y pagos, donde escalabilidad, confiabilidad e impacto de negocio son críticos.',
       roles: [
         {
           company: 'Banco Azteca',
           role: 'Tech Lead · Product Engineer',
           period: '2022 — Presente',
           summary:
-            'Lideré la entrega de producto en sistemas de pagos y crédito de alto tráfico, equilibrando prioridades de negocio con decisiones de arquitectura. Coordiné a un equipo, gestioné releases y alineé la ejecución con stakeholders y áreas operativas.',
+            'Lidero la entrega de producto en sistemas de pagos y crédito de alto tráfico. Balanceo prioridades de negocio con decisiones de arquitectura, gestiono releases y alineo la ejecución con stakeholders, operaciones y vendors.',
           impact: [
-            'Lideré la migración de monolito a microfrontends para mejorar la velocidad de release, la escalabilidad y la autonomía del equipo.',
-            'Estandaricé arquitectura y componentes para escalar el trabajo de varios equipos en paralelo sin fricción.',
-            'Implementé testing y monitoreo para reducir el riesgo operativo en flujos de pago críticos.',
+            'Lideré la migración de monolito a microfrontends, aumentando la velocidad de release y la autonomía del equipo.',
+            'Reduje incidencias en flujos de pago críticos implementando testing y monitoreo.',
+            'Alineé la entrega con prioridades de negocio y operaciones para reducir esfuerzo manual recurrente.',
           ],
           tags: ['React', 'TypeScript', 'Microfrontends', 'AWS'],
         },
@@ -60,11 +61,11 @@ export const translations = {
           role: 'Product Engineer',
           period: '2020 — 2022',
           summary:
-            'Construí productos internos de extremo a extremo: desde el discovery y la definición de flujos hasta la entrega en producción. Trabajé cerca del negocio para traducir necesidades reales en producto funcional.',
+            'Construí productos internos end-to-end: discovery, definición de flujos, diseño y entrega. Trabajé directo con el negocio para convertir necesidades reales en producto.',
           impact: [
-            'Diseñé y construí Octobile, un sistema interno de mensajería, desde el concepto hasta producción.',
-            'Definí la experiencia, los flujos de producto y la documentación alineando expectativas con los stakeholders.',
-            'Desarrollé el frontend en React + TypeScript priorizando usabilidad, mantenibilidad y tiempo de respuesta.',
+            'Diseñé y construí Octobile, un sistema interno de mensajería, desde concepto hasta producción.',
+            'Definí experiencia, flujos y documentación, alineando expectativas con stakeholders.',
+            'Lideré la entrega técnica del producto en React + TypeScript, priorizando usabilidad y tiempo de respuesta.',
           ],
           tags: ['React', 'TypeScript', 'Jest', 'Node.js'],
         },
@@ -73,7 +74,7 @@ export const translations = {
           role: 'Frontend Developer',
           period: '2019 — 2020',
           summary:
-            'Desarrollé plataformas de e-commerce conectadas a APIs, cuidando el rendimiento y la estabilidad en producción. Trabajé directamente con clientes para convertir requerimientos de negocio en producto funcional.',
+            'Construí plataformas e-commerce conectadas a APIs, traduciendo requerimientos de negocio en producto funcional y entregando soluciones estables en producción.',
           impact: [
             'Construí interfaces de e-commerce optimizando tiempos de carga y experiencia de compra.',
             'Alineé la entrega con las prioridades de negocio de cada cliente, traduciendo requerimientos en producto.',
@@ -86,37 +87,37 @@ export const translations = {
       eyebrow: 'Product & Execution',
       title: 'Cómo construyo y entrego producto',
       description:
-        'Más allá del código: priorizo, alineo equipos y entrego con foco en el impacto de negocio y la confiabilidad operativa.',
+        'Más allá del código: priorizo, alineo equipos y entrego con foco en impacto de negocio y confiabilidad operativa.',
       items: [
         {
-          title: 'Roadmap y priorización',
+          title: 'Payments & Fintech',
           description:
-            'Defino qué construir y en qué orden, equilibrando impacto de negocio, esfuerzo y riesgo técnico.',
+            'Construyo y evoluciono productos de pago, flujos operativos y plataformas financieras en entornos de alto volumen.',
         },
         {
-          title: 'Alineación con stakeholders',
+          title: 'Product Discovery',
           description:
-            'Conecto ingeniería, producto y áreas operativas para que la entrega responda a objetivos reales.',
+            'Convierto retos operativos y necesidades del usuario en oportunidades de producto validadas.',
         },
         {
-          title: 'Releases y rollouts',
+          title: 'Prioritization & Strategy',
           description:
-            'Planifico despliegues graduales y feature flags para lanzar con control y bajo riesgo.',
+            'Evalúo trade-offs entre impacto de negocio, esfuerzo técnico y riesgo operativo.',
         },
         {
-          title: 'Confiabilidad operativa',
+          title: 'AI-Powered Solutions',
           description:
-            'Monitoreo, testing y manejo de incidentes para sostener sistemas críticos en producción.',
+            'Aplico IA y automatización para optimizar procesos, reducir esfuerzo manual y mejorar la toma de decisiones.',
         },
         {
-          title: 'Discovery de producto',
+          title: 'Stakeholder Alignment',
           description:
-            'Valido problemas y necesidades antes de construir, para invertir el esfuerzo donde importa.',
+            'Conecto negocio, operaciones e ingeniería para entregar resultados sostenibles.',
         },
         {
-          title: 'Entrega cross-funcional',
+          title: 'Product Delivery',
           description:
-            'Coordino equipos, vendors y dependencias para mantener una ejecución constante y predecible.',
+            'Llevo iniciativas de concepto a lanzamiento, asegurando escalabilidad, confiabilidad y valor de negocio.',
         },
       ],
     },
@@ -146,31 +147,31 @@ export const translations = {
     },
     projects: {
       eyebrow: 'Proyectos destacados',
-      title: 'Trabajo que se mide en impacto',
+      title: 'Iniciativas con impacto real',
       description:
-        'Una selección de iniciativas donde combiné decisiones técnicas, liderazgo y enfoque en producto para mover métricas reales.',
+        'Iniciativas donde combiné producto, ingeniería y liderazgo técnico para resolver problemas reales en plataformas financieras.',
       items: [
         {
           title: 'Paga Fácil',
           tag: 'Producto fintech',
           description:
-            'Plataforma de pagos usada a diario por miles de usuarios. Trabajé en flujos críticos de transacción y lideré parte de la migración hacia microfrontends, mejorando la estabilidad en producción y reduciendo errores de pagos no reflejados que generaban carga operativa.',
+            'Plataforma de pagos usada a diario por miles de usuarios. Trabajé en flujos críticos de transacción y lideré la migración hacia microfrontends para mejorar estabilidad y reducir incidencias operativas en pagos no reflejados.',
           metrics: [
             'Alto volumen de transacciones diarias',
-            'Menos incidencias operativas en pagos',
-            'Mayor estabilidad y tiempos de respuesta',
+            'Menos carga operativa por incidencias de pagos',
+            'Mayor velocidad de release entre equipos',
           ],
           stack: ['React', 'TypeScript', 'AWS'],
         },
         {
           title: 'Microfrontends Architecture',
-          tag: 'Arquitectura',
+          tag: 'Decisión técnica · impacto de negocio',
           description:
-            'Lideré la migración a una arquitectura de microfrontends en React + TypeScript para mejorar la velocidad de release, la escalabilidad y la autonomía de los equipos. Definí los patrones y acompañé su adopción.',
+            'Lideré la migración a microfrontends en React + TypeScript para desbloquear releases independientes, escalar el trabajo de varios equipos y reducir el riesgo de despliegue en sistemas críticos.',
           metrics: [
             'Releases independientes entre aplicaciones',
-            'Varios equipos trabajando en paralelo sin bloqueos',
-            'Menor tiempo de entrega y menos riesgo en despliegues',
+            'Varios equipos entregando en paralelo sin bloqueos',
+            'Menor riesgo y menor tiempo en cada despliegue',
           ],
           stack: ['Module Federation', 'React', 'TypeScript', 'CI/CD'],
         },
@@ -178,7 +179,7 @@ export const translations = {
           title: 'Sistema Regional',
           tag: 'Plataforma interna',
           description:
-            'Módulos de producto (MFEs) para administración de usuarios, historial crediticio y portafolio dentro de una plataforma interna. Foco en componentes reutilizables, integración con APIs y alineación con los flujos de negocio.',
+            'Módulos de producto (MFEs) para administración de usuarios, historial crediticio y portafolio dentro de una plataforma interna. Foco en alineación con flujos de negocio y reutilización entre módulos.',
           metrics: [
             'Componentes reutilizables entre módulos',
             'Integración con APIs y reglas de negocio',
@@ -189,16 +190,16 @@ export const translations = {
       ],
     },
     stack: {
-      eyebrow: 'Tech stack',
-      title: 'Las herramientas que uso a diario',
+      eyebrow: 'Stack',
+      title: 'Stack listo para producción',
       description:
-        'Stack enfocado en construir productos escalables, confiables y listos para producción.',
+        'Herramientas que uso para entregar producto escalable, confiable y rápido de iterar.',
     },
     impact: {
       eyebrow: 'Impacto',
-      title: 'Algunos números del trabajo que he hecho',
+      title: 'Lo que ha movido mi trabajo',
       description:
-        'Los números detrás de los productos que he ayudado a construir y sostener.',
+        'Indicadores del impacto operativo y de negocio detrás de los productos que he ayudado a construir y sostener.',
       items: [
         { value: '+5', label: 'años de experiencia' },
         { value: '+6M', label: 'transacciones procesadas' },
@@ -210,7 +211,7 @@ export const translations = {
       eyebrow: 'Contacto',
       title: '¿Construimos algo grande juntos?',
       description:
-        'Estoy abierto a roles de Product Engineer y liderazgo técnico, especialmente en fintech y producto. Si crees que encajo, hablemos.',
+        'Estoy abierto a roles de Product Engineer, Product Manager y liderazgo técnico, especialmente en fintech, pagos y producto con foco en IA. Si crees que encajo, hablemos.',
       cta: 'Enviar un mensaje',
       form: {
         name: 'Nombre',
@@ -226,7 +227,7 @@ export const translations = {
         success: '¡Listo! Te responderé pronto.',
       },
     },
-    footer: 'Diseñado y construido con React · Tailwind · Framer Motion',
+    footer: 'Eddie Elorza Ruiz · Product Engineer · Fintech & AI',
     languageLabel: 'Idioma',
     themeLabel: 'Color',
   },
@@ -243,46 +244,47 @@ export const translations = {
       cta: "Let's talk",
     },
     hero: {
-      badge: 'Open to new opportunities.',
+      badge: 'Open to new opportunities · Product · AI · Fintech',
       title1: 'Building',
       titleHighlight: 'scalable products',
       rotatingWords: [
         'scalable products',
         'premium experiences',
-        'business-driven solutions',
+        'AI-powered solutions',
+        'fintech platforms',
       ],
       title2: 'that move real products.',
       subtitle:
-        'Product-oriented engineer with experience in fintech, payments and high-traffic platforms. Focused on building scalable, reliable solutions aligned with business goals.',
-      ctaProjects: 'See projects',
-      ctaContact: 'Contact me',
+        'Product Engineer with 6+ years in fintech and payments. I combine product, engineering and AI to ship scalable, reliable platforms aligned with business outcomes.',
+      ctaProjects: 'See initiatives',
+      ctaContact: "Let's talk",
       avatarLabel: 'The one who builds the product',
       photoLabel: 'The one who leads execution',
     },
     about: {
       eyebrow: 'About me',
-      title: 'Product-oriented engineering, where every decision impacts the business',
-      p1: "I've built products and systems in fintech, where a technical decision translates directly into impact for the user and the business.",
-      p2: 'I work at the intersection of product and engineering: balancing business goals with technical decisions and collaborating with cross-functional teams to ship solutions that work in production.',
-      p3: "I've led teams, coordinated deliveries with stakeholders and vendors, and sustained the quality of high-traffic platforms that can't fail.",
-      tags: ['Product Engineering', 'Technical Leadership', 'Fintech & Payments', 'Scalable Systems'],
+      title: 'Product and engineering, in equal parts.',
+      p1: "6+ years building product in fintech and payments. I combine technical judgment, business focus and team leadership to ship platforms that scale and don't break.",
+      p2: 'I work at the intersection of product and engineering: I turn business needs into technical decisions, roadmap priorities and measurable delivery. I work closely with operations, vendors and stakeholders.',
+      p3: 'MSc in Applied Artificial Intelligence and PSPO I. I apply AI and automation to cut operational effort and improve decision-making.',
+      tags: ['Product Engineering', 'Fintech & Payments', 'AI & Automation', 'PSPO I · MSc AI'],
     },
     experience: {
       eyebrow: 'Experience',
-      title: 'Building and leading product in high-traffic systems',
+      title: 'Leading product in high-traffic systems',
       description:
-        'A track record building fintech and payments platforms where scalability, reliability and business impact are critical.',
+        'A track record building and leading product in fintech and payments, where scalability, reliability and business impact are critical.',
       roles: [
         {
           company: 'Banco Azteca',
           role: 'Tech Lead · Product Engineer',
           period: '2022 — Present',
           summary:
-            'Led product delivery across high-traffic payments and credit systems, balancing business priorities with architecture decisions. Coordinated a team, managed releases and aligned execution with stakeholders and operations.',
+            'I lead product delivery across high-traffic payments and credit systems. I balance business priorities with architecture decisions, manage releases and align execution with stakeholders, operations and vendors.',
           impact: [
-            'Led the migration from monolith to microfrontends to improve release velocity, scalability and team autonomy.',
-            'Standardized architecture and components to scale the work of several teams in parallel without friction.',
-            'Implemented testing and monitoring to reduce operational risk in critical payment flows.',
+            'Led the migration from monolith to microfrontends, increasing release velocity and team autonomy.',
+            'Reduced incidents in critical payment flows by implementing testing and monitoring.',
+            'Aligned delivery with business and operations priorities to cut recurring manual effort.',
           ],
           tags: ['React', 'TypeScript', 'Microfrontends', 'AWS'],
         },
@@ -291,11 +293,11 @@ export const translations = {
           role: 'Product Engineer',
           period: '2020 — 2022',
           summary:
-            'Built internal products end to end: from discovery and flow definition to production delivery. Worked closely with the business to translate real needs into working product.',
+            'Built internal products end-to-end: discovery, flow definition, design and delivery. Worked directly with the business to turn real needs into working product.',
           impact: [
             'Designed and built Octobile, an internal messaging system, from concept to production.',
-            'Defined the experience, product flows and documentation, aligning expectations with stakeholders.',
-            'Built the frontend in React + TypeScript, prioritizing usability, maintainability and response time.',
+            'Defined experience, flows and documentation, aligning expectations with stakeholders.',
+            'Led product delivery in React + TypeScript, prioritizing usability and response time.',
           ],
           tags: ['React', 'TypeScript', 'Jest', 'Node.js'],
         },
@@ -304,7 +306,7 @@ export const translations = {
           role: 'Frontend Developer',
           period: '2019 — 2020',
           summary:
-            'Built e-commerce platforms connected to APIs, taking care of performance and production stability. Worked directly with clients to turn business requirements into working product.',
+            'Built e-commerce platforms connected to APIs, turning business requirements into working product and shipping stable solutions in production.',
           impact: [
             'Built e-commerce interfaces, optimizing load times and the buying experience.',
             'Aligned delivery with each client business priorities, translating requirements into product.',
@@ -320,34 +322,34 @@ export const translations = {
         'Beyond code: I prioritize, align teams and deliver with a focus on business impact and operational reliability.',
       items: [
         {
-          title: 'Roadmap & Prioritization',
+          title: 'Payments & Fintech',
           description:
-            'Defining what to build and in what order, balancing business impact, effort and technical risk.',
-        },
-        {
-          title: 'Stakeholder Alignment',
-          description:
-            'Connecting engineering, product and operations so delivery maps to real objectives.',
-        },
-        {
-          title: 'Releases & Rollouts',
-          description:
-            'Planning gradual deployments and feature flags to ship with control and low risk.',
-        },
-        {
-          title: 'Operational Reliability',
-          description:
-            'Monitoring, testing and incident handling to sustain critical systems in production.',
+            'Building and evolving payment products, operational workflows and financial platforms in high-volume environments.',
         },
         {
           title: 'Product Discovery',
           description:
-            'Validating problems and needs before building, to invest effort where it matters.',
+            'Turning operational challenges and user needs into validated product opportunities.',
         },
         {
-          title: 'Cross-functional Delivery',
+          title: 'Prioritization & Strategy',
           description:
-            'Coordinating teams, vendors and dependencies to keep execution steady and predictable.',
+            'Evaluating trade-offs between business impact, technical effort and operational risk.',
+        },
+        {
+          title: 'AI-Powered Solutions',
+          description:
+            'Applying AI and automation to optimize processes, reduce manual effort and improve decision-making.',
+        },
+        {
+          title: 'Stakeholder Alignment',
+          description:
+            'Connecting business, operations and engineering teams to deliver sustainable outcomes.',
+        },
+        {
+          title: 'Product Delivery',
+          description:
+            'Driving initiatives from concept to launch while ensuring scalability, reliability and business value.',
         },
       ],
     },
@@ -377,31 +379,31 @@ export const translations = {
     },
     projects: {
       eyebrow: 'Featured projects',
-      title: 'Work measured in impact',
+      title: 'Initiatives with real impact',
       description:
-        'A selection of initiatives where I combined technical decisions, leadership and product focus to move real metrics.',
+        'Initiatives where I combined product, engineering and technical leadership to solve real problems on financial platforms.',
       items: [
         {
           title: 'Paga Fácil',
           tag: 'Fintech product',
           description:
-            'Payments platform used daily by thousands of users. I worked on critical transaction flows and led part of the migration toward microfrontends, improving production stability and reducing missed payment errors that created operational load.',
+            'Payments platform used daily by thousands of users. I worked on critical transaction flows and led the migration to microfrontends to improve stability and reduce operational incidents from missed payments.',
           metrics: [
             'High daily transaction volume',
-            'Fewer operational payment incidents',
-            'Stronger stability and response times',
+            'Lower operational load from payment incidents',
+            'Faster release velocity across teams',
           ],
           stack: ['React', 'TypeScript', 'AWS'],
         },
         {
           title: 'Microfrontends Architecture',
-          tag: 'Architecture',
+          tag: 'Technical decision · business impact',
           description:
-            'Led the migration to a microfrontend architecture in React + TypeScript to improve release velocity, scalability and team autonomy. I defined the patterns and supported their adoption.',
+            'Led the migration to microfrontends in React + TypeScript to unlock independent releases, scale work across multiple teams and reduce deployment risk in critical systems.',
           metrics: [
             'Independent releases across applications',
-            'Several teams working in parallel without blockers',
-            'Faster delivery and lower deployment risk',
+            'Several teams delivering in parallel without blockers',
+            'Lower risk and shorter time per deployment',
           ],
           stack: ['Module Federation', 'React', 'TypeScript', 'CI/CD'],
         },
@@ -409,7 +411,7 @@ export const translations = {
           title: 'Regional System',
           tag: 'Internal platform',
           description:
-            'Product modules (MFEs) for user administration, credit history and portfolio inside an internal platform. Focus on reusable components, API integration and alignment with business flows.',
+            'Product modules (MFEs) for user administration, credit history and portfolio inside an internal platform. Focus on alignment with business flows and reusability across modules.',
           metrics: [
             'Reusable components across modules',
             'Integration with APIs and business rules',
@@ -420,16 +422,16 @@ export const translations = {
       ],
     },
     stack: {
-      eyebrow: 'Tech stack',
-      title: 'The tools I use every day',
+      eyebrow: 'Stack',
+      title: 'Production-ready stack',
       description:
-        'A stack focused on building scalable, reliable, production-ready products.',
+        'The tools I use to ship scalable, reliable products and iterate fast.',
     },
     impact: {
       eyebrow: 'Impact',
-      title: 'Some numbers from the work I have done',
+      title: 'What my work has moved',
       description:
-        "The numbers behind the products I've helped build and sustain.",
+        "Operational and business signals behind the products I've helped build and sustain.",
       items: [
         { value: '+5', label: 'years of experience' },
         { value: '+6M', label: 'transactions processed' },
@@ -439,9 +441,9 @@ export const translations = {
     },
     contact: {
       eyebrow: 'Contact',
-      title: 'Shall we build something great?',
+      title: 'Shall we build something great together?',
       description:
-        "I'm open to Product Engineer and technical leadership roles, especially in fintech and product. If you think I'd be a fit, let's talk.",
+        "I'm open to Product Engineer, Product Manager and technical leadership roles — especially in fintech, payments and AI-focused product. If you think I'd be a fit, let's talk.",
       cta: 'Send a message',
       form: {
         name: 'Name',
@@ -457,7 +459,7 @@ export const translations = {
         success: 'Got it! I will reply soon.',
       },
     },
-    footer: 'Designed and built with React · Tailwind · Framer Motion',
+    footer: 'Eddie Elorza Ruiz · Product Engineer · Fintech & AI',
     languageLabel: 'Language',
     themeLabel: 'Color',
   },
