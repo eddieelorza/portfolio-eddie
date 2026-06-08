@@ -3,74 +3,71 @@ import {
   SiReact,
   SiTypescript,
   SiJavascript,
-  SiVuedotjs,
   SiTailwindcss,
-  SiBootstrap,
   SiJest,
   SiVite,
   SiDocker,
   SiNodedotjs,
-  SiExpress,
-  SiMongodb,
   SiPython,
+  SiPostgresql,
+  SiDynatrace,
+  SiSonarqubeserver,
+  SiJira,
+  SiConfluence,
   SiGit,
   SiGithub,
   SiGitlab,
-  SiWebpack,
-  SiBabel,
-  SiNginx,
   SiJenkins,
   SiNotion,
 } from 'react-icons/si';
 import { FaAws, FaFigma, FaRobot } from 'react-icons/fa';
-import { TbApi, TbPlugConnected } from 'react-icons/tb';
+import {
+  TbApi,
+  TbBrain,
+  TbChartBar,
+  TbDatabase,
+  TbPlugConnected,
+} from 'react-icons/tb';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import SectionHeading from './SectionHeading.jsx';
 import InfiniteSlider from './ui/InfiniteSlider.jsx';
 
+// 29 badges, ordered so the marquee opens with the Product Engineer +
+// AI narrative (React → TypeScript → Python → AI Agents → AI Prompting
+// → n8n → AWS) instead of leading with a pure frontend signal.
 const techs = [
-  // 🔵 Core Frontend
+  // Row 1 — opening: PE + AI
   { name: 'React', Icon: SiReact, color: '#61DAFB' },
   { name: 'TypeScript', Icon: SiTypescript, color: '#3178C6' },
-  { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
-  { name: 'Vue', Icon: SiVuedotjs, color: '#41B883' },
-  { name: 'Tailwind', Icon: SiTailwindcss, color: '#38BDF8' },
-  { name: 'Bootstrap', Icon: SiBootstrap, color: '#7952B3' },
-  { name: 'Vite', Icon: SiVite, color: '#FFD028' },
-
-  // 🟣 State / Architecture
-  { name: 'TanStack Query', Icon: TbPlugConnected, color: '#FF4154' },
-  { name: 'Webpack', Icon: SiWebpack, color: '#8DD6F9' },
-  { name: 'Babel', Icon: SiBabel, color: '#F9DC3E' },
-
-  // 🟢 Backend / APIs
-  { name: 'Node.js', Icon: SiNodedotjs, color: '#5FA04E' },
-  { name: 'Express', Icon: SiExpress, color: '#FFFFFF' },
-  { name: 'API Design', Icon: TbApi, color: '#38BDF8' },
-  { name: 'MongoDB', Icon: SiMongodb, color: '#47A248' },
   { name: 'Python', Icon: SiPython, color: '#3776AB' },
-
-  // 🟠 DevOps / Infra
+  { name: 'AI Agents', Icon: FaRobot, color: '#22C55E' },
+  { name: 'AI Prompting', Icon: FaRobot, color: '#A78BFA' },
+  { name: 'n8n', Icon: TbPlugConnected, color: '#EA4B71' },
   { name: 'AWS', Icon: FaAws, color: '#FF9900' },
+  { name: 'SQL', Icon: TbDatabase, color: '#7DD3FC' },
+  { name: 'PostgreSQL', Icon: SiPostgresql, color: '#4F8FBF' },
+  { name: 'LLM Apps', Icon: TbBrain, color: '#A78BFA' },
   { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
-  { name: 'NGINX', Icon: SiNginx, color: '#009639' },
   { name: 'Jenkins', Icon: SiJenkins, color: '#D24939' },
+  { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
+  { name: 'API Design', Icon: TbApi, color: '#38BDF8' },
+  { name: 'Node.js', Icon: SiNodedotjs, color: '#5FA04E' },
 
-  // 🔴 Quality
-  { name: 'Jest', Icon: SiJest, color: '#C21325' },
-  { name: 'Checkmarx', Icon: SiJenkins, color: '#00B388' },
-
-  // ⚫ Tools
-  { name: 'Git', Icon: SiGit, color: '#F05032' },
+  // Row 2 — supporting: Data, Product Ops, Delivery, Tools
+  { name: 'Tableau', Icon: TbChartBar, color: '#E97627' },
+  { name: 'Dynatrace', Icon: SiDynatrace, color: '#1496FF' },
+  { name: 'SonarQube', Icon: SiSonarqubeserver, color: '#4E9BCD' },
+  { name: 'Jira', Icon: SiJira, color: '#2684FF' },
+  { name: 'Confluence', Icon: SiConfluence, color: '#2684FF' },
+  { name: 'Notion', Icon: SiNotion, color: '#FFFFFF' },
+  { name: 'Figma', Icon: FaFigma, color: '#F24E1E' },
   { name: 'GitHub', Icon: SiGithub, color: '#FFFFFF' },
   { name: 'GitLab', Icon: SiGitlab, color: '#FC6D26' },
-  { name: 'Figma', Icon: FaFigma, color: '#F24E1E' },
-  { name: 'Notion', Icon: SiNotion, color: '#FFFFFF' },
-
-  // 🤖 AI / Workflow
-  { name: 'AI Prompting', Icon: FaRobot, color: '#A78BFA' },
-  { name: 'AI Agents', Icon: FaRobot, color: '#22C55E' },
-  { name: 'n8n', Icon: TbPlugConnected, color: '#EA4B71' },
+  { name: 'Git', Icon: SiGit, color: '#F05032' },
+  { name: 'Vite', Icon: SiVite, color: '#FFD028' },
+  { name: 'TanStack Query', Icon: TbPlugConnected, color: '#FF4154' },
+  { name: 'Tailwind', Icon: SiTailwindcss, color: '#38BDF8' },
+  { name: 'Jest', Icon: SiJest, color: '#C21325' },
 ];
 
 function TechBadge({ name, Icon, color }) {
