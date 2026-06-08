@@ -46,7 +46,7 @@ const techs = [
   // 🟢 Backend / APIs
   { name: 'Node.js', Icon: SiNodedotjs, color: '#5FA04E' },
   { name: 'Express', Icon: SiExpress, color: '#FFFFFF' },
-  { name: 'REST APIs', Icon: TbApi, color: '#38BDF8' },
+  { name: 'API Design', Icon: TbApi, color: '#38BDF8' },
   { name: 'MongoDB', Icon: SiMongodb, color: '#47A248' },
   { name: 'Python', Icon: SiPython, color: '#3776AB' },
 

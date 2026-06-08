@@ -223,10 +223,10 @@ export const translations = {
       ],
     },
     stack: {
-      eyebrow: 'Stack',
-      title: 'Stack listo para producción',
+      eyebrow: 'Toolbox',
+      title: 'El toolbox detrás del producto',
       description:
-        'Herramientas que uso para entregar producto escalable, confiable y rápido de iterar.',
+        'Herramientas que uso día a día para discovery, decisiones técnicas, automatización con IA y entrega en producción.',
     },
     impact: {
       eyebrow: 'Impacto',
@@ -488,10 +488,10 @@ export const translations = {
       ],
     },
     stack: {
-      eyebrow: 'Stack',
-      title: 'Production-ready stack',
+      eyebrow: 'Toolbox',
+      title: 'The toolbox behind the product',
       description:
-        'The tools I use to ship scalable, reliable products and iterate fast.',
+        'Tools I use day to day across discovery, technical decisions, AI automation and shipping to production.',
     },
     impact: {
       eyebrow: 'Impact',
