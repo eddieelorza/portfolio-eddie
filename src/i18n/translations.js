@@ -24,12 +24,15 @@ export const translations = {
       title2: 'que mueven productos reales.',
       subtitle:
         'Product Engineer con 6+ años en fintech y pagos. Combino producto, ingeniería e IA para entregar plataformas escalables, confiables y alineadas con objetivos de negocio.',
+      chips: ['MSc IA Aplicada', 'PSPO I', 'Fintech', 'IA & Automation'],
       ctaProjects: 'Ver iniciativas',
       ctaContact: 'Hablemos',
       avatarLabel: 'El que construye el producto',
       photoLabel: 'El que lidera la ejecución',
     },
     about: {
+      chapter: '02',
+      chapterLabel: 'La persona',
       eyebrow: 'Sobre mí',
       title: 'Producto e ingeniería, en partes iguales.',
       p1: '6+ años construyendo producto en fintech y pagos. Combino criterio técnico, foco en negocio y experiencia liderando equipos para entregar plataformas que escalan y no fallan.',
@@ -38,10 +41,18 @@ export const translations = {
       tags: ['Product Engineering', 'Fintech & Pagos', 'AI & Automation', 'PSPO I · MSc AI'],
     },
     experience: {
+      chapter: '03',
+      chapterLabel: 'La trayectoria',
       eyebrow: 'Experiencia',
       title: 'Liderando producto en sistemas de alto tráfico',
       description:
         'Trayectoria construyendo y liderando producto en fintech y pagos, donde escalabilidad, confiabilidad e impacto de negocio son críticos.',
+      phases: [
+        'Frontend Developer',
+        'Product Engineer',
+        'Tech Lead',
+        'AI Product Builder',
+      ],
       roles: [
         {
           company: 'Banco Azteca',
@@ -84,6 +95,8 @@ export const translations = {
       ],
     },
     product: {
+      chapter: '04',
+      chapterLabel: 'Sistema operativo',
       eyebrow: 'Product OS',
       title: 'Mi forma de construir producto',
       description:
@@ -155,110 +168,120 @@ export const translations = {
       ],
     },
     education: {
-      eyebrow: 'Educación y Certificaciones',
-      title: 'IA Aplicada, Producto y Datos',
+      chapter: '05',
+      chapterLabel: 'Fundamentos',
+      eyebrow: 'Educación & Certificaciones',
+      title: 'Formación que impulsa mi impacto',
       description:
-        'Una base de credenciales que combina inteligencia artificial, product ownership, analítica de datos y ejecución técnica.',
+        'Combinación estratégica de educación avanzada y certificaciones que respaldan mi enfoque en producto, IA, datos y ejecución técnica.',
+      photoAlt:
+        'Título de Maestría en Inteligencia Artificial Aplicada de Eddie Elorza',
+      verifyLabel: 'Verificar',
       featuredLabel: 'Credencial destacada',
-      stats: [
-        'MSc IA Aplicada',
-        'PSPO I',
-        'AI & Data',
-        'Cloud Foundations',
-      ],
-      steps: [
+      stats: ['MSc IA Aplicada', 'PSPO I', 'AI & Data', 'Cloud Foundations'],
+      featured: [
         {
-          id: 'applied_ai',
-          title: 'IA Aplicada',
-          content:
-            'Maestría y especialización avanzada enfocadas en aplicar inteligencia artificial al negocio, la automatización y la toma de decisiones.',
+          label: 'MSc IA Aplicada',
+          href: 'https://certificados.tec.mx/certificate/ac443de24951594489ed639728a30e04',
         },
         {
-          id: 'product_ownership',
-          title: 'Product Ownership',
-          content:
-            'Certificación PSPO I de Scrum.org que respalda product ownership, gestión de backlog, priorización y entrega orientada a valor.',
-        },
-        {
-          id: 'data_analytics',
-          title: 'Datos y Analítica',
-          content:
-            'Formación en data science, visualización y decisiones basadas en KPIs para conectar la estrategia de producto con resultados medibles.',
-        },
-        {
-          id: 'technical_foundations',
-          title: 'Fundamentos Técnicos',
-          content:
-            'Bases en cloud, ingeniería y agile que soportan la entrega de producto escalable y la colaboración cross-funcional.',
+          label: 'Business Intelligence',
+          href: 'https://www.credential.net/84ab1b58-7192-44e9-8526-8d8014b0df3d#acc.BMTI2GeD',
         },
       ],
       tabs: [
         {
           id: 'ai',
           label: 'AI',
-          subtitle: 'Especialización',
-          title: 'IA aplicada a producto',
-          highlight: 'Maestría en Inteligencia Artificial Aplicada',
+          category: 'Especialización',
+          title: 'IA aplicada y automatización',
+          featured: 'MSc IA Aplicada + IA & Machine Learning',
           items: [
-            'IA y Machine Learning',
-            'IA aplicada al negocio',
-            'Automatización y workflows inteligentes',
-            'Toma de decisiones con IA',
+            {
+              label: 'IA & Machine Learning',
+              href: 'https://www.credential.net/65d5f712-b228-4079-9665-f6227cf9aa31#acc.Gw5mNbUT',
+            },
+            { label: 'LLM Apps' },
+            { label: 'IA aplicada al negocio' },
+            { label: 'Workflows de automatización' },
           ],
         },
         {
           id: 'product',
           label: 'Producto',
-          subtitle: 'Ownership',
-          title: 'Estrategia y entrega de producto',
-          highlight: 'Professional Scrum Product Owner I (PSPO I)',
+          category: 'Ownership',
+          title: 'Product Ownership',
+          featured: 'Professional Scrum Product Owner™ I',
           items: [
-            'Product Ownership',
-            'Roadmaps y prioridades',
-            'Backlog y priorización',
-            'Entrega orientada a valor',
+            {
+              label: 'PSPO I',
+              href: 'https://www.credly.com/badges/31fa03b0-fbe1-4d6e-a405-64d747b6070c/linked_in_profile',
+            },
+            {
+              label: 'Scrum Fundamentals',
+              href: 'https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/ScrumFundamentalsCertified-EddieGuadalupeElorzaRuiz.-842748.pdf',
+            },
+            { label: 'Google Project Management' },
+            { label: 'Roadmaps y backlog' },
           ],
         },
         {
           id: 'data',
           label: 'Data',
-          subtitle: 'Analítica',
+          category: 'Analítica',
           title: 'Decisiones basadas en datos',
-          highlight:
-            'Certificados avanzados en Data Science y Data Visualization',
+          featured: 'Data Science + Data Visualization',
           items: [
-            'Data Science',
-            'Data Visualization',
-            'KPIs y métricas',
-            'Dashboards e insights',
+            {
+              label: 'Data Science',
+              href: 'https://www.credential.net/62973c26-b6d0-4ee8-99a4-829f71c011a2#acc.2PgJhFA6',
+            },
+            {
+              label: 'Data Visualization',
+              href: 'https://www.credential.net/0b9a18ec-b9ba-41bd-8009-26346e027a26#acc.sYDgoLZC',
+            },
+            {
+              label: 'Python for Data Science · IBM',
+              href: 'https://www.credly.com/badges/c5f655fe-2e8f-4c54-855b-0fab6d4ffe6a/linked_in_profile',
+            },
+            {
+              label: 'IBM Data Analysis',
+              href: 'https://www.credly.com/badges/00cbdf50-4cba-47c9-86ae-7ce827c29003/linked_in_profile',
+            },
+            { label: 'KPIs y dashboards' },
           ],
         },
         {
           id: 'cloud',
           label: 'Cloud',
-          subtitle: 'Fundamentos',
-          title: 'Fundamentos de entrega',
-          highlight: 'Microsoft Azure Fundamentals · Scrum Fundamentals',
+          category: 'Fundamentos',
+          title: 'Fundamentos técnicos',
+          featured: 'Microsoft Azure Fundamentals',
           items: [
-            'Azure Fundamentals',
-            'Scrum Fundamentals',
-            'Fundamentos de delivery',
-            'Pensamiento de producto con visión cloud',
+            {
+              label: 'Azure Fundamentals',
+              href: 'https://www.credly.com/badges/4c23d8a9-30c9-47f7-890d-02e0fd99e37f/linked_in_profile',
+            },
+            {
+              label: 'Google Cloud Computing',
+              href: 'https://www.skills.google/public_profiles/1cdffa3d-eee7-4802-b707-292810a740d0/badges/3204614?utm_medium=social&utm_source=linkedin&utm_campaign=ql-social-share',
+            },
+            {
+              label: 'Python · UPV (edX)',
+              href: 'https://courses.edx.org/certificates/52a50a8b9ed140478f3ffb3b7ba3d501',
+            },
+            {
+              label: 'Algoritmos JS · freeCodeCamp',
+              href: 'https://www.freecodecamp.org/certification/eddieelorza/javascript-algorithms-and-data-structures',
+            },
+            { label: 'Producto con visión cloud' },
           ],
-        },
-      ],
-      certificates: [
-        {
-          label: 'Certificado Tec',
-          href: 'https://certificados.tec.mx/certificate/ac443de24951594489ed639728a30e04',
-        },
-        {
-          label: 'Credencial digital',
-          href: 'https://www.credential.net/84ab1b58-7192-44e9-8526-8d8014b0df3d#acc.cGR4xWvb',
         },
       ],
     },
     projects: {
+      chapter: '06',
+      chapterLabel: 'Trabajo seleccionado',
       eyebrow: 'Proyectos destacados',
       title: 'Iniciativas con impacto real',
       description:
@@ -267,6 +290,7 @@ export const translations = {
         {
           title: 'Paga Fácil',
           tag: 'Producto fintech',
+          mockup: 'BANCO AZTECA · LIVE',
           description:
             'Plataforma de pagos usada a diario por miles de usuarios. Trabajé en flujos críticos de transacción y lideré la migración hacia microfrontends para mejorar estabilidad y reducir incidencias operativas en pagos no reflejados.',
           metrics: [
@@ -279,6 +303,7 @@ export const translations = {
         {
           title: 'Microfrontends Architecture',
           tag: 'Decisión técnica · impacto de negocio',
+          mockup: 'ARQUITECTURA · 2023',
           description:
             'Lideré la migración a microfrontends en React + TypeScript para desbloquear releases independientes, escalar el trabajo de varios equipos y reducir el riesgo de despliegue en sistemas críticos.',
           metrics: [
@@ -291,6 +316,7 @@ export const translations = {
         {
           title: 'Sistema Regional',
           tag: 'Plataforma interna',
+          mockup: 'PLATAFORMA INTERNA · MFE',
           description:
             'Módulos de producto (MFEs) para administración de usuarios, historial crediticio y portafolio dentro de una plataforma interna. Foco en alineación con flujos de negocio y reutilización entre módulos.',
           metrics: [
@@ -303,24 +329,47 @@ export const translations = {
       ],
     },
     stack: {
+      chapter: '07',
+      chapterLabel: 'Toolbox',
       eyebrow: 'Toolbox',
       title: 'El toolbox detrás del producto',
       description:
         'Herramientas que uso día a día para discovery, decisiones técnicas, automatización con IA y entrega en producción.',
+      categories: ['Product', 'AI', 'Data', 'Engineering', 'Delivery'],
     },
     impact: {
+      chapter: '08',
+      chapterLabel: 'Resultados',
       eyebrow: 'Impacto',
       title: 'Lo que ha movido mi trabajo',
       description:
         'Indicadores del impacto operativo y de negocio detrás de los productos que he ayudado a construir y sostener.',
       items: [
-        { value: '+6', label: 'años de experiencia' },
-        { value: '+6M', label: 'transacciones procesadas' },
-        { value: '2', label: 'años liderando' },
-        { value: '−70%', label: 'incidencias en producción' },
+        {
+          value: '+6',
+          label: 'años de experiencia',
+          context: 'Construyendo producto en fintech y pagos.',
+        },
+        {
+          value: '+6M',
+          label: 'transacciones procesadas',
+          context: 'Soportando operaciones críticas a escala.',
+        },
+        {
+          value: '2',
+          label: 'años liderando',
+          context: 'Tech Lead alineando ingeniería y negocio.',
+        },
+        {
+          value: '−70%',
+          label: 'incidencias en producción',
+          context: 'Testing y monitoreo en flujos de pago.',
+        },
       ],
     },
     contact: {
+      chapter: '09',
+      chapterLabel: 'Construyamos',
       eyebrow: 'Contacto',
       title: '¿Construimos algo grande juntos?',
       description:
@@ -383,10 +432,18 @@ export const translations = {
       tags: ['Product Engineering', 'Fintech & Payments', 'AI & Automation', 'PSPO I · MSc AI'],
     },
     experience: {
+      chapter: '03',
+      chapterLabel: 'The track',
       eyebrow: 'Experience',
       title: 'Leading product in high-traffic systems',
       description:
         'A track record building and leading product in fintech and payments, where scalability, reliability and business impact are critical.',
+      phases: [
+        'Frontend Developer',
+        'Product Engineer',
+        'Tech Lead',
+        'AI Product Builder',
+      ],
       roles: [
         {
           company: 'Banco Azteca',
@@ -429,6 +486,8 @@ export const translations = {
       ],
     },
     product: {
+      chapter: '04',
+      chapterLabel: 'Operating system',
       eyebrow: 'Product OS',
       title: 'Product Operating System',
       description:
@@ -500,110 +559,120 @@ export const translations = {
       ],
     },
     education: {
+      chapter: '05',
+      chapterLabel: 'Foundations',
       eyebrow: 'Education & Certifications',
-      title: 'Applied AI, Product & Data',
+      title: 'Education that drives my impact',
       description:
-        'A credential stack combining artificial intelligence, product ownership, data analytics and technical execution.',
+        'A strategic mix of advanced education and certifications backing my focus on product, AI, data and technical execution.',
+      photoAlt:
+        "Eddie Elorza's Master's diploma in Applied Artificial Intelligence",
+      verifyLabel: 'Verify',
       featuredLabel: 'Featured credential',
-      stats: [
-        'MSc Applied AI',
-        'PSPO I',
-        'AI & Data',
-        'Cloud Foundations',
-      ],
-      steps: [
+      stats: ['MSc Applied AI', 'PSPO I', 'AI & Data', 'Cloud Foundations'],
+      featured: [
         {
-          id: 'applied_ai',
-          title: 'Applied AI',
-          content:
-            "Master's degree and advanced specialization focused on applying artificial intelligence to business, automation and decision-making.",
+          label: 'MSc Applied AI',
+          href: 'https://certificados.tec.mx/certificate/ac443de24951594489ed639728a30e04',
         },
         {
-          id: 'product_ownership',
-          title: 'Product Ownership',
-          content:
-            'Scrum.org PSPO I certification supporting product ownership, backlog management, prioritization and value-driven delivery.',
-        },
-        {
-          id: 'data_analytics',
-          title: 'Data & Analytics',
-          content:
-            'Training in data science, visualization and KPI-driven decision-making to connect product strategy with measurable outcomes.',
-        },
-        {
-          id: 'technical_foundations',
-          title: 'Technical Foundations',
-          content:
-            'Cloud, engineering and agile foundations that support scalable product delivery and cross-functional collaboration.',
+          label: 'Business Intelligence',
+          href: 'https://www.credential.net/84ab1b58-7192-44e9-8526-8d8014b0df3d#acc.BMTI2GeD',
         },
       ],
       tabs: [
         {
           id: 'ai',
           label: 'AI',
-          subtitle: 'Specialization',
-          title: 'AI applied to product',
-          highlight: 'MSc in Applied Artificial Intelligence',
+          category: 'Specialization',
+          title: 'Applied AI & Automation',
+          featured: 'MSc Applied AI + AI & Machine Learning',
           items: [
-            'AI & Machine Learning',
-            'Applied AI for business',
-            'Automation & intelligent workflows',
-            'Decision-making with AI',
+            {
+              label: 'AI & Machine Learning',
+              href: 'https://www.credential.net/65d5f712-b228-4079-9665-f6227cf9aa31#acc.Gw5mNbUT',
+            },
+            { label: 'LLM Apps' },
+            { label: 'Applied AI for business' },
+            { label: 'Automation workflows' },
           ],
         },
         {
           id: 'product',
           label: 'Product',
-          subtitle: 'Ownership',
-          title: 'Product strategy & delivery',
-          highlight: 'Professional Scrum Product Owner I (PSPO I)',
+          category: 'Ownership',
+          title: 'Product Ownership',
+          featured: 'Professional Scrum Product Owner™ I',
           items: [
-            'Product Ownership',
-            'Roadmaps & priorities',
-            'Backlog & prioritization',
-            'Value-driven delivery',
+            {
+              label: 'PSPO I',
+              href: 'https://www.credly.com/badges/31fa03b0-fbe1-4d6e-a405-64d747b6070c/linked_in_profile',
+            },
+            {
+              label: 'Scrum Fundamentals',
+              href: 'https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/ScrumFundamentalsCertified-EddieGuadalupeElorzaRuiz.-842748.pdf',
+            },
+            { label: 'Google Project Management' },
+            { label: 'Roadmaps & backlog' },
           ],
         },
         {
           id: 'data',
           label: 'Data',
-          subtitle: 'Analytics',
+          category: 'Analytics',
           title: 'Data-informed decisions',
-          highlight:
-            'Advanced Certificates in Data Science and Data Visualization',
+          featured: 'Data Science + Data Visualization',
           items: [
-            'Data Science',
-            'Data Visualization',
-            'KPIs & metrics',
-            'Dashboards & insights',
+            {
+              label: 'Data Science',
+              href: 'https://www.credential.net/62973c26-b6d0-4ee8-99a4-829f71c011a2#acc.2PgJhFA6',
+            },
+            {
+              label: 'Data Visualization',
+              href: 'https://www.credential.net/0b9a18ec-b9ba-41bd-8009-26346e027a26#acc.sYDgoLZC',
+            },
+            {
+              label: 'Python for Data Science · IBM',
+              href: 'https://www.credly.com/badges/c5f655fe-2e8f-4c54-855b-0fab6d4ffe6a/linked_in_profile',
+            },
+            {
+              label: 'IBM Data Analysis',
+              href: 'https://www.credly.com/badges/00cbdf50-4cba-47c9-86ae-7ce827c29003/linked_in_profile',
+            },
+            { label: 'KPIs & dashboards' },
           ],
         },
         {
           id: 'cloud',
           label: 'Cloud',
-          subtitle: 'Foundations',
-          title: 'Delivery foundations',
-          highlight: 'Microsoft Azure Fundamentals · Scrum Fundamentals',
+          category: 'Foundations',
+          title: 'Technical foundations',
+          featured: 'Microsoft Azure Fundamentals',
           items: [
-            'Azure Fundamentals',
-            'Scrum Fundamentals',
-            'Delivery foundations',
-            'Cloud-aware product thinking',
+            {
+              label: 'Azure Fundamentals',
+              href: 'https://www.credly.com/badges/4c23d8a9-30c9-47f7-890d-02e0fd99e37f/linked_in_profile',
+            },
+            {
+              label: 'Google Cloud Computing',
+              href: 'https://www.skills.google/public_profiles/1cdffa3d-eee7-4802-b707-292810a740d0/badges/3204614?utm_medium=social&utm_source=linkedin&utm_campaign=ql-social-share',
+            },
+            {
+              label: 'Python · UPV (edX)',
+              href: 'https://courses.edx.org/certificates/52a50a8b9ed140478f3ffb3b7ba3d501',
+            },
+            {
+              label: 'JS Algorithms · freeCodeCamp',
+              href: 'https://www.freecodecamp.org/certification/eddieelorza/javascript-algorithms-and-data-structures',
+            },
+            { label: 'Cloud-aware product thinking' },
           ],
-        },
-      ],
-      certificates: [
-        {
-          label: 'Tec certificate',
-          href: 'https://certificados.tec.mx/certificate/ac443de24951594489ed639728a30e04',
-        },
-        {
-          label: 'Digital credential',
-          href: 'https://www.credential.net/84ab1b58-7192-44e9-8526-8d8014b0df3d#acc.cGR4xWvb',
         },
       ],
     },
     projects: {
+      chapter: '06',
+      chapterLabel: 'Selected work',
       eyebrow: 'Featured projects',
       title: 'Initiatives with real impact',
       description:
@@ -612,6 +681,7 @@ export const translations = {
         {
           title: 'Paga Fácil',
           tag: 'Fintech product',
+          mockup: 'BANCO AZTECA · LIVE',
           description:
             'Payments platform used daily by thousands of users. I worked on critical transaction flows and led the migration to microfrontends to improve stability and reduce operational incidents from missed payments.',
           metrics: [
@@ -624,6 +694,7 @@ export const translations = {
         {
           title: 'Microfrontends Architecture',
           tag: 'Technical decision · business impact',
+          mockup: 'ARCHITECTURE · 2023',
           description:
             'Led the migration to microfrontends in React + TypeScript to unlock independent releases, scale work across multiple teams and reduce deployment risk in critical systems.',
           metrics: [
@@ -636,6 +707,7 @@ export const translations = {
         {
           title: 'Regional System',
           tag: 'Internal platform',
+          mockup: 'INTERNAL PLATFORM · MFE',
           description:
             'Product modules (MFEs) for user administration, credit history and portfolio inside an internal platform. Focus on alignment with business flows and reusability across modules.',
           metrics: [
@@ -648,24 +720,47 @@ export const translations = {
       ],
     },
     stack: {
+      chapter: '07',
+      chapterLabel: 'Toolbox',
       eyebrow: 'Toolbox',
       title: 'The toolbox behind the product',
       description:
         'Tools I use day to day across discovery, technical decisions, AI automation and shipping to production.',
+      categories: ['Product', 'AI', 'Data', 'Engineering', 'Delivery'],
     },
     impact: {
+      chapter: '08',
+      chapterLabel: 'Outcomes',
       eyebrow: 'Impact',
       title: 'What my work has moved',
       description:
         "Operational and business signals behind the products I've helped build and sustain.",
       items: [
-        { value: '+6', label: 'years of experience' },
-        { value: '+6M', label: 'transactions processed' },
-        { value: '2', label: 'years leading' },
-        { value: '−70%', label: 'production incidents' },
+        {
+          value: '+6',
+          label: 'years of experience',
+          context: 'Building product across fintech and payments.',
+        },
+        {
+          value: '+6M',
+          label: 'transactions processed',
+          context: 'Supporting critical operations at scale.',
+        },
+        {
+          value: '2',
+          label: 'years leading',
+          context: 'Tech Lead aligning engineering and business.',
+        },
+        {
+          value: '−70%',
+          label: 'production incidents',
+          context: 'Testing and monitoring on payment flows.',
+        },
       ],
     },
     contact: {
+      chapter: '09',
+      chapterLabel: "Let's build",
       eyebrow: 'Contact',
       title: 'Shall we build something great together?',
       description:
