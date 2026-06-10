@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Palette, X } from 'lucide-react';
 import { cn } from '../../lib/utils.js';
 
@@ -7,8 +7,13 @@ export default function FlowerMenu({
   togglerSize = 36,
   animationDuration = 450,
   ariaLabel = 'Flower menu',
+  onOpenChange,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    onOpenChange?.(isOpen);
+  }, [isOpen, onOpenChange]);
   const itemCount = items.length;
   const itemSize = togglerSize * 1.1;
   const radius = togglerSize + 18;
