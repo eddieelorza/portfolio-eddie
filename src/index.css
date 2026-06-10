@@ -32,7 +32,8 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 96px;
+    /* Mobile ~ 64 px, desktop ~ 96 px; scales linearly via clamp. */
+    scroll-padding-top: clamp(64px, 12vw, 96px);
   }
 
   body {

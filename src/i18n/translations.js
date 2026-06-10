@@ -31,8 +31,6 @@ export const translations = {
       photoLabel: 'El que lidera la ejecución',
     },
     about: {
-      chapter: '02',
-      chapterLabel: 'La persona',
       eyebrow: 'Sobre mí',
       title: 'Producto e ingeniería, en partes iguales.',
       p1: '6+ años construyendo producto en fintech y pagos. Combino criterio técnico, foco en negocio y experiencia liderando equipos para entregar plataformas que escalan y no fallan.',
@@ -41,8 +39,6 @@ export const translations = {
       tags: ['Product Engineering', 'Fintech & Pagos', 'AI & Automation', 'PSPO I · MSc AI'],
     },
     experience: {
-      chapter: '03',
-      chapterLabel: 'La trayectoria',
       eyebrow: 'Experiencia',
       title: 'Liderando producto en sistemas de alto tráfico',
       description:
@@ -95,8 +91,6 @@ export const translations = {
       ],
     },
     product: {
-      chapter: '04',
-      chapterLabel: 'Sistema operativo',
       eyebrow: 'Product OS',
       title: 'Mi forma de construir producto',
       description:
@@ -168,8 +162,6 @@ export const translations = {
       ],
     },
     education: {
-      chapter: '05',
-      chapterLabel: 'Fundamentos',
       eyebrow: 'Educación & Certificaciones',
       title: 'Formación que impulsa mi impacto',
       description:
@@ -280,8 +272,6 @@ export const translations = {
       ],
     },
     projects: {
-      chapter: '06',
-      chapterLabel: 'Trabajo seleccionado',
       eyebrow: 'Proyectos destacados',
       title: 'Iniciativas con impacto real',
       description:
@@ -290,7 +280,6 @@ export const translations = {
         {
           title: 'Paga Fácil',
           tag: 'Producto fintech',
-          mockup: 'BANCO AZTECA · LIVE',
           description:
             'Plataforma de pagos usada a diario por miles de usuarios. Trabajé en flujos críticos de transacción y lideré la migración hacia microfrontends para mejorar estabilidad y reducir incidencias operativas en pagos no reflejados.',
           metrics: [
@@ -303,7 +292,6 @@ export const translations = {
         {
           title: 'Microfrontends Architecture',
           tag: 'Decisión técnica · impacto de negocio',
-          mockup: 'ARQUITECTURA · 2023',
           description:
             'Lideré la migración a microfrontends en React + TypeScript para desbloquear releases independientes, escalar el trabajo de varios equipos y reducir el riesgo de despliegue en sistemas críticos.',
           metrics: [
@@ -316,7 +304,6 @@ export const translations = {
         {
           title: 'Sistema Regional',
           tag: 'Plataforma interna',
-          mockup: 'PLATAFORMA INTERNA · MFE',
           description:
             'Módulos de producto (MFEs) para administración de usuarios, historial crediticio y portafolio dentro de una plataforma interna. Foco en alineación con flujos de negocio y reutilización entre módulos.',
           metrics: [
@@ -329,8 +316,6 @@ export const translations = {
       ],
     },
     stack: {
-      chapter: '07',
-      chapterLabel: 'Toolbox',
       eyebrow: 'Toolbox',
       title: 'El toolbox detrás del producto',
       description:
@@ -338,8 +323,6 @@ export const translations = {
       categories: ['Product', 'AI', 'Data', 'Engineering', 'Delivery'],
     },
     impact: {
-      chapter: '08',
-      chapterLabel: 'Resultados',
       eyebrow: 'Impacto',
       title: 'Lo que ha movido mi trabajo',
       description:
@@ -368,8 +351,6 @@ export const translations = {
       ],
     },
     contact: {
-      chapter: '09',
-      chapterLabel: 'Construyamos',
       eyebrow: 'Contacto',
       title: '¿Construimos algo grande juntos?',
       description:
@@ -392,6 +373,10 @@ export const translations = {
     footer: 'Eddie Elorza Ruiz · Product Engineer · Fintech & AI',
     languageLabel: 'Idioma',
     themeLabel: 'Color',
+    theme: {
+      tooltip: 'Arrastra · Click color',
+      mobileHint: 'Mantén y arrastra',
+    },
   },
   en: {
     nav: {
@@ -418,6 +403,7 @@ export const translations = {
       title2: 'that move real products.',
       subtitle:
         'Product Engineer with 6+ years in fintech and payments. I combine product, engineering and AI to ship scalable, reliable platforms aligned with business outcomes.',
+      chips: ['MSc Applied AI', 'PSPO I', 'Fintech', 'AI & Automation'],
       ctaProjects: 'See initiatives',
       ctaContact: "Let's talk",
       avatarLabel: 'The one who builds the product',
@@ -432,8 +418,6 @@ export const translations = {
       tags: ['Product Engineering', 'Fintech & Payments', 'AI & Automation', 'PSPO I · MSc AI'],
     },
     experience: {
-      chapter: '03',
-      chapterLabel: 'The track',
       eyebrow: 'Experience',
       title: 'Leading product in high-traffic systems',
       description:
@@ -486,8 +470,6 @@ export const translations = {
       ],
     },
     product: {
-      chapter: '04',
-      chapterLabel: 'Operating system',
       eyebrow: 'Product OS',
       title: 'Product Operating System',
       description:
@@ -559,8 +541,6 @@ export const translations = {
       ],
     },
     education: {
-      chapter: '05',
-      chapterLabel: 'Foundations',
       eyebrow: 'Education & Certifications',
       title: 'Education that drives my impact',
       description:
@@ -671,8 +651,6 @@ export const translations = {
       ],
     },
     projects: {
-      chapter: '06',
-      chapterLabel: 'Selected work',
       eyebrow: 'Featured projects',
       title: 'Initiatives with real impact',
       description:
@@ -681,7 +659,6 @@ export const translations = {
         {
           title: 'Paga Fácil',
           tag: 'Fintech product',
-          mockup: 'BANCO AZTECA · LIVE',
           description:
             'Payments platform used daily by thousands of users. I worked on critical transaction flows and led the migration to microfrontends to improve stability and reduce operational incidents from missed payments.',
           metrics: [
@@ -694,7 +671,6 @@ export const translations = {
         {
           title: 'Microfrontends Architecture',
           tag: 'Technical decision · business impact',
-          mockup: 'ARCHITECTURE · 2023',
           description:
             'Led the migration to microfrontends in React + TypeScript to unlock independent releases, scale work across multiple teams and reduce deployment risk in critical systems.',
           metrics: [
@@ -707,7 +683,6 @@ export const translations = {
         {
           title: 'Regional System',
           tag: 'Internal platform',
-          mockup: 'INTERNAL PLATFORM · MFE',
           description:
             'Product modules (MFEs) for user administration, credit history and portfolio inside an internal platform. Focus on alignment with business flows and reusability across modules.',
           metrics: [
@@ -720,8 +695,6 @@ export const translations = {
       ],
     },
     stack: {
-      chapter: '07',
-      chapterLabel: 'Toolbox',
       eyebrow: 'Toolbox',
       title: 'The toolbox behind the product',
       description:
@@ -729,8 +702,6 @@ export const translations = {
       categories: ['Product', 'AI', 'Data', 'Engineering', 'Delivery'],
     },
     impact: {
-      chapter: '08',
-      chapterLabel: 'Outcomes',
       eyebrow: 'Impact',
       title: 'What my work has moved',
       description:
@@ -759,8 +730,6 @@ export const translations = {
       ],
     },
     contact: {
-      chapter: '09',
-      chapterLabel: "Let's build",
       eyebrow: 'Contact',
       title: 'Shall we build something great together?',
       description:
@@ -783,5 +752,9 @@ export const translations = {
     footer: 'Eddie Elorza Ruiz · Product Engineer · Fintech & AI',
     languageLabel: 'Language',
     themeLabel: 'Color',
+    theme: {
+      tooltip: 'Drag · Click color',
+      mobileHint: 'Hold and drag',
+    },
   },
 };

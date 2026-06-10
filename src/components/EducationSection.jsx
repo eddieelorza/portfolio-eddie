@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
+import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 import {
   Award,
   BarChart3,
@@ -43,7 +44,7 @@ export default function EducationSection() {
   const [activeTabId, setActiveTabId] = useState(e.tabs[0].id);
 
   return (
-    <section id="education" className="relative py-24 md:py-32">
+    <section id="estudios" className="relative py-24 md:py-32">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="container-page">
@@ -73,7 +74,7 @@ function CredentialHeroCard({ e }) {
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={REVEAL_VIEWPORT}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="group relative overflow-hidden rounded-3xl border border-white/10 bg-ink-800 shadow-soft transition-all duration-300 hover:border-white/25"
       style={{
@@ -195,7 +196,7 @@ function CredentialTabsPanel({ e, activeTabId, onChange }) {
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={REVEAL_VIEWPORT}
       transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
       className="rounded-3xl border border-white/10 bg-white/[0.025] p-3 shadow-soft md:p-4"
     >

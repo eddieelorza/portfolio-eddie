@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import TextRotator from './ui/TextRotator.jsx';
@@ -19,6 +19,11 @@ const fadeUp = {
 
 export default function Hero() {
   const { t } = useLanguage();
+  const { scrollY } = useScroll();
+  // Subtle parallax on the big accent blob — drifts down as the user
+  // scrolls into the next section. transform/opacity only.
+  const blobY = useTransform(scrollY, [0, 600], [0, 90]);
+  const blobOpacity = useTransform(scrollY, [0, 600], [1, 0.4]);
 
   return (
     <section
@@ -31,10 +36,15 @@ export default function Hero() {
         className="absolute inset-0 bg-grid opacity-40"
         style={{ transform: 'translateZ(0)' }}
       />
-      <div
+      <motion.div
         aria-hidden
-        className="absolute -top-40 left-1/2 h-[500px] w-[800px] -translate-x-1/2 rounded-full blur-3xl"
-        style={{ background: 'rgb(var(--accent) / 0.18)' }}
+        style={{
+          y: blobY,
+          x: '-50%',
+          opacity: blobOpacity,
+          background: 'rgb(var(--accent) / 0.18)',
+        }}
+        className="absolute -top-40 left-1/2 h-[500px] w-[800px] rounded-full blur-3xl"
       />
 
       <div className="container-page relative">
@@ -86,14 +96,30 @@ export default function Hero() {
               {t.hero.subtitle}
             </motion.p>
 
+            {t.hero.chips && t.hero.chips.length > 0 && (
+              <motion.div
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                custom={2.6}
+                className="mt-6 flex flex-wrap gap-2"
+              >
+                {t.hero.chips.map((c) => (
+                  <span key={c} className="chip">
+                    {c}
+                  </span>
+                ))}
+              </motion.div>
+            )}
+
             <motion.div
               variants={fadeUp}
               initial="hidden"
               animate="show"
-              custom={3}
-              className="mt-10 flex flex-col gap-3 sm:flex-row"
+              custom={3.4}
+              className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
-              <PrimaryCTA href="#projects">{t.hero.ctaProjects}</PrimaryCTA>
+              <PrimaryCTA href="#proyectos">{t.hero.ctaProjects}</PrimaryCTA>
               <GhostCTA href="#contact">{t.hero.ctaContact}</GhostCTA>
             </motion.div>
           </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Briefcase, Sparkles } from 'lucide-react';
+import { ArrowRight, Briefcase, Sparkles } from 'lucide-react';
+import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import SectionHeading from './SectionHeading.jsx';
 import TimelineSlider from './ui/TimelineSlider.jsx';
@@ -15,7 +16,7 @@ export default function Experience() {
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   return (
-    <section id="experience" className="relative py-24 md:py-32">
+    <section id="experiencia" className="relative py-24 md:py-32">
       <div className="container-page">
         <SectionHeading
           eyebrow={t.experience.eyebrow}
@@ -23,10 +24,44 @@ export default function Experience() {
           description={t.experience.description}
         />
 
+        {t.experience.phases && t.experience.phases.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mb-12 flex max-w-3xl flex-wrap items-center justify-center gap-x-2 gap-y-2 md:mb-14"
+          >
+            {t.experience.phases.map((phase, i) => {
+              const isLast = i === t.experience.phases.length - 1;
+              return (
+                <span
+                  key={phase}
+                  className="inline-flex items-center gap-2"
+                >
+                  <span
+                    className={
+                      'chip ' +
+                      (isLast
+                        ? 'border-white/25 bg-white/[0.08] text-white'
+                        : '')
+                    }
+                  >
+                    {phase}
+                  </span>
+                  {!isLast && (
+                    <ArrowRight className="h-3 w-3 text-white/30" />
+                  )}
+                </span>
+              );
+            })}
+          </motion.div>
+        )}
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[auto_1fr] md:gap-12"
         >

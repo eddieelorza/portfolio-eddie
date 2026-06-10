@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 import {
   ArrowRight,
   Bot,
@@ -72,7 +73,7 @@ export default function ProductOperatingSystem() {
   );
 
   return (
-    <section id="product" className="relative py-24 md:py-32">
+    <section id="producto" className="relative py-24 md:py-32">
       <div className="container-page">
         <SectionHeading
           eyebrow={data.eyebrow}
@@ -502,7 +503,7 @@ function GridView({ data }) {
             key={item.id}
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            viewport={REVEAL_VIEWPORT}
             transition={{
               duration: 0.55,
               delay: i * 0.06,

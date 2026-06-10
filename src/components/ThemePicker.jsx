@@ -2,7 +2,7 @@ import { useTheme } from '../contexts/ThemeContext.jsx';
 import FlowerMenu from './ui/FlowerMenu.jsx';
 import { cn } from '../lib/utils.js';
 
-export default function ThemePicker() {
+export default function ThemePicker({ onOpenChange }) {
   const { theme, setTheme, themes } = useTheme();
 
   const items = themes.map((t) => ({
@@ -35,5 +35,12 @@ export default function ThemePicker() {
     },
   }));
 
-  return <FlowerMenu items={items} togglerSize={36} ariaLabel="Theme picker" />;
+  return (
+    <FlowerMenu
+      items={items}
+      togglerSize={36}
+      ariaLabel="Theme picker"
+      onOpenChange={onOpenChange}
+    />
+  );
 }

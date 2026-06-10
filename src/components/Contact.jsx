@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 import { Mail, Linkedin, Github, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import SectionHeading from './SectionHeading.jsx';
@@ -58,7 +59,7 @@ export default function Contact() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.7 }}
           style={{ scale }}
           className="relative overflow-hidden rounded-3xl border border-white/10 p-8 md:p-14"

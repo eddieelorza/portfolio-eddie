@@ -1,5 +1,6 @@
 import { memo, useMemo } from 'react';
 import { motion } from 'motion/react';
+import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 import { ArrowUpRight, Boxes, CreditCard, Globe2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import { useTheme } from '../contexts/ThemeContext.jsx';
@@ -25,7 +26,7 @@ const ProjectCard = memo(function ProjectCard({
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={REVEAL_VIEWPORT}
       transition={{ duration: 0.6, delay: index * 0.07 }}
       className="h-full"
     >
@@ -97,7 +98,7 @@ export default function Projects() {
   );
 
   return (
-    <section id="projects" className="relative py-24 md:py-32">
+    <section id="proyectos" className="relative py-24 md:py-32">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="container-page">
         <SectionHeading

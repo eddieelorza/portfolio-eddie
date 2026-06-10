@@ -31,6 +31,7 @@ import {
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import SectionHeading from './SectionHeading.jsx';
 import InfiniteSlider from './ui/InfiniteSlider.jsx';
+import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 
 // 29 badges, ordered so the marquee opens with the Product Engineer +
 // AI narrative (React → TypeScript → Python → AI Agents → AI Prompting
@@ -101,10 +102,26 @@ export default function TechStack() {
           description={t.stack.description}
         />
 
+        {t.stack.categories && t.stack.categories.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-10 flex flex-wrap justify-center gap-2"
+          >
+            {t.stack.categories.map((c) => (
+              <span key={c} className="chip">
+                {c}
+              </span>
+            ))}
+          </motion.div>
+        )}
+
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={REVEAL_VIEWPORT}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="relative mx-auto max-w-6xl space-y-5"
           style={{

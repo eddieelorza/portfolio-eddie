@@ -6,7 +6,7 @@ import CountUp from './ui/CountUp.jsx';
 export default function Impact() {
   const { t } = useLanguage();
   return (
-    <section id="impact" className="relative py-24 md:py-32">
+    <section id="impacto" className="relative py-24 md:py-32">
       <div className="container-page">
         <SectionHeading
           eyebrow={t.impact.eyebrow}
@@ -14,7 +14,7 @@ export default function Impact() {
           description={t.impact.description}
         />
 
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {t.impact.items.map((item, i) => (
             <motion.div
               key={item.label}
@@ -44,7 +44,14 @@ export default function Impact() {
                     className="gradient-animated inline-block"
                   />
                 </p>
-                <p className="mt-2 text-sm text-white/60">{item.label}</p>
+                <p className="mt-3 text-sm font-medium text-white/85">
+                  {item.label}
+                </p>
+                {item.context && (
+                  <p className="mt-2 text-xs leading-relaxed text-white/55">
+                    {item.context}
+                  </p>
+                )}
               </div>
             </motion.div>
           ))}

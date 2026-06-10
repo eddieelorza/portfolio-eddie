@@ -1,7 +1,8 @@
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import SectionHeading from './SectionHeading.jsx';
 import { GradientWord } from './AnimatedText.jsx';
+import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 
 const tagsContainer = {
   hidden: {},
@@ -18,10 +19,61 @@ const tagSharpen = {
   },
 };
 
+// Keywords highlighted with GradientWord. Lowercased + simple punctuation
+// stripped at match time so we hit "producto" inside "producto,".
+const HIGHLIGHT_KEYWORDS = new Set([
+  'producto',
+  'productos',
+  'product',
+  'products',
+  'fintech',
+  'ia',
+  'ai',
+  'pspo',
+  'msc',
+]);
+
+function stripWord(word) {
+  return word.toLowerCase().replace(/[.,;:!?()]/g, '');
+}
+
+function HighlightedText({ children }) {
+  return (
+    <>
+      {children.split(' ').map((word, i) => {
+        const stripped = stripWord(word);
+        const highlight = HIGHLIGHT_KEYWORDS.has(stripped);
+        return (
+          <span key={i}>
+            {highlight ? <GradientWord>{word}</GradientWord> : word}{' '}
+          </span>
+        );
+      })}
+    </>
+  );
+}
+
 export default function About() {
   const { t } = useLanguage();
+  const { scrollY } = useScroll();
+  // Subtle parallax on the decorative accent blob — drifts as the
+  // user scrolls past About. transform/opacity only, GPU-friendly.
+  const blobY = useTransform(scrollY, [400, 1600], [-40, 80]);
+
   return (
-    <section id="about" className="relative py-24 md:py-32">
+    <section
+      id="sobre-mi"
+      className="relative overflow-hidden py-24 md:py-32"
+    >
+      <motion.div
+        aria-hidden
+        style={{
+          y: blobY,
+          background: 'rgb(var(--accent) / 0.32)',
+        }}
+        className="pointer-events-none absolute right-[-12%] top-[18%] h-72 w-72 rounded-full opacity-25 blur-3xl"
+      />
+
       <div className="container-page">
         <SectionHeading eyebrow={t.about.eyebrow} title={t.about.title} />
 
@@ -29,30 +81,27 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.6 }}
             className="space-y-5 text-base leading-relaxed text-white/70"
           >
-            <p>{t.about.p1}</p>
             <p>
-              {t.about.p2.split(' ').map((word, i) => {
-                const highlight = ['product', 'product:', 'producto'].includes(
-                  word.toLowerCase()
-                );
-                return (
-                  <span key={i}>
-                    {highlight ? <GradientWord>{word}</GradientWord> : word}{' '}
-                  </span>
-                );
-              })}
+              <HighlightedText>{t.about.p1}</HighlightedText>
             </p>
-            {t.about.p3 && <p>{t.about.p3}</p>}
+            <p>
+              <HighlightedText>{t.about.p2}</HighlightedText>
+            </p>
+            {t.about.p3 && (
+              <p>
+                <HighlightedText>{t.about.p3}</HighlightedText>
+              </p>
+            )}
           </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
+            viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="card edge-glow shimmer-border"
           >
@@ -60,7 +109,7 @@ export default function About() {
               variants={tagsContainer}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
+              viewport={{ ...REVEAL_VIEWPORT, amount: 0.15 }}
               className="space-y-3"
             >
               {t.about.tags.map((tag) => (

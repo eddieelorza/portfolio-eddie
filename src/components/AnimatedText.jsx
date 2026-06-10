@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 
 export function GradientWord({ children, className = '' }) {
   return (
@@ -13,7 +14,7 @@ export function FadeIn({ children, delay = 0, y = 16, className = '' }) {
     <motion.div
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
+      viewport={REVEAL_VIEWPORT}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
