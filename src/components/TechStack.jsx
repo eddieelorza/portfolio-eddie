@@ -27,44 +27,47 @@ import {
   TbChartBar,
   TbDatabase,
   TbPlugConnected,
+  TbSparkles,
 } from 'react-icons/tb';
 import { useLanguage } from '../contexts/LanguageContext.jsx';
 import SectionHeading from './SectionHeading.jsx';
 import InfiniteSlider from './ui/InfiniteSlider.jsx';
 import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
 
-// 29 badges, ordered so the marquee opens with the Product Engineer +
-// AI narrative (React → TypeScript → Python → AI Agents → AI Prompting
-// → n8n → AWS) instead of leading with a pure frontend signal.
+// 30 badges. Ordered so the marquee opens with Product / AI / Data
+// tooling (Notion · Figma · Jira · LLM Apps · Claude Code …) and
+// pushes engineering/dev tools (Jenkins, GitLab, Vite, Jest) to the
+// second row — first impression reads as a PM/TPM, not a frontend dev.
 const techs = [
-  // Row 1 — opening: PE + AI
-  { name: 'React', Icon: SiReact, color: '#61DAFB' },
-  { name: 'TypeScript', Icon: SiTypescript, color: '#3178C6' },
-  { name: 'Python', Icon: SiPython, color: '#3776AB' },
+  // Row 1 — Product · AI · Data
+  { name: 'Notion', Icon: SiNotion, color: '#FFFFFF' },
+  { name: 'Figma', Icon: FaFigma, color: '#F24E1E' },
+  { name: 'Jira', Icon: SiJira, color: '#2684FF' },
+  { name: 'Confluence', Icon: SiConfluence, color: '#2684FF' },
+  { name: 'LLM Apps', Icon: TbBrain, color: '#A78BFA' },
+  { name: 'Claude Code', Icon: TbSparkles, color: '#D97757' },
   { name: 'AI Agents', Icon: FaRobot, color: '#22C55E' },
   { name: 'AI Prompting', Icon: FaRobot, color: '#A78BFA' },
   { name: 'n8n', Icon: TbPlugConnected, color: '#EA4B71' },
-  { name: 'AWS', Icon: FaAws, color: '#FF9900' },
-  { name: 'SQL', Icon: TbDatabase, color: '#7DD3FC' },
   { name: 'PostgreSQL', Icon: SiPostgresql, color: '#4F8FBF' },
-  { name: 'LLM Apps', Icon: TbBrain, color: '#A78BFA' },
-  { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
-  { name: 'Jenkins', Icon: SiJenkins, color: '#D24939' },
-  { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
-  { name: 'API Design', Icon: TbApi, color: '#38BDF8' },
-  { name: 'Node.js', Icon: SiNodedotjs, color: '#5FA04E' },
-
-  // Row 2 — supporting: Data, Product Ops, Delivery, Tools
+  { name: 'SQL', Icon: TbDatabase, color: '#7DD3FC' },
+  { name: 'Python', Icon: SiPython, color: '#3776AB' },
   { name: 'Tableau', Icon: TbChartBar, color: '#E97627' },
   { name: 'Dynatrace', Icon: SiDynatrace, color: '#1496FF' },
+  { name: 'API Design', Icon: TbApi, color: '#38BDF8' },
+
+  // Row 2 — Engineering · Delivery
+  { name: 'React', Icon: SiReact, color: '#61DAFB' },
+  { name: 'TypeScript', Icon: SiTypescript, color: '#3178C6' },
+  { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
+  { name: 'Node.js', Icon: SiNodedotjs, color: '#5FA04E' },
+  { name: 'AWS', Icon: FaAws, color: '#FF9900' },
+  { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
   { name: 'SonarQube', Icon: SiSonarqubeserver, color: '#4E9BCD' },
-  { name: 'Jira', Icon: SiJira, color: '#2684FF' },
-  { name: 'Confluence', Icon: SiConfluence, color: '#2684FF' },
-  { name: 'Notion', Icon: SiNotion, color: '#FFFFFF' },
-  { name: 'Figma', Icon: FaFigma, color: '#F24E1E' },
+  { name: 'Jenkins', Icon: SiJenkins, color: '#D24939' },
+  { name: 'Git', Icon: SiGit, color: '#F05032' },
   { name: 'GitHub', Icon: SiGithub, color: '#FFFFFF' },
   { name: 'GitLab', Icon: SiGitlab, color: '#FC6D26' },
-  { name: 'Git', Icon: SiGit, color: '#F05032' },
   { name: 'Vite', Icon: SiVite, color: '#FFD028' },
   { name: 'TanStack Query', Icon: TbPlugConnected, color: '#FF4154' },
   { name: 'Tailwind', Icon: SiTailwindcss, color: '#38BDF8' },

@@ -23,7 +23,7 @@ export const translations = {
       ],
       title2: 'que mueven productos reales.',
       subtitle:
-        'Product Engineer con 6+ años en fintech y pagos. Combino producto, ingeniería e IA para entregar plataformas escalables, confiables y alineadas con objetivos de negocio.',
+        'Technical Product Manager con 6+ años en fintech y pagos. Conecto negocio, operación e ingeniería para construir productos escalables y automatizaciones — aplicando IA cuando aporta valor, y evitando complejidad cuando una solución determinística es suficiente.',
       chips: ['MSc IA Aplicada', 'PSPO I', 'Fintech', 'IA & Automation'],
       ctaProjects: 'Ver iniciativas',
       ctaContact: 'Hablemos',
@@ -44,47 +44,57 @@ export const translations = {
       description:
         'Trayectoria construyendo y liderando producto en fintech y pagos, donde escalabilidad, confiabilidad e impacto de negocio son críticos.',
       phases: [
-        'Frontend Developer',
-        'Product Engineer',
-        'Tech Lead',
-        'AI Product Builder',
+        'Web Developer',
+        'Business Analyst / Product Owner',
+        'Software Engineer',
+        'Technical Product Manager',
       ],
       roles: [
         {
-          company: 'Banco Azteca',
-          role: 'Tech Lead · Product Engineer',
-          period: '2022 — Presente',
+          company: 'Banco Azteca · Paga Fácil',
+          role: 'Product Engineer · Plataforma de Pagos',
+          period: 'Ene 2025 — Mar 2026',
           summary:
-            'Lidero la entrega de producto en sistemas de pagos y crédito de alto tráfico. Balanceo prioridades de negocio con decisiones de arquitectura, gestiono releases y alineo la ejecución con stakeholders, operaciones y vendors.',
+            'Rol de producto con fundamento técnico en una plataforma de pagos de alto volumen. Aporté a la priorización del roadmap junto a líderes de producto, negocio e ingeniería, en tres iniciativas.',
           impact: [
-            'Lideré la migración de monolito a microfrontends, aumentando la velocidad de release y la autonomía del equipo.',
-            'Reduje incidencias en flujos de pago críticos implementando testing y monitoreo.',
-            'Alineé la entrega con prioridades de negocio y operaciones para reducir esfuerzo manual recurrente.',
+            'Propuse y defendí iniciativas de negocio en la plataforma de pagos (~6M transacciones diarias); fortalecí el monitoreo de transacciones y errores con dashboards y KPIs.',
+            'Lideré la migración monolito → microfrontends: habilitó despliegues independientes y eliminó dependencias entre equipos.',
+            'Replanteé un cuello de botella de ruteo manual (Abonos) como problema de producto; diseñé y entregué una asignación round-robin determinística que procesa 500+ incidencias diarias, con human-in-the-loop antes de acciones financieras críticas. Tiempo de resolución ~6h → ~2h por ciclo (estimación operativa).',
           ],
-          tags: ['React', 'TypeScript', 'Microfrontends', 'AWS'],
+          tags: ['Producto', 'Pagos', 'Automatización', 'Human-in-the-loop'],
+        },
+        {
+          company: 'Banco Azteca · Sistema Regional',
+          role: 'Software Engineer · Crédito y Cobranza Regional',
+          period: 'Oct 2022 — Dic 2024',
+          summary:
+            'Producto distinto a Paga Fácil. Ownership end-to-end de cuatro microfrontends y participación activa en la migración a microfrontends.',
+          impact: [
+            'Ownership end-to-end de 4 microfrontends: solicitudes, portafolio de clientes, administración de usuarios e información crediticia.',
+            'Participé en la migración monolito → microfrontends; implementé testing y CI/CD para reducir riesgo de releases.',
+          ],
+          tags: ['React', 'TypeScript', 'Microfrontends', 'CI/CD'],
         },
         {
           company: 'MRCI',
-          role: 'Product Engineer',
-          period: '2020 — 2022',
+          role: 'Business Analyst / Product Owner (de facto)',
+          period: 'Nov 2021 — Oct 2022',
           summary:
-            'Construí productos internos end-to-end: discovery, definición de flujos, diseño y entrega. Trabajé directo con el negocio para convertir necesidades reales en producto.',
+            'Lideré el roadmap, el backlog y las historias de usuario de Octobile, una app interna de mensajería tipo WhatsApp, coordinando a un vendor externo de desarrollo desde concepto hasta producción.',
           impact: [
-            'Diseñé y construí Octobile, un sistema interno de mensajería, desde concepto hasta producción.',
-            'Definí experiencia, flujos y documentación, alineando expectativas con stakeholders.',
-            'Lideré la entrega técnica del producto en React + TypeScript, priorizando usabilidad y tiempo de respuesta.',
+            'Definí flujos, diagramas y criterios de aceptación; gestioné testing y revisión de bugs como puente entre negocio y el equipo técnico.',
+            'Coordiné a un vendor externo de desarrollo desde concepto hasta producción.',
           ],
-          tags: ['React', 'TypeScript', 'Jest', 'Node.js'],
+          tags: ['Product Ownership', 'Roadmap', 'Backlog', 'Stakeholders'],
         },
         {
           company: 'Lapbytes',
-          role: 'Frontend Developer',
-          period: '2019 — 2020',
+          role: 'Web Developer',
+          period: 'Ene 2020 — Nov 2021',
           summary:
-            'Construí plataformas e-commerce conectadas a APIs, traduciendo requerimientos de negocio en producto funcional y entregando soluciones estables en producción.',
+            'Entregué ~6 plataformas web y e-commerce de diferentes industrias, trabajando directo con clientes desde requerimientos hasta entrega.',
           impact: [
-            'Construí interfaces de e-commerce optimizando tiempos de carga y experiencia de compra.',
-            'Alineé la entrega con las prioridades de negocio de cada cliente, traduciendo requerimientos en producto.',
+            'Construí ~6 plataformas e-commerce / web; comunicación directa con clientes de requerimientos a entrega.',
           ],
           tags: ['JavaScript', 'Vue', 'CSS', 'UX'],
         },
@@ -278,6 +288,19 @@ export const translations = {
         'Iniciativas donde combiné producto, ingeniería y liderazgo técnico para resolver problemas reales en plataformas financieras.',
       items: [
         {
+          title: 'CRM Hotelero',
+          tag: 'Producto · Cliente',
+          description:
+            'CRM a medida para un grupo hotelero (Operadora SI): 10 hoteles, ~35 usuarios, ~1,500 empresas. Lidero el producto end-to-end con el cliente.',
+          metrics: [
+            'Discovery: el dolor real era la falta de visibilidad comercial, no las pantallas pedidas — reformuló el roadmap.',
+            'Build-vs-buy: justifiqué construir custom sobre HubSpot / Salesforce para un proceso comercial multi-hotel.',
+            'Modelo de datos de un solo dueño para habilitar cross-selling sin perder accountability.',
+            'Permisos por rol (RLS) como decisión de producto; GenAI deferido a fase 2 con hipótesis explícita.',
+          ],
+          stack: ['React', 'TypeScript', 'Supabase', 'Product Discovery'],
+        },
+        {
           title: 'Paga Fácil',
           tag: 'Producto fintech',
           description:
@@ -334,19 +357,19 @@ export const translations = {
           context: 'Construyendo producto en fintech y pagos.',
         },
         {
-          value: '+6M',
-          label: 'transacciones procesadas',
-          context: 'Soportando operaciones críticas a escala.',
+          value: '6M+',
+          label: 'transacciones diarias',
+          context: 'Trabajo de producto en pagos a escala.',
         },
         {
-          value: '2',
-          label: 'años liderando',
-          context: 'Tech Lead alineando ingeniería y negocio.',
+          value: '500+',
+          label: 'incidencias enrutadas al día',
+          context: 'Asignación determinística en operación de pagos.',
         },
         {
-          value: '−70%',
-          label: 'incidencias en producción',
-          context: 'Testing y monitoreo en flujos de pago.',
+          value: '4',
+          label: 'microfrontends propios',
+          context: 'Módulos de producto end-to-end en Banco Azteca.',
         },
       ],
     },
@@ -402,7 +425,7 @@ export const translations = {
       ],
       title2: 'that move real products.',
       subtitle:
-        'Product Engineer with 6+ years in fintech and payments. I combine product, engineering and AI to ship scalable, reliable platforms aligned with business outcomes.',
+        'Technical Product Manager with 6+ years in fintech and payments. I connect business, operations and engineering to build scalable products and automations — applying AI when it adds value, and avoiding complexity when a deterministic solution is enough.',
       chips: ['MSc Applied AI', 'PSPO I', 'Fintech', 'AI & Automation'],
       ctaProjects: 'See initiatives',
       ctaContact: "Let's talk",
@@ -423,47 +446,57 @@ export const translations = {
       description:
         'A track record building and leading product in fintech and payments, where scalability, reliability and business impact are critical.',
       phases: [
-        'Frontend Developer',
-        'Product Engineer',
-        'Tech Lead',
-        'AI Product Builder',
+        'Web Developer',
+        'Business Analyst / Product Owner',
+        'Software Engineer',
+        'Technical Product Manager',
       ],
       roles: [
         {
-          company: 'Banco Azteca',
-          role: 'Tech Lead · Product Engineer',
-          period: '2022 — Present',
+          company: 'Banco Azteca · Paga Fácil',
+          role: 'Product Engineer · Payments Platform',
+          period: 'Jan 2025 — Mar 2026',
           summary:
-            'I lead product delivery across high-traffic payments and credit systems. I balance business priorities with architecture decisions, manage releases and align execution with stakeholders, operations and vendors.',
+            'Product role with a technical foundation on a high-volume payments platform. I contributed to roadmap prioritization alongside product, business and engineering leaders, across three initiatives.',
           impact: [
-            'Led the migration from monolith to microfrontends, increasing release velocity and team autonomy.',
-            'Reduced incidents in critical payment flows by implementing testing and monitoring.',
-            'Aligned delivery with business and operations priorities to cut recurring manual effort.',
+            'Proposed and defended business-driven initiatives on the payments platform (~6M daily transactions); strengthened transaction and error monitoring with dashboards and KPIs.',
+            'Led the monolith → microfrontends migration: enabled independent deployments and removed cross-team dependencies.',
+            'Reframed a manual-routing bottleneck (Abonos) as a product problem; designed and shipped a deterministic round-robin assignment handling 500+ daily incidents, with human-in-the-loop before critical financial actions. Resolution time ~6h → ~2h per cycle (operational estimate).',
           ],
-          tags: ['React', 'TypeScript', 'Microfrontends', 'AWS'],
+          tags: ['Product', 'Payments', 'Automation', 'Human-in-the-loop'],
+        },
+        {
+          company: 'Banco Azteca · Sistema Regional',
+          role: 'Software Engineer · Regional Credit & Collections',
+          period: 'Oct 2022 — Dec 2024',
+          summary:
+            'Distinct product from Paga Fácil. End-to-end ownership of four microfrontends and active role in the monolith → microfrontends migration.',
+          impact: [
+            'End-to-end ownership of 4 microfrontends: applications, client portfolio, user administration and credit information.',
+            'Participated in the monolith → microfrontends migration; instated testing and CI/CD to reduce release risk.',
+          ],
+          tags: ['React', 'TypeScript', 'Microfrontends', 'CI/CD'],
         },
         {
           company: 'MRCI',
-          role: 'Product Engineer',
-          period: '2020 — 2022',
+          role: 'Business Analyst / Product Owner (de facto)',
+          period: 'Nov 2021 — Oct 2022',
           summary:
-            'Built internal products end-to-end: discovery, flow definition, design and delivery. Worked directly with the business to turn real needs into working product.',
+            'Owned the roadmap, backlog and user stories for Octobile, an internal WhatsApp-style messaging app, coordinating an external development vendor from concept to production.',
           impact: [
-            'Designed and built Octobile, an internal messaging system, from concept to production.',
-            'Defined experience, flows and documentation, aligning expectations with stakeholders.',
-            'Led product delivery in React + TypeScript, prioritizing usability and response time.',
+            'Defined flows, diagrams and acceptance criteria; managed testing and bug review as the bridge between business and the technical team.',
+            'Coordinated an external development vendor from concept to production.',
           ],
-          tags: ['React', 'TypeScript', 'Jest', 'Node.js'],
+          tags: ['Product Ownership', 'Roadmap', 'Backlog', 'Stakeholders'],
         },
         {
           company: 'Lapbytes',
-          role: 'Frontend Developer',
-          period: '2019 — 2020',
+          role: 'Web Developer',
+          period: 'Jan 2020 — Nov 2021',
           summary:
-            'Built e-commerce platforms connected to APIs, turning business requirements into working product and shipping stable solutions in production.',
+            'Delivered ~6 web and e-commerce platforms across industries, working directly with clients from requirements to delivery.',
           impact: [
-            'Built e-commerce interfaces, optimizing load times and the buying experience.',
-            'Aligned delivery with each client business priorities, translating requirements into product.',
+            'Built ~6 e-commerce / web platforms; direct client communication from requirements to delivery.',
           ],
           tags: ['JavaScript', 'Vue', 'CSS', 'UX'],
         },
@@ -657,6 +690,19 @@ export const translations = {
         'Initiatives where I combined product, engineering and technical leadership to solve real problems on financial platforms.',
       items: [
         {
+          title: 'Hotel Commercial Intelligence Platform',
+          tag: 'Product · Client work',
+          description:
+            'A custom CRM for a hotel group (Operadora SI): 10 hotels, ~35 users, ~1,500 companies. I lead the product end-to-end with the client.',
+          metrics: [
+            'Discovery revealed the real pain was lack of commercial visibility, not the screens they asked for — reshaped the roadmap.',
+            'Build-vs-buy: justified building custom over HubSpot / Salesforce for a multi-hotel commercial process.',
+            'Single-owner data model to enable cross-selling without losing accountability.',
+            'Role-based permissions (RLS) as a product decision; GenAI deferred to phase 2 with an explicit hypothesis.',
+          ],
+          stack: ['React', 'TypeScript', 'Supabase', 'Product Discovery'],
+        },
+        {
           title: 'Paga Fácil',
           tag: 'Fintech product',
           description:
@@ -713,19 +759,19 @@ export const translations = {
           context: 'Building product across fintech and payments.',
         },
         {
-          value: '+6M',
-          label: 'transactions processed',
-          context: 'Supporting critical operations at scale.',
+          value: '6M+',
+          label: 'daily transactions',
+          context: 'Product work on payments at scale.',
         },
         {
-          value: '2',
-          label: 'years leading',
-          context: 'Tech Lead aligning engineering and business.',
+          value: '500+',
+          label: 'daily incidents routed',
+          context: 'Deterministic assignment in payments operations.',
         },
         {
-          value: '−70%',
-          label: 'production incidents',
-          context: 'Testing and monitoring on payment flows.',
+          value: '4',
+          label: 'microfrontends owned',
+          context: 'End-to-end product modules at Banco Azteca.',
         },
       ],
     },
