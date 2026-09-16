@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { GripVertical } from 'lucide-react';
-import { useLanguage } from '../../contexts/LanguageContext.jsx';
-import useMediaQuery from '../../hooks/useMediaQuery.js';
-import ThemePicker from '../ThemePicker.jsx';
-import { THEME_DOCK_TOOLTIP_FLAG } from '../../config/themeColors.js';
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { GripVertical } from "lucide-react";
+import { useLanguage } from "../../contexts/LanguageContext.jsx";
+import useMediaQuery from "../../hooks/useMediaQuery.js";
+import ThemePicker from "../ThemePicker.jsx";
+import { THEME_DOCK_TOOLTIP_FLAG } from "../../config/themeColors.js";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -28,7 +28,7 @@ const EASE = [0.22, 1, 0.36, 1];
 export default function ThemeColorDock() {
   const { t } = useLanguage();
   const reduceMotion = useReducedMotion();
-  const isMobile = useMediaQuery('(max-width: 1023px)');
+  const isMobile = useMediaQuery("(max-width: 1023px)");
 
   const constraintsRef = useRef(null);
   const [ready, setReady] = useState(false);
@@ -41,7 +41,7 @@ export default function ThemeColorDock() {
 
   useEffect(() => {
     setReady(true);
-    if (typeof window === 'undefined' || reduceMotion) return undefined;
+    if (typeof window === "undefined" || reduceMotion) return undefined;
     if (localStorage.getItem(THEME_DOCK_TOOLTIP_FLAG)) return undefined;
 
     const showTimer = setTimeout(() => {
@@ -51,7 +51,7 @@ export default function ThemeColorDock() {
     const hideTimer = setTimeout(() => {
       setTooltipShownOnce(false);
       try {
-        localStorage.setItem(THEME_DOCK_TOOLTIP_FLAG, '1');
+        localStorage.setItem(THEME_DOCK_TOOLTIP_FLAG, "1");
       } catch {
         /* private mode — ignore */
       }
@@ -84,19 +84,24 @@ export default function ThemeColorDock() {
         aria-hidden
       />
 
-      {ready && (
+      {/*
+       * Desktop only. On phones the floating pill sat over the page's own
+       * content and CTAs, and dragging it fought with scrolling; the header's
+       * MobileThemeMenu holds the same four swatches below lg.
+       */}
+      {ready && !isMobile && (
         <motion.div
           drag
           dragMomentum={false}
           dragElastic={0.12}
           dragConstraints={constraintsRef}
-          whileDrag={{ scale: 1.06, cursor: 'grabbing' }}
+          whileDrag={{ scale: 1.06, cursor: "grabbing" }}
           initial={{ opacity: 0, scale: 0.85, y: 12 }}
           animate={wiggleAnimation}
           transition={
             wiggle && !reduceMotion
               ? {
-                  x: { duration: 0.9, ease: 'easeInOut' },
+                  x: { duration: 0.9, ease: "easeInOut" },
                   default: { duration: 0.45, ease: EASE },
                 }
               : { delay: reduceMotion ? 0 : 0.5, duration: 0.45, ease: EASE }
@@ -105,7 +110,7 @@ export default function ThemeColorDock() {
           onPointerLeave={() => setHovered(false)}
           onFocus={() => setHovered(true)}
           onBlur={() => setHovered(false)}
-          style={{ touchAction: 'none' }}
+          style={{ touchAction: "none" }}
           className="fixed bottom-24 right-5 z-[70] flex cursor-grab touch-none items-center gap-0.5 rounded-full border border-white/10 bg-ink-900/85 p-1 pl-1.5 shadow-soft backdrop-blur-md lg:bottom-8 lg:right-8"
         >
           {/* Drag handle */}
@@ -113,7 +118,7 @@ export default function ThemeColorDock() {
             aria-hidden
             className="grid h-7 w-3 place-items-center text-white/35"
           >
-            <GripVertical className="h-3.5 w-3.5" />
+            <GripVertical aria-hidden className="h-3.5 w-3.5" />
           </span>
 
           {/*
@@ -129,8 +134,8 @@ export default function ThemeColorDock() {
             <motion.div
               className="pointer-events-none absolute left-1/2 z-[80]"
               style={{
-                bottom: '100%',
-                transform: 'translateX(-50%)',
+                bottom: "100%",
+                transform: "translateX(-50%)",
               }}
               animate={{ marginBottom: pickerOpen ? 64 : 8 }}
               transition={{ duration: 0.25, ease: EASE }}

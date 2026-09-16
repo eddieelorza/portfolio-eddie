@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion } from "motion/react";
 import {
   Code2,
   Cloud,
@@ -8,26 +8,29 @@ import {
   Compass,
   MessageSquare,
   Target,
-} from 'lucide-react';
-import SectionHeading from './SectionHeading.jsx';
+} from "lucide-react";
+import SectionHeading from "./SectionHeading.jsx";
 
 const groups = [
   {
-    title: 'Técnicas',
+    title: "Técnicas",
     items: [
-      { icon: Code2, label: 'React · TypeScript · Vite' },
-      { icon: Workflow, label: 'Microfrontends · Module Federation' },
-      { icon: GitBranch, label: 'TanStack Query · State Management' },
-      { icon: Cloud, label: 'AWS · CI/CD · Observabilidad' },
+      { icon: Code2, label: "React · TypeScript · Vite" },
+      { icon: Workflow, label: "Microfrontends · Module Federation" },
+      { icon: GitBranch, label: "TanStack Query · State Management" },
+      { icon: Cloud, label: "AWS · CI/CD · Observabilidad" },
     ],
   },
   {
-    title: 'Liderazgo',
+    title: "Liderazgo",
     items: [
-      { icon: Users, label: 'Tech Leadership de squads frontend' },
-      { icon: Compass, label: 'Roadmaps técnicos y product thinking' },
-      { icon: MessageSquare, label: 'Mentoría y code reviews accionables' },
-      { icon: Target, label: 'Decisiones de arquitectura orientadas a impacto' },
+      { icon: Users, label: "Tech Leadership de squads frontend" },
+      { icon: Compass, label: "Roadmaps técnicos y product thinking" },
+      { icon: MessageSquare, label: "Mentoría y code reviews accionables" },
+      {
+        icon: Target,
+        label: "Decisiones de arquitectura orientadas a impacto",
+      },
     ],
   },
 ];
@@ -48,7 +51,7 @@ export default function Skills() {
               key={g.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
+              viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: i * 0.08 }}
               className="card card-hover edge-glow"
             >
@@ -66,7 +69,7 @@ export default function Skills() {
                     className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-3 py-3 transition hover:border-white/15 hover:bg-white/[0.05]"
                   >
                     <span className="grid h-9 w-9 place-items-center rounded-lg bg-white/[0.05] text-accent-soft">
-                      <Icon className="h-4 w-4" />
+                      <Icon aria-hidden className="h-4 w-4" />
                     </span>
                     <span className="text-sm text-white/80">{label}</span>
                   </li>

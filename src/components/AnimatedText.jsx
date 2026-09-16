@@ -1,7 +1,7 @@
-import { motion } from 'motion/react';
-import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
+import { motion } from "motion/react";
+import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
 
-export function GradientWord({ children, className = '' }) {
+export function GradientWord({ children, className = "" }) {
   return (
     <span className={`gradient-animated font-semibold ${className}`}>
       {children}
@@ -9,7 +9,7 @@ export function GradientWord({ children, className = '' }) {
   );
 }
 
-export function FadeIn({ children, delay = 0, y = 16, className = '' }) {
+export function FadeIn({ children, delay = 0, y = 16, className = "" }) {
   return (
     <motion.div
       initial={{ opacity: 0, y }}
@@ -23,8 +23,8 @@ export function FadeIn({ children, delay = 0, y = 16, className = '' }) {
   );
 }
 
-export function StaggeredWords({ text, className = '' }) {
-  const words = text.split(' ');
+export function StaggeredWords({ text, className = "" }) {
+  const words = text.split(" ");
   return (
     <span className={className}>
       {words.map((w, i) => (
@@ -40,7 +40,7 @@ export function StaggeredWords({ text, className = '' }) {
           className="inline-block"
         >
           {w}
-          {i < words.length - 1 && '\u00A0'}
+          {i < words.length - 1 && "\u00A0"}
         </motion.span>
       ))}
     </span>

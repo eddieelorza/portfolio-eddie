@@ -1,12 +1,12 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Sparkles } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
-import TextRotator from './ui/TextRotator.jsx';
-import SparklesText from './ui/SparklesText.jsx';
-import InteractiveGradientBackground from './ui/InteractiveGradientBackground.jsx';
-import { PrimaryCTA, GhostCTA } from './ui/HeroButtons.jsx';
-import avatarImg from '../assets/avatar.webp';
-import profileImg from '../assets/profile.webp';
+import { motion, useScroll, useTransform } from "motion/react";
+import { Sparkles } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext.jsx";
+import TextRotator from "./ui/TextRotator.jsx";
+import SparklesText from "./ui/SparklesText.jsx";
+import InteractiveGradientBackground from "./ui/InteractiveGradientBackground.jsx";
+import { PrimaryCTA, GhostCTA } from "./ui/HeroButtons.jsx";
+import avatarImg from "../assets/avatar.webp";
+import profileImg from "../assets/profile.webp";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -29,20 +29,20 @@ export default function Hero() {
     <section
       id="top"
       className="relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28"
-      style={{ isolation: 'isolate' }}
+      style={{ isolation: "isolate" }}
     >
       <InteractiveGradientBackground intensity={0.8} opacity={0.45} />
       <div
         className="absolute inset-0 bg-grid opacity-40"
-        style={{ transform: 'translateZ(0)' }}
+        style={{ transform: "translateZ(0)" }}
       />
       <motion.div
         aria-hidden
         style={{
           y: blobY,
-          x: '-50%',
+          x: "-50%",
           opacity: blobOpacity,
-          background: 'rgb(var(--accent) / 0.18)',
+          background: "rgb(var(--accent) / 0.18)",
         }}
         className="absolute -top-40 left-1/2 h-[500px] w-[800px] rounded-full blur-3xl"
       />
@@ -58,8 +58,9 @@ export default function Hero() {
               className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs text-white/70 backdrop-blur"
             >
               <Sparkles
+                aria-hidden
                 className="h-3.5 w-3.5"
-                style={{ color: 'rgb(var(--accent-soft))' }}
+                style={{ color: "rgb(var(--accent-soft))" }}
               />
               <span>{t.hero.badge}</span>
             </motion.div>
@@ -73,8 +74,10 @@ export default function Hero() {
                 className="text-[2rem] font-semibold leading-[1.08] tracking-tight md:text-5xl lg:text-[3.5rem]"
               >
                 <span className="text-white">{t.hero.title1}</span>
-                <br className="md:hidden" />
-                <span className="md:ml-3 inline-block">
+                <br className="md:hidden" />{" "}
+                {/* A real space, not md:ml-3: the margin indented the word
+                    whenever it wrapped onto its own line. */}
+                <span className="inline-block">
                   <TextRotator
                     words={t.hero.rotatingWords}
                     interval={3500}
@@ -145,22 +148,22 @@ function HeroVisual({ avatarLabel, photoLabel }) {
       <div
         className="absolute inset-0 rounded-[2.5rem] blur-2xl opacity-60"
         style={{
-          background: 'rgb(var(--accent) / 0.4)',
-          transform: 'translateZ(0)',
+          background: "rgb(var(--accent) / 0.4)",
+          transform: "translateZ(0)",
         }}
       />
 
       <motion.div
         className="absolute right-0 bottom-0 h-[380px] w-[280px] overflow-hidden rounded-[2rem] border border-white/10 bg-ink-800 shadow-soft"
         animate={{ y: [0, -6, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
         <img
           src={profileImg}
           alt="Eddie Elorza Ruiz, Product Engineer"
           loading="eager"
           decoding="async"
-          fetchPriority="high"
+          fetchpriority="high"
           width="280"
           height="380"
           className="h-full w-full object-cover"
@@ -178,14 +181,14 @@ function HeroVisual({ avatarLabel, photoLabel }) {
       <motion.div
         className="absolute left-0 top-0 h-[200px] w-[200px] overflow-hidden rounded-[1.75rem] border border-white/15 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-3 shadow-glow"
         animate={{ y: [0, 8, 0], rotate: [-2, 2, -2] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       >
         <div className="relative h-full w-full overflow-hidden rounded-[1.25rem]">
           <div
             className="absolute inset-0 opacity-80"
             style={{
               background:
-                'linear-gradient(135deg, rgb(var(--accent) / 0.4), rgb(var(--accent-glow) / 0.2))',
+                "linear-gradient(135deg, rgb(var(--accent) / 0.4), rgb(var(--accent-glow) / 0.2))",
             }}
           />
           <img
@@ -193,7 +196,7 @@ function HeroVisual({ avatarLabel, photoLabel }) {
             alt=""
             loading="eager"
             decoding="async"
-            fetchPriority="low"
+            fetchpriority="low"
             width="200"
             height="200"
             className="relative h-full w-full object-contain text-[rgb(var(--accent))]"
@@ -207,13 +210,13 @@ function HeroVisual({ avatarLabel, photoLabel }) {
       <motion.div
         className="absolute -right-2 top-2 h-16 w-16 rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur"
         animate={{ rotate: [0, 12, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       >
         <div
           className="m-2 h-12 w-12 rounded-xl"
           style={{
             background:
-              'linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))',
+              "linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))",
           }}
         />
       </motion.div>

@@ -1,19 +1,23 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { ArrowRight, Briefcase, Sparkles } from 'lucide-react';
-import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
-import SectionHeading from './SectionHeading.jsx';
-import TimelineSlider from './ui/TimelineSlider.jsx';
-import useMediaQuery from '../hooks/useMediaQuery.js';
+import { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { ArrowRight, Briefcase, Sparkles } from "lucide-react";
+import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
+import { useLanguage } from "../contexts/LanguageContext.jsx";
+import SectionHeading from "./SectionHeading.jsx";
+import TimelineSlider from "./ui/TimelineSlider.jsx";
+import useMediaQuery from "../hooks/useMediaQuery.js";
 
 export default function Experience() {
   const { t } = useLanguage();
   const roles = t.experience.roles;
   const [active, setActive] = useState(0);
-  const ticks = roles.map((r) => r.period.split(' ')[0]);
+  // Tick = start year ("2026", "2025"…). Month-only ticks ("Ene · Oct · Nov ·
+  // Ene") repeated and said nothing on their own; the full "company · period"
+  // stays in each tick's accessible name.
+  const ticks = roles.map((r) => r.period.match(/\d{4}/)?.[0] ?? r.period);
+  const tickLabels = roles.map((r) => `${r.company} · ${r.period}`);
   const role = roles[active];
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   return (
     <section id="experiencia" className="relative py-24 md:py-32">
@@ -30,27 +34,24 @@ export default function Experience() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mb-12 flex max-w-3xl flex-wrap items-center justify-center gap-x-2 gap-y-2 md:mb-14"
+            className="mx-auto mb-12 flex max-w-4xl flex-wrap items-center justify-center gap-x-2 gap-y-2 md:mb-14"
           >
             {t.experience.phases.map((phase, i) => {
               const isLast = i === t.experience.phases.length - 1;
               return (
-                <span
-                  key={phase}
-                  className="inline-flex items-center gap-2"
-                >
+                <span key={phase} className="inline-flex items-center gap-2">
                   <span
                     className={
-                      'chip ' +
+                      "chip " +
                       (isLast
-                        ? 'border-white/25 bg-white/[0.08] text-white'
-                        : '')
+                        ? "border-white/25 bg-white/[0.08] text-white"
+                        : "")
                     }
                   >
                     {phase}
                   </span>
                   {!isLast && (
-                    <ArrowRight className="h-3 w-3 text-white/30" />
+                    <ArrowRight aria-hidden className="h-3 w-3 text-white/30" />
                   )}
                 </span>
               );
@@ -67,11 +68,12 @@ export default function Experience() {
         >
           <TimelineSlider
             ticks={ticks}
+            tickLabels={tickLabels}
             value={active}
             onChange={setActive}
-            orientation={isDesktop ? 'vertical' : 'horizontal'}
+            orientation={isDesktop ? "vertical" : "horizontal"}
             size={isDesktop ? 420 : 280}
-            className={isDesktop ? '' : 'w-full'}
+            className={isDesktop ? "" : "w-full"}
           />
 
           <div className="relative md:min-h-[420px]">
@@ -88,15 +90,31 @@ export default function Experience() {
                   <div className="flex items-center gap-3">
                     <span
                       className="grid h-11 w-11 place-items-center rounded-xl bg-white/[0.06]"
-                      style={{ color: 'rgb(var(--accent-soft))' }}
+                      style={{ color: "rgb(var(--accent-soft))" }}
                     >
-                      <Briefcase className="h-5 w-5" />
+                      <Briefcase aria-hidden className="h-5 w-5" />
                     </span>
                     <div>
                       <h3 className="text-lg font-semibold tracking-tight md:text-xl">
                         {role.company}
                       </h3>
                       <p className="text-sm text-white/60">{role.role}</p>
+                      {role.track?.length > 0 && (
+                        <ul className="mt-2 flex flex-wrap gap-1.5">
+                          {role.track.map((key) => (
+                            <li
+                              key={key}
+                              className="rounded-full border px-2 py-0.5 text-[0.68rem] font-semibold uppercase tracking-[0.1em]"
+                              style={{
+                                color: "rgb(var(--accent-soft))",
+                                borderColor: "rgb(var(--accent) / 0.35)",
+                              }}
+                            >
+                              {t.experience.trackLabels?.[key] ?? key}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
                   <span className="chip">{role.period}</span>
@@ -117,8 +135,9 @@ export default function Experience() {
                         className="flex items-start gap-2.5 rounded-xl border border-white/5 bg-white/[0.02] p-3"
                       >
                         <Sparkles
+                          aria-hidden
                           className="mt-0.5 h-4 w-4 flex-shrink-0"
-                          style={{ color: 'rgb(var(--accent-soft))' }}
+                          style={{ color: "rgb(var(--accent-soft))" }}
                         />
                         <span className="text-xs leading-relaxed text-white/75 md:text-sm">
                           {text}

@@ -5,21 +5,46 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#06060a" />
+    <meta name="theme-color" content="#F4EFE6" />
+    <!--
+      Pre-paint: apply the stored mode and accent before the first frame, so a
+      visitor who chose dark does not see a cream flash while React boots.
+      Keys and allowed values mirror src/contexts/ThemeContext.jsx.
+    -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        try {
+          var mode = localStorage.getItem('eddie-portfolio-mode');
+          var theme = localStorage.getItem('eddie-portfolio-theme');
+          root.setAttribute('data-mode', mode === 'dark' ? 'dark' : 'light');
+          root.setAttribute(
+            'data-theme',
+            /^(terracota|azul|bosque|tinta)$/.test(theme) ? theme : 'terracota'
+          );
+          if (mode === 'dark') {
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#06060a');
+          }
+        } catch (e) {
+          root.setAttribute('data-mode', 'light');
+          root.setAttribute('data-theme', 'terracota');
+        }
+      })();
+    </script>
     <meta name="author" content="Eddie Elorza Ruiz" />
     <meta
       name="description"
-      content="Technical Product Manager with 6+ years in fintech and payments. I connect business, operations and engineering to build scalable products and automations — applying AI when it adds value."
+      content="Product Engineer con 6+ años entre fintech, pagos y operación. Entiendo el problema de negocio, lo traduzco en decisiones técnicas y lo llevo a producción — con IA cuando aporta valor."
     />
     <link rel="canonical" href="https://eddieelorza.com/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="profile" />
     <meta property="og:site_name" content="Eddie Elorza" />
-    <meta property="og:title" content="Eddie Elorza · Technical Product Manager — Fintech & Payments" />
+    <meta property="og:title" content="Eddie Elorza · Product Engineer — Frontend Architecture, AI &amp; Digital Transformation" />
     <meta
       property="og:description"
-      content="Technical Product Manager with 6+ years in fintech and payments. I build scalable products and automations, applying AI when it adds value."
+      content="Product Engineer con 6+ años entre fintech, pagos y operación. Entiendo el problema de negocio, lo traduzco en decisiones técnicas y lo llevo a producción — con IA cuando aporta valor."
     />
     <meta property="og:image" content="https://eddieelorza.com/og.png" />
     <meta property="og:image:width" content="1200" />
@@ -30,10 +55,10 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Eddie Elorza · Technical Product Manager — Fintech & Payments" />
+    <meta name="twitter:title" content="Eddie Elorza · Product Engineer — Frontend Architecture, AI &amp; Digital Transformation" />
     <meta
       name="twitter:description"
-      content="Technical Product Manager with 6+ years in fintech and payments."
+      content="Product Engineer · Arquitectura frontend · IA y transformación digital."
     />
     <meta name="twitter:image" content="https://eddieelorza.com/og.png" />
 
@@ -44,14 +69,14 @@
       rel="stylesheet"
     />
 
-    <title>Eddie Elorza · Technical Product Manager — Fintech & Payments</title>
+    <title>Eddie Elorza · Product Engineer — Frontend Architecture, AI &amp; Digital Transformation</title>
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Eddie Elorza Ruiz",
-        "jobTitle": "Technical Product Manager",
+        "jobTitle": "Product Engineer",
         "url": "https://eddieelorza.com",
         "email": "edd.elorza@gmail.com",
         "image": "https://eddieelorza.com/og.png",
@@ -61,10 +86,11 @@
         ],
         "knowsAbout": [
           "Product Engineering",
-          "Fintech",
-          "Payments",
-          "AI",
+          "Frontend Architecture",
           "Microfrontends",
+          "Payments",
+          "Digital Transformation",
+          "Applied AI",
           "Product Discovery",
           "Roadmap",
           "Stakeholder Management"

@@ -1,5 +1,5 @@
-import { motion } from 'motion/react';
-import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
+import { motion } from "motion/react";
+import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
 
 export default function SectionHeading({ eyebrow, title, description }) {
   return (
@@ -13,7 +13,7 @@ export default function SectionHeading({ eyebrow, title, description }) {
       >
         <span
           className="h-1 w-1 rounded-full"
-          style={{ backgroundColor: 'rgb(var(--accent-soft))' }}
+          style={{ backgroundColor: "rgb(var(--accent-soft))" }}
         />
         {eyebrow}
       </motion.span>

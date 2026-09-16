@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
-import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
 import {
   ArrowRight,
   Bot,
@@ -12,10 +12,10 @@ import {
   Sparkles,
   Users,
   X,
-} from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
-import SectionHeading from './SectionHeading.jsx';
-import useMediaQuery from '../hooks/useMediaQuery.js';
+} from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext.jsx";
+import SectionHeading from "./SectionHeading.jsx";
+import useMediaQuery from "../hooks/useMediaQuery.js";
 
 /**
  * ProductOperatingSystem
@@ -55,7 +55,7 @@ const DIALOG_GAP = 56;
 const NODE_RADIUS = 22;
 // Smooth CSS transition for the orbital rotation (same family as original's duration-700).
 const ORBIT_TRANSITION =
-  'transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease';
+  "transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease";
 
 function getIcon(id) {
   return ICONS[id] || Sparkles;
@@ -63,13 +63,13 @@ function getIcon(id) {
 
 export default function ProductOperatingSystem() {
   const { t } = useLanguage();
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const data = t.product;
   const [activeId, setActiveId] = useState(null);
 
   const activeItem = useMemo(
     () => data.items.find((it) => it.id === activeId) || null,
-    [data.items, activeId]
+    [data.items, activeId],
   );
 
   return (
@@ -91,8 +91,43 @@ export default function ProductOperatingSystem() {
         ) : (
           <GridView data={data} />
         )}
+
+        <CraftBar craft={data.craft} />
       </div>
     </section>
+  );
+}
+
+/* ------------------------- the engineering quality bar -------------------- */
+
+/**
+ * The product orbit says what I build; this band says how well. Each
+ * dimension carries the one concrete example that backs it, so the list
+ * reads as evidence instead of as a keyword row.
+ */
+function CraftBar({ craft }) {
+  if (!craft) return null;
+  return (
+    <div className="mt-16 md:mt-20">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h3 className="text-lg font-semibold tracking-tight text-white md:text-xl">
+          {craft.title}
+        </h3>
+        <p className="text-sm text-white/55">{craft.note}</p>
+      </div>
+      <dl className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {craft.items.map((item) => (
+          <div key={item.k} className="card p-5 md:p-6">
+            <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-accent">
+              {item.k}
+            </dt>
+            <dd className="mt-2 text-sm leading-relaxed text-white/70">
+              {item.v}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }
 
@@ -100,7 +135,7 @@ export default function ProductOperatingSystem() {
 
 function OrbitalView({ data, activeId, activeItem, onSelect }) {
   const reduceMotion = useReducedMotion();
-  const isXl = useMediaQuery('(min-width: 1280px)');
+  const isXl = useMediaQuery("(min-width: 1280px)");
   const radius = isXl ? RADIUS_XL : RADIUS_LG;
 
   const [angle, setAngle] = useState(0);
@@ -109,8 +144,7 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
   const containerRef = useRef(null);
   const triggerRef = useRef(null);
 
-  const paused =
-    reduceMotion || activeId !== null || isHovering || isFocused;
+  const paused = reduceMotion || activeId !== null || isHovering || isFocused;
 
   // Auto-rotation loop.
   useEffect(() => {
@@ -125,13 +159,13 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
   useEffect(() => {
     if (!activeId) return undefined;
     const onKey = (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         e.stopPropagation();
         onSelect(null);
       }
     };
-    document.addEventListener('keydown', onKey);
-    return () => document.removeEventListener('keydown', onKey);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
   }, [activeId, onSelect]);
 
   // Restore focus to the trigger when the dialog closes.
@@ -155,9 +189,9 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
       const idx = data.items.findIndex((it) => it.id === id);
       if (idx < 0) return;
       const baseAngle = (idx / data.items.length) * 360;
-      setAngle(((270 - baseAngle) % 360 + 360) % 360);
+      setAngle((((270 - baseAngle) % 360) + 360) % 360);
     },
-    [data.items]
+    [data.items],
   );
 
   const select = useCallback(
@@ -171,7 +205,7 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
       centerViewOnNode(id);
       onSelect(id);
     },
-    [activeId, onSelect, centerViewOnNode]
+    [activeId, onSelect, centerViewOnNode],
   );
 
   // Per-node orbital position (depth, opacity, scale, z-index).
@@ -197,7 +231,7 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
     (e) => {
       if (e.target === containerRef.current) onSelect(null);
     },
-    [onSelect]
+    [onSelect],
   );
 
   const handleBlur = useCallback((e) => {
@@ -246,10 +280,10 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
             onClick={(e) => select(item.id, e)}
             aria-expanded={isActive}
             aria-controls="product-os-dialog"
-            className="group absolute focus:outline-none"
+            className="group absolute"
             style={{
-              left: '50%',
-              top: '50%',
+              left: "50%",
+              top: "50%",
               transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
               zIndex: pos.zIndex,
               opacity: isDimmed ? 0.28 : pos.opacity,
@@ -258,43 +292,46 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
           >
             <span
               aria-hidden
-              className="relative grid h-11 w-11 place-items-center rounded-full border group-focus-visible:ring-2 group-focus-visible:ring-white/40 group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-ink-950"
+              className="relative grid h-11 w-11 place-items-center rounded-full border"
               style={{
                 background: isActive
-                  ? 'linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))'
+                  ? "linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))"
                   : isRelated
-                  ? 'rgba(255,255,255,0.06)'
-                  : 'rgba(255,255,255,0.04)',
+                    ? "rgb(var(--fg) / 0.06)"
+                    : "rgb(var(--fg) / 0.04)",
                 borderColor: isActive
-                  ? 'transparent'
+                  ? "transparent"
                   : isRelated
-                  ? 'rgb(var(--accent-soft))'
-                  : 'rgba(255,255,255,0.18)',
-                color: isActive ? '#fff' : 'rgba(255,255,255,0.85)',
+                    ? "rgb(var(--accent-soft))"
+                    : "rgb(var(--fg) / 0.18)",
+                color: isActive
+                  ? "rgb(var(--on-accent))"
+                  : "rgb(var(--fg) / calc(1 - (1 - 0.85) * var(--text-alpha-k)))",
                 transform: `scale(${isActive ? 1.35 : pos.scale})`,
                 boxShadow: isActive
-                  ? '0 16px 50px -12px rgb(var(--accent) / 0.7), 0 0 0 6px rgb(var(--accent) / 0.12)'
-                  : 'none',
+                  ? "0 16px 50px -12px rgb(var(--accent) / 0.7), 0 0 0 6px rgb(var(--accent) / 0.12)"
+                  : "none",
                 transition:
-                  'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), background 300ms ease, border-color 300ms ease, box-shadow 300ms ease',
+                  "transform 300ms cubic-bezier(0.22, 1, 0.36, 1), background 300ms ease, border-color 300ms ease, box-shadow 300ms ease",
               }}
             >
-              <Icon className="h-5 w-5" />
+              <Icon aria-hidden className="h-5 w-5" />
             </span>
             <span
               className="pointer-events-none absolute left-1/2 mt-3 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em]"
               style={{
-                top: '100%',
+                top: "100%",
                 transform: isActive
-                  ? 'translateX(-50%) scale(1.15)'
-                  : 'translateX(-50%)',
-                transformOrigin: 'center top',
+                  ? "translateX(-50%) scale(1.15)"
+                  : "translateX(-50%)",
+                transformOrigin: "center top",
                 color: isActive
-                  ? '#fff'
+                  ? "rgb(var(--fg))"
                   : isRelated
-                  ? 'rgba(255,255,255,0.85)'
-                  : 'rgba(255,255,255,0.55)',
-                transition: 'transform 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms ease',
+                    ? "rgb(var(--fg) / calc(1 - (1 - 0.85) * var(--text-alpha-k)))"
+                    : "rgb(var(--fg) / calc(1 - (1 - 0.55) * var(--text-alpha-k)))",
+                transition:
+                  "transform 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms ease",
               }}
             >
               {item.title}
@@ -315,7 +352,7 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
           // BottomMenuBar (z-50) so it never overlaps fixed chrome.
           top: `calc(50% + ${dialogTopY}px)`,
           zIndex: 40,
-          pointerEvents: activeItem ? 'auto' : 'none',
+          pointerEvents: activeItem ? "auto" : "none",
         }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -331,13 +368,13 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
               aria-modal="false"
               aria-labelledby="product-os-dialog-title"
               id="product-os-dialog"
-              className="relative w-[min(92vw,320px)] rounded-2xl border border-white/10 bg-[#08080b]/90 p-5 shadow-2xl backdrop-blur-xl md:p-6"
+              className="relative w-[min(92vw,320px)] rounded-2xl border border-white/10 bg-ink-950/90 p-5 shadow-2xl backdrop-blur-xl md:p-6"
             >
               {/* Tick mark connecting dialog to the active node */}
               <span
                 aria-hidden
                 className="pointer-events-none absolute -top-3 left-1/2 h-3 w-px -translate-x-1/2"
-                style={{ background: 'rgba(255,255,255,0.35)' }}
+                style={{ background: "rgb(var(--fg) / 0.35)" }}
               />
               <DetailDialog
                 item={activeItem}
@@ -361,19 +398,19 @@ function CenterHub() {
     >
       <div
         className="absolute -inset-10 rounded-full opacity-40 blur-3xl"
-        style={{ background: 'rgb(var(--accent) / 0.45)' }}
+        style={{ background: "rgb(var(--accent) / 0.45)" }}
       />
       <motion.div
-        className="relative grid h-16 w-16 place-items-center rounded-full text-white"
+        className="relative grid h-16 w-16 place-items-center rounded-full text-on-accent"
         style={{
           background:
-            'linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))',
-          boxShadow: '0 14px 50px -10px rgb(var(--accent) / 0.55)',
+            "linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))",
+          boxShadow: "0 14px 50px -10px rgb(var(--accent) / 0.55)",
         }}
         animate={{ scale: [1, 1.04, 1] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Sparkles className="h-6 w-6" />
+        <Sparkles aria-hidden className="h-6 w-6" />
       </motion.div>
     </div>
   );
@@ -398,23 +435,23 @@ function DetailDialog({ item, items, data, onSelect }) {
         type="button"
         onClick={(e) => onSelect(null, e)}
         aria-label={data.closeLabel}
-        className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-white/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+        className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-white/25 hover:text-white"
       >
-        <X className="h-4 w-4" />
+        <X aria-hidden className="h-4 w-4" />
       </button>
 
       <div className="flex items-start gap-3 pr-10">
         <span
           aria-hidden
           className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/[0.06]"
-          style={{ color: 'rgb(var(--accent-soft))' }}
+          style={{ color: "rgb(var(--accent-soft))" }}
         >
-          <Icon className="h-5 w-5" />
+          <Icon aria-hidden className="h-5 w-5" />
         </span>
         <div className="min-w-0">
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-            style={{ color: 'rgb(var(--accent-soft))' }}
+            style={{ color: "rgb(var(--accent-soft))" }}
           >
             {data.categories[item.category]}
           </p>
@@ -431,36 +468,10 @@ function DetailDialog({ item, items, data, onSelect }) {
         {item.content}
       </p>
 
-      <div className="mt-5">
-        <div className="flex items-center justify-between text-xs text-white/60">
-          <span>{data.strengthLabel}</span>
-          <span className="font-mono text-white/80">{item.strength}%</span>
-        </div>
-        <div
-          className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10"
-          role="progressbar"
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-valuenow={item.strength}
-          aria-label={data.strengthLabel}
-        >
-          <motion.div
-            initial={{ width: 0 }}
-            animate={{ width: `${item.strength}%` }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="h-full rounded-full"
-            style={{
-              background:
-                'linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent-glow)))',
-            }}
-          />
-        </div>
-      </div>
-
       {related.length > 0 && (
         <div className="mt-5 border-t border-white/5 pt-4">
           <div className="flex items-center gap-2 text-[11px] text-white/60">
-            <Link2 className="h-3.5 w-3.5" />
+            <Link2 aria-hidden className="h-3.5 w-3.5" />
             <span className="uppercase tracking-[0.18em]">
               {data.relatedLabel}
             </span>
@@ -473,14 +484,15 @@ function DetailDialog({ item, items, data, onSelect }) {
                   key={r.id}
                   type="button"
                   onClick={(e) => onSelect(r.id, e)}
-                  className="chip transition hover:border-white/25 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                  className="chip transition hover:border-white/25 hover:text-white"
                 >
                   <RelatedIcon
+                    aria-hidden
                     className="h-3.5 w-3.5"
-                    style={{ color: 'rgb(var(--accent-soft))' }}
+                    style={{ color: "rgb(var(--accent-soft))" }}
                   />
                   {r.title}
-                  <ArrowRight className="h-3 w-3 text-white/40" />
+                  <ArrowRight aria-hidden className="h-3 w-3 text-white/40" />
                 </button>
               );
             })}
@@ -515,14 +527,14 @@ function GridView({ data }) {
               <span
                 aria-hidden
                 className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/[0.06]"
-                style={{ color: 'rgb(var(--accent-soft))' }}
+                style={{ color: "rgb(var(--accent-soft))" }}
               >
-                <Icon className="h-5 w-5" />
+                <Icon aria-hidden className="h-5 w-5" />
               </span>
               <div className="min-w-0">
                 <p
                   className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-                  style={{ color: 'rgb(var(--accent-soft))' }}
+                  style={{ color: "rgb(var(--accent-soft))" }}
                 >
                   {data.categories[item.category]}
                 </p>

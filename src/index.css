@@ -2,31 +2,153 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * ─── Colour system ──────────────────────────────────────────────────────────
+ *
+ * Two independent axes, both set as attributes on <html> by ThemeContext
+ * (and by the pre-paint script in index.html, so there is no flash):
+ *
+ *   data-mode  = light | dark          → canvas, surfaces, foreground
+ *   data-theme = terracota | azul | bosque | tinta   → accent
+ *
+ * All values are space-separated RGB triples so Tailwind can apply alpha:
+ * `rgb(var(--fg) / 0.7)`. Tailwind maps `white` → --fg and `ink-*` → the
+ * --ink-* scale (see tailwind.config.js), which is what lets the existing
+ * `text-white/70` and `bg-ink-950` classes follow the mode unchanged.
+ *
+ * Every accent × mode pair below was checked against WCAG 2.1 AA:
+ *   --accent-soft  is used for text → ≥ 4.5:1 on canvas and on surface
+ *   --accent       is a fill        → ≥ 3:1 against the canvas
+ *   --on-accent    sits on --accent → ≥ 4.5:1
+ * The four previous accents (purple, cyan, orange, green) could not carry
+ * over: on cream they measured 3.79, 2.12, 2.45 and 1.99:1.
+ */
+
+/* Light (cream) is the default, so it lives on :root. */
 :root {
-  --accent: 124 92 255;
-  --accent-soft: 167 139 250;
-  --accent-glow: 91 140 255;
+  color-scheme: light;
+
+  --fg: 28 25 23;            /* #1C1917 */
+
+  /* Text glow only reads as a glow against black; on cream it just blurs
+     the letterforms, so light mode turns it off. */
+  --text-glow: none;
+
+  /* Transparency compression for foreground text — see textColor in
+     tailwind.config.js. 0.58 is solved so /35 reaches 4.5:1 on #EEE7DA. */
+  --text-alpha-k: 0.58;
+
+  /* Error text. The form used text-red-300, tuned for black: 1.66:1 on cream. */
+  --danger: 180 35 24;       /* #B42318  ≥5.35:1 on every light surface */
+
+  /* Form field outline, as an alpha of --fg. 3:1 against the dialog surface
+     needs ~0.47 on cream but only ~0.34 on black, so it is set per mode. */
+  --field-border-alpha: 0.5;
+
+  /* GlowCard surface. Its hardcoded neutral grey fill and pure-black shadow
+     read as muddy grey on warm cream; light mode lifts the card instead. */
+  --card-bg: rgb(251 248 242);
+  --card-border: rgb(var(--fg) / 0.1);
+  --card-shadow: 0 1rem 2rem -1rem rgb(var(--shadow) / 0.22);
+  --glow-lightness: 42;      /* a 70%-lightness spotlight vanishes on cream */
+  --glow-spot-opacity: 0.12;
+  --shadow: 70 52 30;        /* warm, so shadows don't read grey-blue on cream */
+
+  --ink-950: 244 239 230;    /* #F4EFE6 canvas */
+  --ink-900: 251 248 242;    /* #FBF8F2 surface — lifts above the canvas */
+  --ink-800: 238 231 218;    /* #EEE7DA raised / inset */
+  --ink-700: 230 221 204;
+  --ink-600: 217 205 184;
+  --ink-500: 201 187 162;
+
+  /* terracota, light — the default accent */
+  --accent: 168 72 31;       /* #A8481F  5.08:1 on canvas */
+  --accent-soft: 158 67 28;  /* #9E431C  5.60:1 as text */
+  --accent-glow: 180 85 42;  /* #B4552A  white on it 4.91:1 — CTA gradient end */
+  --on-accent: 255 255 255;  /* 5.81:1 on the fill */
 }
 
-[data-theme='purple'] {
-  --accent: 124 92 255;
-  --accent-soft: 167 139 250;
-  --accent-glow: 91 140 255;
+[data-mode='dark'] {
+  color-scheme: dark;
+
+  --text-glow: 0 0 24px rgb(var(--accent) / 0.2);
+  --text-alpha-k: 1;
+
+  --danger: 252 165 165;     /* #FCA5A5  ≥9.98:1 on dark surfaces */
+  --field-border-alpha: 0.36;
+
+  /* Dark keeps GlowCard exactly as it was. */
+  --card-bg: hsl(0 0% 60% / 0.08);
+  --card-border: hsl(0 0% 60% / 0.08);
+  --card-shadow: 0 1rem 2rem -1rem black;
+  --glow-lightness: 70;
+  --glow-spot-opacity: 0.08;
+
+  --fg: 255 255 255;
+  --shadow: 0 0 0;
+
+  --ink-950: 6 6 10;
+  --ink-900: 10 10 16;
+  --ink-800: 16 16 23;
+  --ink-700: 22 22 31;
+  --ink-600: 31 31 43;
+  --ink-500: 42 42 56;
 }
-[data-theme='cyan'] {
-  --accent: 6 182 212;
-  --accent-soft: 103 232 249;
-  --accent-glow: 14 165 233;
+
+/* ─── Accents ─ light values first, dark overrides after (higher specificity) */
+
+[data-theme='terracota'] {
+  --accent: 168 72 31;
+  --accent-soft: 158 67 28;
+  --accent-glow: 180 85 42;  /* was 196 106 62: white on it 3.83:1 */
+  --on-accent: 255 255 255;
 }
-[data-theme='orange'] {
-  --accent: 249 115 22;
-  --accent-soft: 251 191 36;
-  --accent-glow: 234 88 12;
+[data-theme='terracota'][data-mode='dark'] {
+  --accent: 184 83 42;       /* #B8532A  4.15:1 on canvas · white on it 4.87:1 */
+  --accent-soft: 239 164 130;/* #EFA482  9.92:1 as text */
+  --accent-glow: 171 81 41;  /* #AB5129 — was 224 134 88: white on it 2.72:1 */
+  --on-accent: 255 255 255;
 }
-[data-theme='green'] {
-  --accent: 34 197 94;
-  --accent-soft: 110 231 183;
-  --accent-glow: 16 185 129;
+
+[data-theme='azul'] {
+  --accent: 31 59 122;       /* #1F3B7A  9.33:1 */
+  --accent-soft: 31 59 122;
+  --accent-glow: 59 91 165;
+  --on-accent: 255 255 255;
+}
+[data-theme='azul'][data-mode='dark'] {
+  --accent: 62 99 184;       /* #3E63B8  3.55:1 on canvas · white 5.70:1 */
+  --accent-soft: 157 184 242;/* #9DB8F2 10.18:1 */
+  --accent-glow: 111 143 216;
+  --on-accent: 255 255 255;
+}
+
+[data-theme='bosque'] {
+  --accent: 46 90 58;        /* #2E5A3A  6.95:1 */
+  --accent-soft: 46 90 58;
+  --accent-glow: 74 124 87;
+  --on-accent: 255 255 255;
+}
+[data-theme='bosque'][data-mode='dark'] {
+  --accent: 61 122 78;       /* #3D7A4E  3.94:1 on canvas · white 5.13:1 */
+  --accent-soft: 147 207 162;/* #93CFA2 11.26:1 */
+  --accent-glow: 107 175 126;
+  --on-accent: 255 255 255;
+}
+
+/* Monochrome. The only accent whose fill flips polarity between modes, which
+   is why text on it is --on-accent rather than a hardcoded white. */
+[data-theme='tinta'] {
+  --accent: 28 25 23;        /* #1C1917 15.27:1 */
+  --accent-soft: 28 25 23;
+  --accent-glow: 87 83 78;
+  --on-accent: 251 248 242;
+}
+[data-theme='tinta'][data-mode='dark'] {
+  --accent: 237 230 218;     /* #EDE6DA 16.31:1 */
+  --accent-soft: 237 230 218;
+  --accent-glow: 184 175 159;
+  --on-accent: 28 25 23;
 }
 
 @layer base {
@@ -34,21 +156,83 @@
     scroll-behavior: smooth;
     /* Mobile ~ 64 px, desktop ~ 96 px; scales linearly via clamp. */
     scroll-padding-top: clamp(64px, 12vw, 96px);
+
+    /*
+     * Silences a dev-only Framer Motion warning from the `useScroll({ target })`
+     * in Contact.jsx. Framer resolves the scroll container to
+     * `document.scrollingElement` (this element) and asserts it is not
+     * statically positioned, otherwise warning that the scroll offset cannot
+     * be calculated correctly.
+     *
+     * The offset was in fact correct — Framer's own measurement of the
+     * section matches its true document offset to the pixel. The assertion is
+     * a false positive for document-level scroll: Framer measures by summing
+     * `offsetTop` up the `offsetParent` chain until it reaches the container,
+     * and `body.offsetParent` is specified to be null, so that walk can never
+     * arrive at <html> no matter how <html> is positioned. The sum still lands
+     * on the right number because <html> is the initial containing block.
+     *
+     * `relative` on the root has no visual effect, and unlike `transform` it
+     * does not become a containing block for `position: fixed`, so the
+     * headers, the mobile dock and the scroll progress bar keep anchoring to
+     * the viewport.
+     */
+    position: relative;
   }
 
   body {
     font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    background-color: #06060a;
-    color: #ffffff;
+    background-color: rgb(var(--ink-950));
+    color: rgb(var(--fg));
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     transition: background-color 0.4s ease;
   }
 
-  ::selection {
-    background: rgb(var(--accent) / 0.4);
-    color: #fff;
+  /*
+   * The single focus indicator for the whole site. There was none: no `:focus`
+   * rule existed anywhere in this file, so any control that did not hand-roll
+   * its own Tailwind ring — the theme swatches, the timeline, the dialog close
+   * button — was keyboard-reachable but invisible while focused.
+   *
+   * `--accent-soft` is the accent's text-grade token, so it already clears
+   * 4.5:1 on canvas and surface in every accent × mode pair — comfortably past
+   * the 3:1 a focus indicator needs.
+   * The outline follows each element's own border-radius, so pills stay pills.
+   */
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-soft));
+    outline-offset: 2px;
   }
+
+  /* Never strip the indicator for pointer users without restoring it for
+     keyboard users — this pairs with the rule above, it does not replace it. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background: rgb(var(--accent) / 0.25);
+    color: rgb(var(--fg));
+  }
+}
+
+/*
+ * Effects authored for a black canvas. The hero's interactive gradient stacks
+ * six dark gradients with `difference`/`overlay` blending and a near-black
+ * vignette; the contact blobs use `mix-blend-mode: screen`. On cream the first
+ * becomes a dark smear across the headline and the second washes out to
+ * nothing while still costing a composited layer. Both are hidden in light
+ * mode rather than approximated.
+ */
+[data-mode='light'] [data-effect='dark-only'] {
+  display: none;
+}
+
+/* The opposite case: treatments designed for cream that the dark canvas
+   already covers with its own effect (e.g. the Contact panel surface). */
+[data-mode='dark'] [data-effect='light-only'] {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -82,7 +266,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-ink-950 transition hover:bg-white/90 hover:shadow-[0_10px_30px_-10px_rgba(255,255,255,0.4)];
+    @apply inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold text-ink-950 transition hover:bg-white/90 hover:shadow-[0_10px_30px_-10px_rgb(var(--fg)/0.25)];
   }
 
   .btn-accent {
@@ -91,11 +275,11 @@
       rgb(var(--accent)),
       rgb(var(--accent-glow))
     );
-    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110;
+    @apply inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-on-accent shadow-glow transition hover:brightness-110;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-5 py-2.5 text-sm font-medium text-white/85 transition hover:border-white/30 hover:bg-white/[0.06];
+    @apply inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-5 py-3 text-sm font-medium text-white/85 transition hover:border-white/30 hover:bg-white/[0.06];
   }
 
   .card {
@@ -118,8 +302,8 @@
     @apply bg-gradient-to-br from-white via-white bg-clip-text text-transparent;
     background-image: linear-gradient(
       135deg,
-      #ffffff 0%,
-      #ffffff 50%,
+      rgb(var(--fg)) 0%,
+      rgb(var(--fg)) 50%,
       rgb(var(--accent-soft)) 100%
     );
   }
@@ -130,7 +314,7 @@
       rgb(var(--accent)),
       rgb(var(--accent-glow)),
       rgb(var(--accent-soft)),
-      #ffffff,
+      rgb(var(--fg)),
       rgb(var(--accent))
     );
     background-size: 300% 100%;
@@ -149,12 +333,12 @@
 .bg-grid {
   background-image: linear-gradient(
       to right,
-      rgba(255, 255, 255, 0.05) 1px,
+      rgb(var(--fg) / 0.05) 1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.05) 1px,
+      rgb(var(--fg) / 0.05) 1px,
       transparent 1px
     );
   background-size: 56px 56px;
@@ -167,7 +351,7 @@
 
 .bg-dots {
   background-image: radial-gradient(
-    rgba(255, 255, 255, 0.08) 1px,
+    rgb(var(--fg) / 0.08) 1px,
     transparent 1px
   );
   background-size: 18px 18px;
@@ -267,10 +451,10 @@
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a10;
+  background: rgb(var(--ink-900));
 }
 ::-webkit-scrollbar-thumb {
-  background: #1f1f2b;
+  background: rgb(var(--ink-600));
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {

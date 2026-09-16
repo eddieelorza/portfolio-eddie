@@ -1,8 +1,8 @@
-import { motion } from 'motion/react';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
-import { cn } from '../lib/utils.js';
+import { motion } from "motion/react";
+import { useLanguage } from "../contexts/LanguageContext.jsx";
+import { cn } from "../lib/utils.js";
 
-const OPTIONS = ['es', 'en'];
+const OPTIONS = ["es", "en"];
 
 /**
  * LanguageToggle
@@ -20,13 +20,14 @@ const OPTIONS = ['es', 'en'];
  *    inactive.
  */
 export default function LanguageToggle() {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const activeIndex = OPTIONS.indexOf(language);
 
   return (
     <div
       className="relative inline-flex items-center rounded-full border border-white/[0.12] bg-white/[0.06] p-0.5 text-xs font-semibold"
       role="group"
+      aria-label={t.languageLabel}
     >
       {/* Sliding indicator. Width: 50 % of the container minus the
           2 px padding on each side, so two slots tile exactly. */}
@@ -34,12 +35,12 @@ export default function LanguageToggle() {
         aria-hidden
         className="absolute top-0.5 bottom-0.5 rounded-full bg-white"
         style={{
-          left: '2px',
-          width: 'calc(50% - 2px)',
+          left: "2px",
+          width: "calc(50% - 2px)",
         }}
         initial={false}
-        animate={{ x: activeIndex === 0 ? 0 : '100%' }}
-        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+        animate={{ x: activeIndex === 0 ? 0 : "100%" }}
+        transition={{ type: "spring", stiffness: 400, damping: 32 }}
       />
 
       {OPTIONS.map((opt) => {
@@ -51,8 +52,8 @@ export default function LanguageToggle() {
             onClick={() => setLanguage(opt)}
             aria-pressed={active}
             className={cn(
-              'relative z-10 px-3 py-1 uppercase tracking-wider transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/50 rounded-full',
-              active ? 'text-ink-950' : 'text-white/55 hover:text-white'
+              "relative z-10 rounded-full px-3 py-1 uppercase tracking-wider transition-colors duration-200 after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-['']",
+              active ? "text-ink-950" : "text-white/55 hover:text-white",
             )}
           >
             {opt}
