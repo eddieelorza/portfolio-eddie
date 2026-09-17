@@ -28,10 +28,12 @@ export const translations = {
       ctaContact: 'Hablemos',
       avatarLabel: 'El que construye el producto',
       photoLabel: 'El que lidera la ejecución',
+      stickerHello: '¡Hola, soy Eddie!',
+      stickerTag: 'Product Builder',
     },
     about: {
       eyebrow: 'Sobre mí',
-      title: 'Software Engineer con mentalidad de producto.',
+      title: 'Software Engineer con mentalidad de *producto*.',
       p1: 'Llevo más de 6 años construyendo software en fintech y pagos. En Paga Fácil lideré un equipo fullstack de cinco personas sin dejar de programar. Hoy construyo el back office de crédito en Clip, y construí y mantengo un CRM en producción para un grupo hotelero.',
       p2: 'Mi trabajo cubre todo el ciclo: reglas de negocio, arquitectura, contratos de API, pruebas y operación. Cuando el proyecto lo necesita, escribo el PRD y construyo lo que define.',
       p3: 'Tengo una maestría en Inteligencia Artificial Aplicada y la certificación PSPO I. Trabajo con un enfoque AI First: uso agentes de IA en todo el desarrollo y llevo IA al producto donde aporta valor.',
@@ -41,10 +43,11 @@ export const translations = {
     },
     experience: {
       eyebrow: 'Trayectoria',
-      title: 'Experiencia entre ingeniería y producto',
+      title: 'Experiencia entre *ingeniería* y producto',
       description:
-        'De desarrollo web para clientes a plataformas de pagos y crédito, liderazgo técnico y productos en producción.',
+        'De desarrollo web y móvil para clientes a plataformas de pagos y crédito, liderazgo técnico y productos en producción.',
       trackLabels: { prod: 'Producto', ing: 'Ingeniería' },
+      currentNote: '← hoy',
       phases: [
         'Web Developer',
         'Business Analyst / Product Owner',
@@ -169,7 +172,7 @@ export const translations = {
     },
     product: {
       eyebrow: 'Método · AI First',
-      title: 'Cómo trabajo',
+      title: 'Cómo *trabajo*',
       description:
         'Trabajo con un enfoque AI First: uso agentes de IA en todo el ciclo, del análisis al código y la revisión, y llevo IA al producto cuando aporta valor. Siete pasos, del problema a la operación.',
       relatedLabel: 'Pasos relacionados',
@@ -186,6 +189,7 @@ export const translations = {
       craft: {
         title: 'Estándares de ingeniería',
         note: 'Lo que cuido al construir y operar software.',
+        groups: ['Construir', 'Asegurar', 'Operar y entregar'],
         items: [
           {
             k: 'Arquitectura',
@@ -297,7 +301,7 @@ export const translations = {
     },
     education: {
       eyebrow: 'Educación',
-      title: 'Formación y certificaciones',
+      title: 'Formación y *certificaciones*',
       description:
         'Maestría en IA Aplicada y certificaciones en producto, datos y cloud.',
       photoAlt:
@@ -433,7 +437,7 @@ export const translations = {
         next: 'Siguiente',
         close: 'Cerrar',
       },
-      title: 'Lo que he construido',
+      title: 'Lo que he *construido*',
       description:
         'Plataformas de pagos y crédito, un CRM en producción y productos propios con IA: el problema, mi rol y las decisiones técnicas.',
       items: [
@@ -1155,14 +1159,14 @@ export const translations = {
     },
     stack: {
       eyebrow: 'Toolbox',
-      title: 'Herramientas con las que trabajo',
+      title: '*Herramientas* con las que trabajo',
       description:
         'Lo que uso para discovery, desarrollo, automatización con IA y entrega.',
       categories: ['Product', 'AI', 'Data', 'Engineering', 'Delivery'],
     },
     contact: {
       eyebrow: 'Contacto',
-      title: '¿Trabajamos juntos?',
+      title: '¿Trabajamos *juntos*?',
       description:
         'Estoy abierto a roles de Software Engineer, Product Engineer y liderazgo técnico en fintech, pagos y producto con IA. Si crees que encajo, hablemos.',
       cta: 'Enviar un mensaje',
@@ -1230,10 +1234,12 @@ export const translations = {
       ctaContact: "Let's talk",
       avatarLabel: 'The one who builds the product',
       photoLabel: 'The one who leads execution',
+      stickerHello: "Hi, I'm Eddie!",
+      stickerTag: 'Product Builder',
     },
     about: {
       eyebrow: 'About me',
-      title: 'Software engineer with a product mindset.',
+      title: 'Software engineer with a *product* mindset.',
       p1: 'I’ve spent 6+ years building software in fintech and payments. At Paga Fácil, I led a full-stack team of five while continuing to ship code. Today I build the credit back office at Clip, and I built and maintain a production CRM for a hotel group.',
       p2: 'My work covers the full lifecycle: business rules, architecture, API contracts, testing and operations. When a project needs it, I write the PRD and then build what it defines.',
       p3: 'I hold an MSc in Applied Artificial Intelligence and the PSPO I certification. I work AI First: I use AI agents throughout development and bring AI into products where it adds value.',
@@ -1243,10 +1249,11 @@ export const translations = {
     },
     experience: {
       eyebrow: 'Career',
-      title: 'Experience across engineering and product',
+      title: 'Experience across *engineering* and product',
       description:
-        'From client web development to payments and credit platforms, technical leadership and products in production.',
+        'From web and mobile development for clients to payments and credit platforms, technical leadership and products in production.',
       trackLabels: { prod: 'Product', ing: 'Engineering' },
+      currentNote: '← now',
       phases: [
         'Web Developer',
         'Business Analyst / Product Owner',
@@ -1371,7 +1378,7 @@ export const translations = {
     },
     product: {
       eyebrow: 'Approach · AI First',
-      title: 'How I work',
+      title: 'How I *work*',
       description:
         'I work AI First: I use AI agents across the whole cycle, from analysis to code and review, and bring AI into the product when it adds value. Seven steps, from the problem to operations.',
       relatedLabel: 'Related steps',
@@ -1388,6 +1395,7 @@ export const translations = {
       craft: {
         title: 'Engineering standards',
         note: 'What I pay attention to when building and running software.',
+        groups: ['Build', 'Secure', 'Operate & deliver'],
         items: [
           {
             k: 'Architecture',
@@ -1499,7 +1507,7 @@ export const translations = {
     },
     education: {
       eyebrow: 'Education',
-      title: 'Education and certifications',
+      title: 'Education and *certifications*',
       description:
         'A master’s in Applied AI and certifications in product, data and cloud.',
       photoAlt:
@@ -1635,7 +1643,7 @@ export const translations = {
         next: 'Next',
         close: 'Close',
       },
-      title: 'What I’ve built',
+      title: 'What I’ve *built*',
       description:
         'Payments and credit platforms, a CRM in production and my own AI products: the problem, my role and the technical decisions.',
       items: [
@@ -2357,14 +2365,14 @@ export const translations = {
     },
     stack: {
       eyebrow: 'Toolbox',
-      title: 'Tools I work with',
+      title: '*Tools* I work with',
       description:
         'What I use for discovery, development, AI automation and delivery.',
       categories: ['Product', 'AI', 'Data', 'Engineering', 'Delivery'],
     },
     contact: {
       eyebrow: 'Contact',
-      title: 'Want to work together?',
+      title: 'Want to work *together*?',
       description:
         "I'm open to Software Engineer, Product Engineer and technical leadership roles in fintech, payments and AI products. If you think I'd be a fit, let's talk.",
       cta: 'Send a message',

@@ -1,100 +1,54 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { ArrowRight, Link2 } from "lucide-react";
 import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
-import {
-  Activity,
-  ArrowRight,
-  FileText,
-  Layers,
-  Link2,
-  ListChecks,
-  Network,
-  Search,
-  ShieldCheck,
-  Sparkles,
-  X,
-} from "lucide-react";
+import { EASE_OUT, markerDraw } from "../lib/animation/doodle.js";
+import DoodleIcon, { doodle } from "./doodles/DoodleIcon.jsx";
+import Tape from "./doodles/Tape.jsx";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 import { cn } from "../lib/utils.js";
 import useMediaQuery from "../hooks/useMediaQuery.js";
 
 /**
- * ProductOperatingSystem
+ * ProductOperatingSystem — "Cómo trabajo"
  *
- * Radial orbital visualization of the product operating model,
- * matching the original component's interaction:
- *   - Click a node → orbit re-centers that node to the top
- *     (centerViewOnNode) and a detail card appears anchored at
- *     the top of the orbit, attached to the active node.
- *   - Click outside (container backdrop) → close, resume rotation.
- *   - Click another node (or a related capability) → orbit rotates
- *     smoothly to the new node; detail content swaps in place.
- *   - Auto-rotation pauses on active / hover / focus / reduced-motion.
+ * The workflow is a sequence, so it is drawn as a route: a hand-drawn line
+ * that links seven numbered stops, in order.
  *
- * Desktop (lg+): orbital. Mobile/tablet: card grid (same data,
- * same copy, no overflow).
+ * Desktop (lg+): the stops are a tablist. Step 1 is open by default, so a
+ * visitor who never clicks still reads one example; ← → / Home / End move
+ * between steps and the detail sheet below swaps in place.
+ * Mobile/tablet: the same route turns vertical and every step is visible —
+ * no taps needed on a small screen.
  */
 
 // One per step of the workflow, in order (see t.product.items).
 const ICONS = {
-  problem: Search,
-  scope: FileText,
-  solution: Network,
-  plan: ListChecks,
-  build: Layers,
-  quality: ShieldCheck,
-  operate: Activity,
+  problem: doodle("search"),
+  scope: doodle("doc"),
+  solution: doodle("network"),
+  plan: doodle("checklist"),
+  build: doodle("layers"),
+  quality: doodle("shield"),
+  operate: doodle("pulse"),
 };
 
-// ≈3°/s (~120s per revolution).
-const ROTATION_STEP = 0.15;
-const TICK_MS = 50;
-const RADIUS_LG = 200;
-const RADIUS_XL = 230;
-// Gap between the active node's bottom edge and the dialog's top edge
-// (active node label sits inside this gap, plus a small tick).
-const DIALOG_GAP = 56;
-// Active node icon radius in px (h-11 = 44 → r = 22).
-const NODE_RADIUS = 22;
-// Smooth CSS transition for the orbital rotation (same family as original's duration-700).
-const ORBIT_TRANSITION =
-  "transform 700ms cubic-bezier(0.22, 1, 0.36, 1), opacity 300ms ease";
+const FALLBACK_DOODLE = doodle("sparkle");
 
-function getIcon(id) {
-  return ICONS[id] || Sparkles;
-}
+const getIcon = (id) => ICONS[id] || FALLBACK_DOODLE;
 
 export default function ProductOperatingSystem() {
   const { t } = useLanguage();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const data = t.product;
-  const [activeId, setActiveId] = useState(null);
-
-  const activeItem = useMemo(
-    () => data.items.find((it) => it.id === activeId) || null,
-    [data.items, activeId],
-  );
 
   return (
     <section id="producto" className="relative py-24 md:py-32">
       <div className="container-page">
-        <SectionHeading
-          eyebrow={data.eyebrow}
-          title={data.title}
-          description={data.description}
-        />
+        <SectionHeading eyebrow={data.eyebrow} title={data.title} description={data.description} />
 
-        {isDesktop ? (
-          <OrbitalView
-            data={data}
-            activeId={activeId}
-            activeItem={activeItem}
-            onSelect={setActiveId}
-          />
-        ) : (
-          <GridView data={data} />
-        )}
+        {isDesktop ? <RouteTabs data={data} /> : <RouteList data={data} />}
 
         <CraftBar craft={data.craft} />
       </div>
@@ -102,465 +56,329 @@ export default function ProductOperatingSystem() {
   );
 }
 
-/* ------------------------- the engineering quality bar -------------------- */
+/* ------------------------------ desktop: route ----------------------------- */
 
-/**
- * The product orbit says what I build; this band says how well. Each
- * dimension carries the one concrete example that backs it, so the list
- * reads as evidence instead of as a keyword row.
- */
-function CraftBar({ craft }) {
-  if (!craft) return null;
-  return (
-    <div className="mt-16 md:mt-20">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h3 className="text-lg font-semibold tracking-tight text-white md:text-xl">
-          {craft.title}
-        </h3>
-        <p className="text-sm text-white/55">{craft.note}</p>
-      </div>
-      <dl className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {craft.items.map((item) => (
-          <div key={item.k} className="card p-5 md:p-6">
-            <dt className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-accent">
-              {item.k}
-            </dt>
-            <dd className="mt-2 text-sm leading-relaxed text-white/70">
-              {item.v}
-            </dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
+// The route's geometry lives in a 0..1000 × 0..120 box stretched to the row's
+// width. The SVG is 120px tall, so y maps 1:1 onto the stops' top padding;
+// stops alternate above and below the midline so the line wanders.
+const ROUTE_W = 1000;
+const ROUTE_H = 120;
+const WAVE = 20;
+
+function stopPoint(i, total) {
+  return {
+    x: ((i + 0.5) / total) * ROUTE_W,
+    y: ROUTE_H / 2 + (i % 2 ? WAVE : -WAVE),
+  };
 }
 
-/* -------------------------- desktop: orbital view ------------------------- */
+function routePath(total) {
+  const pts = Array.from({ length: total }, (_, i) => stopPoint(i, total));
+  return pts.reduce((d, p, i) => {
+    if (i === 0) return `M${p.x} ${p.y}`;
+    const prev = pts[i - 1];
+    const mx = (prev.x + p.x) / 2;
+    return `${d} C${mx} ${prev.y} ${mx} ${p.y} ${p.x} ${p.y}`;
+  }, "");
+}
 
-function OrbitalView({ data, activeId, activeItem, onSelect }) {
+function RouteTabs({ data }) {
   const reduceMotion = useReducedMotion();
-  const isXl = useMediaQuery("(min-width: 1280px)");
-  const radius = isXl ? RADIUS_XL : RADIUS_LG;
+  const { items } = data;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const tabRefs = useRef([]);
+  const active = items[activeIndex] ?? items[0];
 
-  const [angle, setAngle] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
-  const containerRef = useRef(null);
-  const triggerRef = useRef(null);
-
-  const paused = reduceMotion || activeId !== null || isHovering || isFocused;
-
-  // Auto-rotation loop.
-  useEffect(() => {
-    if (paused) return undefined;
-    const id = setInterval(() => {
-      setAngle((a) => (a + ROTATION_STEP) % 360);
-    }, TICK_MS);
-    return () => clearInterval(id);
-  }, [paused]);
-
-  // Close on Escape while the floating detail is open.
-  useEffect(() => {
-    if (!activeId) return undefined;
-    const onKey = (e) => {
-      if (e.key === "Escape") {
-        e.stopPropagation();
-        onSelect(null);
-      }
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [activeId, onSelect]);
-
-  // Restore focus to the trigger when the dialog closes.
-  useEffect(() => {
-    if (activeId || !triggerRef.current) return;
-    const node = triggerRef.current;
-    triggerRef.current = null;
-    requestAnimationFrame(() => {
-      try {
-        node.focus({ preventScroll: true });
-      } catch {
-        node.focus();
-      }
-    });
-  }, [activeId]);
-
-  // Rotate the orbit so the chosen node lands at angle 270° (visual top).
-  // Same idea as the original's centerViewOnNode.
-  const centerViewOnNode = useCallback(
-    (id) => {
-      const idx = data.items.findIndex((it) => it.id === id);
-      if (idx < 0) return;
-      const baseAngle = (idx / data.items.length) * 360;
-      setAngle((((270 - baseAngle) % 360) + 360) % 360);
-    },
-    [data.items],
-  );
-
-  const select = useCallback(
-    (id, e) => {
-      if (e) e.stopPropagation();
-      if (id === activeId) {
-        onSelect(null);
-        return;
-      }
-      if (e?.currentTarget) triggerRef.current = e.currentTarget;
-      centerViewOnNode(id);
-      onSelect(id);
-    },
-    [activeId, onSelect, centerViewOnNode],
-  );
-
-  // Per-node orbital position (depth, opacity, scale, z-index).
-  const positions = useMemo(() => {
-    const total = data.items.length;
-    return data.items.map((_, index) => {
-      const a = ((index / total) * 360 + angle) % 360;
-      const rad = (a * Math.PI) / 180;
-      const x = radius * Math.cos(rad);
-      const y = radius * Math.sin(rad);
-      const depth = (1 + Math.sin(rad)) / 2; // 0..1
-      const opacity = 0.5 + 0.5 * depth;
-      const scale = 0.9 + 0.18 * depth;
-      const zIndex = Math.round(10 + 20 * depth); // 10..30
-      return { x, y, opacity, scale, zIndex };
-    });
-  }, [data.items, angle, radius]);
-
-  const activeRelated = activeItem ? activeItem.related : [];
-
-  // Container backdrop click closes — matches the original's handleContainerClick.
-  const handleBackdrop = useCallback(
-    (e) => {
-      if (e.target === containerRef.current) onSelect(null);
-    },
-    [onSelect],
-  );
-
-  const handleBlur = useCallback((e) => {
-    if (!e.currentTarget.contains(e.relatedTarget)) setIsFocused(false);
+  const select = useCallback((index, { focus = false } = {}) => {
+    setActiveIndex(index);
+    // Synchronous focus: rAF does not fire in background tabs.
+    if (focus) tabRefs.current[index]?.focus();
   }, []);
 
-  // The dialog is anchored by its TOP edge (not centered) so the
-  // active node — which sits at the visual top of the orbit after
-  // centerViewOnNode — stays fully visible above the card.
-  // dialogTopY is the dialog's top edge measured from the container's
-  // vertical center; everything below extends downward.
-  const dialogTopY = -radius + NODE_RADIUS + DIALOG_GAP;
+  const onKeyDown = (e) => {
+    const last = items.length - 1;
+    const next = {
+      ArrowRight: activeIndex === last ? 0 : activeIndex + 1,
+      ArrowLeft: activeIndex === 0 ? last : activeIndex - 1,
+      Home: 0,
+      End: last,
+    }[e.key];
+    if (next === undefined) return;
+    e.preventDefault();
+    select(next, { focus: true });
+  };
 
   return (
-    <div
-      ref={containerRef}
-      onClick={handleBackdrop}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-      onFocus={() => setIsFocused(true)}
-      onBlur={handleBlur}
-      className="relative mx-auto mt-6 min-h-[620px] w-full max-w-3xl md:min-h-[720px] xl:max-w-4xl"
-      aria-label={data.title}
-    >
-      <CenterHub />
+    <div className="mx-auto mt-4 max-w-5xl">
+      <div className="relative">
+        <svg
+          aria-hidden
+          viewBox={`0 0 ${ROUTE_W} ${ROUTE_H}`}
+          preserveAspectRatio="none"
+          className="pointer-events-none absolute inset-x-0 top-0 h-[120px] w-full"
+          fill="none"
+        >
+          <motion.path
+            d={routePath(items.length)}
+            strokeWidth="3"
+            strokeLinecap="round"
+            style={{ stroke: "rgb(var(--accent-glow) / 0.6)" }}
+            {...(reduceMotion ? {} : markerDraw({ delay: 0.1, duration: 1.2 }))}
+          />
+        </svg>
 
-      {/* Decorative orbit ring */}
+        <div
+          role="tablist"
+          aria-label={data.title.replace(/\*/g, "")}
+          onKeyDown={onKeyDown}
+          className="relative grid"
+          style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0, 1fr))` }}
+        >
+          {items.map((item, i) => {
+            const Icon = getIcon(item.id);
+            const isActive = i === activeIndex;
+            const { y } = stopPoint(i, items.length);
+            return (
+              <button
+                key={item.id}
+                ref={(el) => (tabRefs.current[i] = el)}
+                type="button"
+                role="tab"
+                id={`route-tab-${item.id}`}
+                aria-selected={isActive}
+                aria-controls="route-panel"
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => select(i)}
+                className="group flex flex-col items-center rounded-2xl pb-2 focus-visible:outline-none"
+                // Centre the 56px stop on the route's y for this column.
+                style={{ paddingTop: y - 28 }}
+              >
+                <span
+                  aria-hidden
+                  className={cn(
+                    "relative grid h-14 w-14 place-items-center rounded-full border-2 transition-[transform,background-color,border-color,color] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
+                    "group-focus-visible:ring-2 group-focus-visible:ring-accent group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-ink-950",
+                    "group-active:scale-95",
+                    isActive
+                      ? "-rotate-3 scale-110 border-transparent bg-accent text-on-accent shadow-soft"
+                      : "border-white/15 bg-ink-900 text-white/80 [@media(hover:hover)_and_(pointer:fine)]:group-hover:border-accent-glow",
+                  )}
+                >
+                  <Icon aria-hidden className="h-6 w-6" strokeWidth={2} />
+                  <span
+                    className={cn(
+                      "absolute -right-2 -top-2 grid h-6 w-6 place-items-center rounded-full font-hand text-lg font-bold leading-none",
+                      isActive ? "bg-ink-950 text-white" : "bg-ink-950 text-white/60",
+                    )}
+                  >
+                    {i + 1}
+                  </span>
+                </span>
+                <span
+                  className={cn(
+                    "mt-3 text-xs font-semibold uppercase tracking-[0.1em] transition-colors duration-200",
+                    isActive ? "text-white" : "text-white/55",
+                  )}
+                >
+                  {item.short ?? item.title}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[0.08]"
-        style={{ width: radius * 2, height: radius * 2 }}
-      />
-
-      {/* Nodes */}
-      {data.items.map((item, i) => {
-        const pos = positions[i];
-        const Icon = getIcon(item.id);
-        const isActive = item.id === activeId;
-        const isRelated = activeRelated.includes(item.id);
-        const isDimmed = activeId !== null && !isActive && !isRelated;
-
-        return (
-          <button
-            key={item.id}
-            type="button"
-            onClick={(e) => select(item.id, e)}
-            aria-expanded={isActive}
-            aria-controls="product-os-dialog"
-            className="group absolute"
-            style={{
-              left: "50%",
-              top: "50%",
-              transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
-              zIndex: pos.zIndex,
-              opacity: isDimmed ? 0.28 : pos.opacity,
-              transition: ORBIT_TRANSITION,
-            }}
-          >
-            <span
-              aria-hidden
-              className="relative grid h-11 w-11 place-items-center rounded-full border"
-              style={{
-                background: isActive
-                  ? "linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))"
-                  : isRelated
-                    ? "rgb(var(--fg) / 0.06)"
-                    : "rgb(var(--fg) / 0.04)",
-                borderColor: isActive
-                  ? "transparent"
-                  : isRelated
-                    ? "rgb(var(--accent-soft))"
-                    : "rgb(var(--fg) / 0.18)",
-                color: isActive
-                  ? "rgb(var(--on-accent))"
-                  : "rgb(var(--fg) / calc(1 - (1 - 0.85) * var(--text-alpha-k)))",
-                transform: `scale(${isActive ? 1.35 : pos.scale})`,
-                boxShadow: isActive
-                  ? "0 16px 50px -12px rgb(var(--accent) / 0.7), 0 0 0 6px rgb(var(--accent) / 0.12)"
-                  : "none",
-                transition:
-                  "transform 300ms cubic-bezier(0.22, 1, 0.36, 1), background 300ms ease, border-color 300ms ease, box-shadow 300ms ease",
-              }}
-            >
-              <Icon aria-hidden className="h-5 w-5" />
-            </span>
-            <span
-              className="pointer-events-none absolute left-1/2 mt-3 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em]"
-              style={{
-                top: "100%",
-                transform: isActive
-                  ? "translateX(-50%) scale(1.15)"
-                  : "translateX(-50%)",
-                transformOrigin: "center top",
-                color: isActive
-                  ? "rgb(var(--fg))"
-                  : isRelated
-                    ? "rgb(var(--fg) / calc(1 - (1 - 0.85) * var(--text-alpha-k)))"
-                    : "rgb(var(--fg) / calc(1 - (1 - 0.55) * var(--text-alpha-k)))",
-                transition:
-                  "transform 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms ease",
-              }}
-            >
-              {/* Orbit labels sit on one line around a circle; long step
-                  titles collide there, so nodes use the short form. */}
-              {item.short ?? item.title}
-            </span>
-          </button>
-        );
-      })}
-
-      {/* Floating detail — anchored by its TOP edge to a fixed point just
-          below the active node's resting position (top of the orbit), so
-          the active node always stays visible above the card. Stops click
-          propagation so clicks inside don't trigger the backdrop close. */}
-      <div
-        className="absolute left-1/2 -translate-x-1/2"
-        style={{
-          // z-40 keeps the dialog above the orbital nodes (10..30) but
-          // strictly BELOW the global Navbar (fixed, z-50) and the
-          // BottomMenuBar (z-50) so it never overlaps fixed chrome.
-          top: `calc(50% + ${dialogTopY}px)`,
-          zIndex: 40,
-          pointerEvents: activeItem ? "auto" : "none",
-        }}
-        onClick={(e) => e.stopPropagation()}
+        id="route-panel"
+        role="tabpanel"
+        aria-labelledby={`route-tab-${active.id}`}
+        className="relative mx-auto mt-10 max-w-3xl rounded-2xl border border-white/10 bg-ink-900 p-7 pt-9 shadow-soft md:p-9 md:pt-10"
       >
-        <AnimatePresence mode="wait">
-          {activeItem && (
-            <motion.div
-              key={activeItem.id}
-              initial={{ opacity: 0, scale: 0.96, y: -6 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: -6 }}
-              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              role="dialog"
-              aria-modal="false"
-              aria-labelledby="product-os-dialog-title"
-              id="product-os-dialog"
-              className="relative w-[min(92vw,320px)] rounded-2xl border border-white/10 bg-ink-950/90 p-5 shadow-2xl backdrop-blur-xl md:p-6"
-            >
-              {/* Tick mark connecting dialog to the active node */}
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -top-3 left-1/2 h-3 w-px -translate-x-1/2"
-                style={{ background: "rgb(var(--fg) / 0.35)" }}
-              />
-              <DetailDialog
-                item={activeItem}
-                items={data.items}
-                data={data}
-                onSelect={select}
-              />
-            </motion.div>
-          )}
+        <Tape tilt={activeIndex % 2 ? 3 : -3} />
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={active.id}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -4, transition: { duration: 0.12 } }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
+          >
+            <StepBody item={active} data={data} index={activeIndex} as="h3" />
+            <RelatedSteps
+              item={active}
+              data={data}
+              onSelect={(id) => select(items.findIndex((it) => it.id === id), { focus: true })}
+            />
+          </motion.div>
         </AnimatePresence>
       </div>
     </div>
   );
 }
 
-function CenterHub() {
+function RelatedSteps({ item, data, onSelect }) {
+  const related = item.related.map((rid) => data.items.find((it) => it.id === rid)).filter(Boolean);
+  if (related.length === 0) return null;
   return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute left-1/2 top-1/2 z-0 -translate-x-1/2 -translate-y-1/2"
-    >
-      <div
-        className="absolute -inset-10 rounded-full opacity-40 blur-3xl"
-        style={{ background: "rgb(var(--accent) / 0.45)" }}
-      />
-      <motion.div
-        className="relative grid h-16 w-16 place-items-center rounded-full text-on-accent"
-        style={{
-          background:
-            "linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))",
-          boxShadow: "0 14px 50px -10px rgb(var(--accent) / 0.55)",
-        }}
-        animate={{ scale: [1, 1.04, 1] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Sparkles aria-hidden className="h-6 w-6" />
-      </motion.div>
+    <div className="mt-6 border-t border-white/10 pt-5">
+      <p className="flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-white/60">
+        <Link2 aria-hidden className="h-3.5 w-3.5" />
+        {data.relatedLabel}
+      </p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {related.map((r) => {
+          const RelatedIcon = getIcon(r.id);
+          return (
+            <button
+              key={r.id}
+              type="button"
+              onClick={() => onSelect(r.id)}
+              className="chip transition-[transform,border-color,color] duration-150 ease-out active:scale-[0.97] hover:border-white/25 hover:text-white"
+            >
+              <RelatedIcon aria-hidden className="h-4 w-4" style={{ color: "rgb(var(--accent-soft))" }} />
+              {r.title}
+              <ArrowRight aria-hidden className="h-3 w-3 text-white/40" />
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
-function DetailDialog({ item, items, data, onSelect }) {
+/* Shared by the desktop sheet and the mobile route. */
+function StepBody({ item, data, index, as: Heading = "h3", showIcon = true }) {
   const Icon = getIcon(item.id);
-  const closeBtnRef = useRef(null);
-  const related = item.related
-    .map((rid) => items.find((it) => it.id === rid))
-    .filter(Boolean);
-
-  // Auto-focus close button on open so Escape / Tab have a clear start.
-  useEffect(() => {
-    closeBtnRef.current?.focus({ preventScroll: true });
-  }, [item.id]);
-
   return (
     <>
-      <button
-        ref={closeBtnRef}
-        type="button"
-        onClick={(e) => onSelect(null, e)}
-        aria-label={data.closeLabel}
-        className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white/60 transition hover:border-white/25 hover:text-white"
-      >
-        <X aria-hidden className="h-4 w-4" />
-      </button>
-
-      <div className="flex items-start gap-3 pr-10">
-        <span
-          aria-hidden
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/[0.06]"
-          style={{ color: "rgb(var(--accent-soft))" }}
-        >
-          <Icon aria-hidden className="h-5 w-5" />
-        </span>
-        <div className="min-w-0">
-          <p
-            className="text-[11px] font-semibold uppercase tracking-[0.2em]"
+      <div className="flex items-start gap-4">
+        {showIcon && (
+          <span
+            aria-hidden
+            className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/[0.06]"
             style={{ color: "rgb(var(--accent-soft))" }}
           >
-            {data.categories[item.category]}
+            <Icon aria-hidden className="h-6 w-6" />
+          </span>
+        )}
+        <div className="min-w-0">
+          <p className="font-hand text-xl font-bold leading-none" style={{ color: "rgb(var(--accent-soft))" }}>
+            {data.categories[item.category] ?? `${index + 1}`}
           </p>
-          <h3
-            id="product-os-dialog-title"
-            className="mt-1 text-lg font-semibold tracking-tight"
-          >
+          <Heading className="mt-1 text-balance font-display text-xl font-semibold tracking-tight text-white">
             {item.title}
-          </h3>
+          </Heading>
         </div>
       </div>
-
-      <p className="mt-4 text-sm leading-relaxed text-white/70">
-        {item.content}
-      </p>
-
-      {related.length > 0 && (
-        <div className="mt-5 border-t border-white/5 pt-4">
-          <div className="flex items-center gap-2 text-[11px] text-white/60">
-            <Link2 aria-hidden className="h-3.5 w-3.5" />
-            <span className="uppercase tracking-[0.18em]">
-              {data.relatedLabel}
-            </span>
-          </div>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {related.map((r) => {
-              const RelatedIcon = getIcon(r.id);
-              return (
-                <button
-                  key={r.id}
-                  type="button"
-                  onClick={(e) => onSelect(r.id, e)}
-                  className="chip transition hover:border-white/25 hover:text-white"
-                >
-                  <RelatedIcon
-                    aria-hidden
-                    className="h-3.5 w-3.5"
-                    style={{ color: "rgb(var(--accent-soft))" }}
-                  />
-                  {r.title}
-                  <ArrowRight aria-hidden className="h-3 w-3 text-white/40" />
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
+      <p className="mt-4 text-[0.95rem] leading-relaxed text-white/70">{item.content}</p>
     </>
   );
 }
 
-/* ----------------------- mobile/tablet: grid fallback --------------------- */
+/* --------------------------- mobile/tablet: route -------------------------- */
 
-function GridView({ data }) {
+function RouteList({ data }) {
   return (
-    <div className="mt-2 grid gap-5 md:grid-cols-2">
+    <ol className="relative mx-auto mt-2 max-w-2xl">
+      {/* The route, vertical: a dotted hand line behind the stops. */}
+      <span
+        aria-hidden
+        className="absolute bottom-6 left-[1.6rem] top-6 w-0 border-l-[3px] border-dotted"
+        style={{ borderColor: "rgb(var(--accent-glow) / 0.55)" }}
+      />
       {data.items.map((item, i) => {
         const Icon = getIcon(item.id);
         return (
-          <motion.article
+          <motion.li
             key={item.id}
-            initial={{ opacity: 0, y: 18 }}
+            initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
-            transition={{
-              duration: 0.55,
-              delay: i * 0.06,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            className={cn(
-              "card card-hover edge-glow",
-              // An odd count would strand the last step alone on the grid.
-              data.items.length % 2 === 1 &&
-                i === data.items.length - 1 &&
-                "md:col-span-2",
-            )}
+            transition={{ duration: 0.4, ease: EASE_OUT }}
+            className="relative flex gap-4 pb-8 last:pb-0"
           >
-            <div className="flex items-start gap-3">
-              <span
-                aria-hidden
-                className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/[0.06]"
-                style={{ color: "rgb(var(--accent-soft))" }}
-              >
-                <Icon aria-hidden className="h-5 w-5" />
+            <span
+              aria-hidden
+              className="relative z-10 grid h-[3.2rem] w-[3.2rem] shrink-0 place-items-center rounded-full border-2 border-white/15 bg-ink-900"
+              style={{ color: "rgb(var(--accent-soft))" }}
+            >
+              <Icon aria-hidden className="h-6 w-6" />
+              <span className="absolute -right-2 -top-2 grid h-6 w-6 place-items-center rounded-full bg-accent font-hand text-lg font-bold leading-none text-on-accent">
+                {i + 1}
               </span>
-              <div className="min-w-0">
-                <p
-                  className="text-[11px] font-semibold uppercase tracking-[0.2em]"
-                  style={{ color: "rgb(var(--accent-soft))" }}
-                >
-                  {data.categories[item.category]}
-                </p>
-                <h3 className="mt-1 text-lg font-semibold tracking-tight">
-                  {item.title}
-                </h3>
-              </div>
+            </span>
+            <div className="min-w-0 flex-1 rounded-2xl border border-white/10 bg-ink-900 p-5 shadow-soft">
+              <StepBody item={item} data={data} index={i} showIcon={false} />
             </div>
-            <p className="mt-4 text-sm leading-relaxed text-white/70">
-              {item.content}
-            </p>
-          </motion.article>
+          </motion.li>
         );
       })}
+    </ol>
+  );
+}
+
+/* ------------------------- the engineering quality bar -------------------- */
+
+// Which craft items (by position in t.product.craft.items, same order in both
+// languages) belong to each group in t.product.craft.groups.
+const CRAFT_GROUPS = [
+  [0, 1, 7], // Build: architecture, performance, DevEx
+  [2, 3, 5, 6], // Secure: security, reliability, testing, accessibility
+  [4, 8, 9], // Operate & deliver: observability, delivery, product analytics
+];
+
+/**
+ * The route says how I work; this band says what I hold the work to. Ten
+ * equal cards read as a keyword row, so the dimensions are grouped into three
+ * sheets, each a short checklist with the concrete practice behind it.
+ */
+function CraftBar({ craft }) {
+  if (!craft) return null;
+  const groups = craft.groups
+    ? CRAFT_GROUPS.map((idx, g) => ({ title: craft.groups[g], items: idx.map((i) => craft.items[i]).filter(Boolean) }))
+    : [{ title: null, items: craft.items }];
+
+  return (
+    <div className="mt-16 md:mt-20">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <h3 className="text-lg font-semibold tracking-tight text-white md:text-xl">{craft.title}</h3>
+        <p className="text-sm text-white/55">{craft.note}</p>
+      </div>
+      <div className="mt-8 grid items-start gap-6 lg:grid-cols-3">
+        {groups.map((group, g) => (
+          <motion.section
+            key={group.title ?? g}
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={REVEAL_VIEWPORT}
+            transition={{ duration: 0.4, delay: g * 0.06, ease: EASE_OUT }}
+            className="relative rounded-2xl border border-white/10 bg-ink-900 p-6 pt-8 shadow-soft"
+          >
+            <Tape tilt={g % 2 ? 3 : -3} />
+            {group.title && (
+              <h4 className="font-hand text-2xl font-bold leading-none" style={{ color: "rgb(var(--accent-soft))" }}>
+                {group.title}
+              </h4>
+            )}
+            <dl className="mt-4 space-y-4">
+              {group.items.map((item) => (
+                <div key={item.k} className="flex gap-3">
+                  <DoodleIcon
+                    name="check"
+                    strokeWidth={2.6}
+                    className="mt-0.5 h-5 w-5 shrink-0"
+                    style={{ color: "rgb(var(--accent-soft))" }}
+                  />
+                  <div className="min-w-0">
+                    <dt className="text-sm font-semibold text-white">{item.k}</dt>
+                    <dd className="mt-1 text-sm leading-relaxed text-white/70">{item.v}</dd>
+                  </div>
+                </div>
+              ))}
+            </dl>
+          </motion.section>
+        ))}
+      </div>
     </div>
   );
 }

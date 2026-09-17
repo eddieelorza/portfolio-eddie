@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Briefcase, Sparkles } from "lucide-react";
+import DoodleIcon from "./doodles/DoodleIcon.jsx";
+import { EASE_OUT } from "../lib/animation/doodle.js";
+import Tape from "./doodles/Tape.jsx";
 import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
@@ -33,25 +35,30 @@ export default function Experience() {
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.4, ease: EASE_OUT }}
             className="mx-auto mb-12 flex max-w-4xl flex-wrap items-center justify-center gap-x-2 gap-y-2 md:mb-14"
           >
             {t.experience.phases.map((phase, i) => {
               const isLast = i === t.experience.phases.length - 1;
               return (
                 <span key={phase} className="inline-flex items-center gap-2">
+                  {/* The current phase is the sticker; the path to it stays quiet. */}
                   <span
                     className={
-                      "chip " +
-                      (isLast
-                        ? "border-white/25 bg-white/[0.08] text-white"
-                        : "")
+                      isLast
+                        ? "inline-block -rotate-2 rounded-md bg-accent px-3 py-1 text-xs font-bold text-on-accent shadow-soft"
+                        : "chip"
                     }
                   >
                     {phase}
                   </span>
                   {!isLast && (
-                    <ArrowRight aria-hidden className="h-3 w-3 text-white/30" />
+                    <DoodleIcon
+                      name="arrow"
+                      strokeWidth={2.4}
+                      className="h-4 w-4"
+                      style={{ color: "rgb(var(--accent-glow))" }}
+                    />
                   )}
                 </span>
               );
@@ -63,7 +70,7 @@ export default function Experience() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={REVEAL_VIEWPORT}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.5, ease: EASE_OUT }}
           className="mx-auto grid max-w-5xl gap-8 md:grid-cols-[auto_1fr] md:gap-12"
         >
           <TimelineSlider
@@ -80,22 +87,23 @@ export default function Experience() {
             <AnimatePresence mode="wait">
               <motion.article
                 key={role.company}
-                initial={{ opacity: 0, x: 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -16 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="card edge-glow shimmer-border h-full"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4, transition: { duration: 0.12 } }}
+                transition={{ duration: 0.24, ease: EASE_OUT }}
+                className="relative h-full rounded-2xl border border-white/10 bg-ink-900 p-6 pt-8 shadow-soft md:p-8 md:pt-10"
               >
+                <Tape tilt={active % 2 ? 3 : -3} />
                 <header className="flex flex-wrap items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
                     <span
                       className="grid h-11 w-11 place-items-center rounded-xl bg-white/[0.06]"
                       style={{ color: "rgb(var(--accent-soft))" }}
                     >
-                      <Briefcase aria-hidden className="h-5 w-5" />
+                      <DoodleIcon name="briefcase" className="h-6 w-6" draw />
                     </span>
                     <div>
-                      <h3 className="text-lg font-semibold tracking-tight md:text-xl">
+                      <h3 className="font-display text-lg font-semibold tracking-tight text-white md:text-xl">
                         {role.company}
                       </h3>
                       <p className="text-sm text-white/60">{role.role}</p>
@@ -104,7 +112,7 @@ export default function Experience() {
                           {role.track.map((key) => (
                             <li
                               key={key}
-                              className="rounded-full border px-2 py-0.5 text-[0.68rem] font-semibold uppercase tracking-[0.1em]"
+                              className="rounded-full border px-2 py-0.5 text-xs font-semibold uppercase tracking-[0.08em]"
                               style={{
                                 color: "rgb(var(--accent-soft))",
                                 borderColor: "rgb(var(--accent) / 0.35)",
@@ -117,7 +125,18 @@ export default function Experience() {
                       )}
                     </div>
                   </div>
-                  <span className="chip">{role.period}</span>
+                  <span className="flex items-center gap-2">
+                    <span className="chip">{role.period}</span>
+                    {/Actualidad|Present/i.test(role.period) && (
+                      <span
+                        aria-hidden
+                        className="-rotate-3 font-hand text-xl font-bold leading-none"
+                        style={{ color: "rgb(var(--accent-soft))" }}
+                      >
+                        {t.experience.currentNote}
+                      </span>
+                    )}
+                  </span>
                 </header>
 
                 <p className="mt-5 text-sm leading-relaxed text-white/70">
@@ -125,21 +144,24 @@ export default function Experience() {
                 </p>
 
                 <div className="mt-5 grid gap-4 md:grid-cols-[1.4fr_1fr]">
-                  <ul className="space-y-2">
+                  <ul className="space-y-3">
                     {role.impact.map((text, i) => (
                       <motion.li
                         key={text}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 + i * 0.06, duration: 0.4 }}
-                        className="flex items-start gap-2.5 rounded-xl border border-white/5 bg-white/[0.02] p-3"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.06 + i * 0.05, duration: 0.24, ease: EASE_OUT }}
+                        className="flex items-start gap-3"
                       >
-                        <Sparkles
-                          aria-hidden
-                          className="mt-0.5 h-4 w-4 flex-shrink-0"
+                        <DoodleIcon
+                          name="check"
+                          strokeWidth={2.6}
+                          draw
+                          delay={0.15 + i * 0.06}
+                          className="mt-0.5 h-5 w-5 flex-shrink-0"
                           style={{ color: "rgb(var(--accent-soft))" }}
                         />
-                        <span className="text-xs leading-relaxed text-white/75 md:text-sm">
+                        <span className="text-sm leading-relaxed text-white/75">
                           {text}
                         </span>
                       </motion.li>
@@ -150,9 +172,9 @@ export default function Experience() {
                     {role.tags.map((tag, i) => (
                       <motion.span
                         key={tag}
-                        initial={{ opacity: 0, scale: 0.85 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.15 + i * 0.04, duration: 0.3 }}
+                        initial={{ opacity: 0, scale: 0.86, rotate: i % 2 ? 6 : -6 }}
+                        animate={{ opacity: 1, scale: 1, rotate: i % 2 ? 1.5 : -1.5 }}
+                        transition={{ type: "spring", stiffness: 420, damping: 17, delay: 0.15 + i * 0.05 }}
                         className="chip"
                       >
                         {tag}

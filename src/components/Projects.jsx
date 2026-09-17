@@ -1,15 +1,6 @@
 import { useMemo, useState } from "react";
-import {
-  Boxes,
-  Building2,
-  CreditCard,
-  GitBranch,
-  Languages,
-  LayoutGrid,
-  MessagesSquare,
-  Plus,
-  UtensilsCrossed,
-} from "lucide-react";
+import { LayoutGrid, Plus } from "lucide-react";
+import { doodle } from "./doodles/DoodleIcon.jsx";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 import ServiceCarousel from "./ui/ServiceCarousel.jsx";
@@ -21,13 +12,13 @@ import ProjectViewer from "./ProjectViewer.jsx";
  * Keep this array the same length and order as `t.projects.items`.
  */
 const ICONS = [
-  Building2, // Plataforma comercial hotelera — hotel group
-  UtensilsCrossed, // Tastify — restaurants SaaS
-  Languages, // English OS — study system
-  GitBranch, // Spine — product reasoning graph in git
-  CreditCard, // Paga Fácil — payments platform
-  Boxes, // Sistema Regional — independent microfrontends
-  MessagesSquare, // Octobile — internal messaging app
+  doodle("building"), // CRM comercial hotelero — hotel group
+  doodle("food"), // Tastify — restaurants SaaS
+  doodle("language"), // English OS — study system
+  doodle("branch"), // Spine — product reasoning graph in git
+  doodle("card"), // Paga Fácil — payments platform
+  doodle("boxes"), // Sistema Regional — independent microfrontends
+  doodle("chat"), // Octobile — internal messaging app
 ];
 
 /** Neutral, and deliberately not one of the above, so a project added
@@ -62,11 +53,11 @@ export default function Projects() {
             type="button"
             onClick={() => setViewer({ index: i, open: true })}
             aria-haspopup="dialog"
-            className="group/detail relative inline-flex items-center gap-2 rounded-full text-sm font-semibold text-white after:absolute after:-inset-2 after:content-[''] hover:underline hover:underline-offset-4"
+            className="group/detail inline-flex items-center gap-2 rounded-full text-sm font-semibold text-white after:absolute after:inset-0 after:rounded-2xl after:content-[''] focus-visible:outline-none hover:underline hover:underline-offset-4"
           >
             <span
               aria-hidden
-              className="grid h-7 w-7 place-items-center rounded-full bg-accent text-on-accent transition group-hover/detail:rotate-90"
+              className="grid h-7 w-7 place-items-center rounded-full bg-accent text-on-accent transition-transform duration-200 ease-out group-hover/detail:rotate-90"
             >
               <Plus className="h-4 w-4" />
             </span>
