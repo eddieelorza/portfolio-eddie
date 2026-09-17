@@ -8,20 +8,55 @@ export default {
         display: ['"Space Grotesk"', 'Inter', 'ui-sans-serif', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
+      /**
+       * Mode-aware colours. `ink` and `white` resolve through CSS variables
+       * that `[data-mode]` in index.css swaps, so the ~260 existing
+       * `text-white/70`, `border-white/10`, `bg-ink-950` usages follow the
+       * light/dark toggle without being rewritten one by one.
+       *
+       * Read them by role, not by name:
+       *   ink-950 → page canvas     ink-900 → card surface
+       *   ink-800 → raised / inset  ink-700…500 → progressively stronger fills
+       *   white   → foreground (ink on cream, white on dark)
+       *
+       * Anything that must stay literally white or black regardless of mode —
+       * text sitting on an accent fill — uses `on-accent` instead.
+       */
       colors: {
+        white: 'rgb(var(--fg) / <alpha-value>)',
         ink: {
-          950: '#06060a',
-          900: '#0a0a10',
-          800: '#101017',
-          700: '#16161f',
-          600: '#1f1f2b',
-          500: '#2a2a38',
+          950: 'rgb(var(--ink-950) / <alpha-value>)',
+          900: 'rgb(var(--ink-900) / <alpha-value>)',
+          800: 'rgb(var(--ink-800) / <alpha-value>)',
+          700: 'rgb(var(--ink-700) / <alpha-value>)',
+          600: 'rgb(var(--ink-600) / <alpha-value>)',
+          500: 'rgb(var(--ink-500) / <alpha-value>)',
         },
         accent: {
           DEFAULT: 'rgb(var(--accent) / <alpha-value>)',
           soft: 'rgb(var(--accent-soft) / <alpha-value>)',
           glow: 'rgb(var(--accent-glow) / <alpha-value>)',
         },
+        'on-accent': 'rgb(var(--on-accent) / <alpha-value>)',
+        danger: 'rgb(var(--danger) / <alpha-value>)',
+      },
+      /**
+       * Text only: `text-white/NN` compresses its transparency by
+       * --text-alpha-k, so the opacity ladder keeps its contrast on cream.
+       *
+       * The same alpha loses far more contrast as ink-on-cream than as
+       * white-on-black — `/45` measures 4.47:1 on the dark canvas but 2.78:1
+       * on cream — so the ladder cannot be shared linearly between modes.
+       * Effective alpha is `1 - (1 - a) * k`: identity when k = 1 (dark mode,
+       * which renders exactly as before), and with k = 0.58 in light every
+       * text alpha from /35 up clears 4.5:1 on the darkest light surface,
+       * while staying strictly ordered so the hierarchy survives.
+       *
+       * Borders and fills keep the linear `colors.white` above on purpose —
+       * compressing them would turn `border-white/10` into a 37% line.
+       */
+      textColor: {
+        white: 'rgb(var(--fg) / calc(1 - (1 - <alpha-value>) * var(--text-alpha-k)))',
       },
       backgroundImage: {
         'radial-fade':
@@ -29,7 +64,7 @@ export default {
       },
       boxShadow: {
         glow: '0 0 0 1px rgb(var(--accent) / 0.3), 0 10px 60px -20px rgb(var(--accent) / 0.55)',
-        soft: '0 1px 0 rgba(255,255,255,0.05) inset, 0 10px 30px -15px rgba(0,0,0,0.6)',
+        soft: '0 1px 0 rgb(var(--fg) / 0.05) inset, 0 10px 30px -15px rgb(var(--shadow) / 0.6)',
       },
       keyframes: {
         'hue-pan': {

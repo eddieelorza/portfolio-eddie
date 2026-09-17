@@ -1,100 +1,81 @@
-import { memo, useMemo } from 'react';
-import { motion } from 'motion/react';
-import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
-import { ArrowUpRight, Boxes, CreditCard, Globe2 } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
-import { useTheme } from '../contexts/ThemeContext.jsx';
-import SectionHeading from './SectionHeading.jsx';
-import GlowCard from './ui/GlowCard.jsx';
+import { useMemo, useState } from "react";
+import {
+  Boxes,
+  Building2,
+  CreditCard,
+  GitBranch,
+  Languages,
+  LayoutGrid,
+  MessagesSquare,
+  Plus,
+  UtensilsCrossed,
+} from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext.jsx";
+import SectionHeading from "./SectionHeading.jsx";
+import ServiceCarousel from "./ui/ServiceCarousel.jsx";
+import ProjectViewer from "./ProjectViewer.jsx";
 
-const ICONS = [CreditCard, Boxes, Globe2];
+/**
+ * One icon per project, positional — project titles are translated
+ * ("Sistema Regional" / "Regional System"), so they cannot be used as keys.
+ * Keep this array the same length and order as `t.projects.items`.
+ */
+const ICONS = [
+  Building2, // Plataforma comercial hotelera — hotel group
+  UtensilsCrossed, // Tastify — restaurants SaaS
+  Languages, // English OS — study system
+  GitBranch, // Spine — product reasoning graph in git
+  CreditCard, // Paga Fácil — payments platform
+  Boxes, // Sistema Regional — independent microfrontends
+  MessagesSquare, // Octobile — internal messaging app
+];
 
-const themeToGlow = {
-  purple: 'purple',
-  cyan: 'cyan',
-  orange: 'orange',
-  green: 'green',
-};
+/** Neutral, and deliberately not one of the above, so a project added
+ *  without extending ICONS is visibly unmapped rather than a duplicate. */
+const FALLBACK_ICON = LayoutGrid;
 
-const ProjectCard = memo(function ProjectCard({
-  project,
-  index,
-  glowColor,
-  Icon,
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={REVEAL_VIEWPORT}
-      transition={{ duration: 0.6, delay: index * 0.07 }}
-      className="h-full"
-    >
-      <GlowCard
-        glowColor={glowColor}
-        className="group flex h-full flex-col p-6"
-      >
-        <div className="flex items-start justify-between">
-          <span
-            className="grid h-11 w-11 place-items-center rounded-xl text-white shadow-soft"
-            style={{
-              background:
-                'linear-gradient(135deg, rgb(var(--accent) / 0.45), rgb(var(--accent-glow) / 0.3))',
-            }}
-          >
-            <Icon className="h-5 w-5" />
-          </span>
-          <ArrowUpRight className="h-5 w-5 text-white/40 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
-        </div>
-
-        <div className="mt-5">
-          <p
-            className="text-xs uppercase tracking-[0.18em]"
-            style={{ color: 'rgb(var(--accent-soft))' }}
-          >
-            {project.tag}
-          </p>
-          <h3 className="mt-1 text-xl font-semibold tracking-tight">
-            {project.title}
-          </h3>
-          <p className="mt-3 text-sm leading-relaxed text-white/70">
-            {project.description}
-          </p>
-        </div>
-
-        <ul className="mt-5 space-y-1.5">
-          {project.metrics.map((m) => (
-            <li
-              key={m}
-              className="flex items-center gap-2 text-sm text-white/75"
-            >
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ backgroundColor: 'rgb(var(--accent-soft))' }}
-              />
-              {m}
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-6 flex flex-wrap gap-1.5 border-t border-white/5 pt-5">
-          {project.stack.map((s) => (
-            <span key={s} className="chip !text-[11px]">
-              {s}
-            </span>
-          ))}
-        </div>
-      </GlowCard>
-    </motion.div>
-  );
-});
-
+/**
+ * The section is a skim: numbered minimal cards in a carousel. Everything
+ * else a project carries — gallery, figures, bullets, stack, external link —
+ * lives in ProjectViewer, opened from each card's "Ver recursos".
+ *
+ * A single viewer is mounted for the section (it used to be one per card).
+ */
 export default function Projects() {
   const { t } = useLanguage();
-  const { theme } = useTheme();
-  const glowColor = useMemo(
-    () => themeToGlow[theme] || 'purple',
-    [theme]
+  // `viewer.index` outlives `open` so the dialog keeps its content while its
+  // exit animation plays.
+  const [viewer, setViewer] = useState({ index: 0, open: false });
+  const { items, detail, carousel } = t.projects;
+
+  const cards = useMemo(
+    () =>
+      items.map((project, i) => ({
+        id: project.title,
+        number: String(i + 1).padStart(3, "0"),
+        eyebrow: project.tag,
+        title: project.title,
+        description: project.description,
+        icon: ICONS[i] || FALLBACK_ICON,
+        action: (
+          <button
+            type="button"
+            onClick={() => setViewer({ index: i, open: true })}
+            aria-haspopup="dialog"
+            className="group/detail relative inline-flex items-center gap-2 rounded-full text-sm font-semibold text-white after:absolute after:-inset-2 after:content-[''] hover:underline hover:underline-offset-4"
+          >
+            <span
+              aria-hidden
+              className="grid h-7 w-7 place-items-center rounded-full bg-accent text-on-accent transition group-hover/detail:rotate-90"
+            >
+              <Plus className="h-4 w-4" />
+            </span>
+            {detail.open}
+            <span className="sr-only">: {project.title}</span>
+          </button>
+        ),
+      })),
+    [items, detail.open],
   );
 
   return (
@@ -107,18 +88,17 @@ export default function Projects() {
           description={t.projects.description}
         />
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {t.projects.items.map((p, i) => (
-            <ProjectCard
-              key={p.title}
-              project={p}
-              index={i}
-              glowColor={glowColor}
-              Icon={ICONS[i] || Boxes}
-            />
-          ))}
-        </div>
+        <ServiceCarousel items={cards} labels={carousel} />
       </div>
+
+      <ProjectViewer
+        project={items[viewer.index] ?? items[0]}
+        open={viewer.open}
+        onClose={() => setViewer((v) => ({ ...v, open: false }))}
+        labels={detail}
+        galleryNote={t.projects.gallery.note}
+        newTabLabel={t.projects.newTabLabel}
+      />
     </section>
   );
 }

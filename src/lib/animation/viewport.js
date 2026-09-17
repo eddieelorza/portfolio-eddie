@@ -6,12 +6,13 @@
  */
 
 /**
- * Replay on every entry. Use this for reveals (headings, cards,
- * paragraphs). When the element leaves the viewport, motion reverts
- * to `initial`; when it re-enters, the animation plays again.
+ * Reveal once. Use this for reveals (headings, cards, paragraphs).
+ * Replaying on every entry re-hid content that had already been read, and
+ * left it invisible whenever the observer lagged (fast scroll, backgrounded
+ * tab, anchor jump).
  */
 export const REVEAL_VIEWPORT = {
-  once: false,
+  once: true,
   margin: '-15% 0px -15% 0px',
 };
 

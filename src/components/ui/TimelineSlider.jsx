@@ -1,19 +1,26 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { motion } from 'motion/react';
-import { cn } from '../../lib/utils.js';
+import { useCallback, useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import { cn } from "../../lib/utils.js";
 
+/**
+ * Keyboard and screen readers use the date buttons, which carry the full
+ * `tickLabels` name ("Company · period"). The dots on the track duplicated
+ * them as a second Tab stop per item named "Slide N", so they are now
+ * pointer-only (tabIndex -1, aria-hidden) with a 44px hit area.
+ */
 export default function TimelineSlider({
   ticks,
+  tickLabels,
   value,
   onChange,
   className,
   size = 480,
-  orientation = 'vertical',
+  orientation = "vertical",
 }) {
   const trackRef = useRef(null);
   const [dragging, setDragging] = useState(false);
   const max = ticks.length - 1;
-  const isVertical = orientation === 'vertical';
+  const isVertical = orientation === "vertical";
 
   const updateFromPointer = useCallback(
     (clientX, clientY) => {
@@ -26,18 +33,18 @@ export default function TimelineSlider({
       const idx = Math.round(ratio * max);
       if (idx !== value) onChange(idx);
     },
-    [isVertical, max, onChange, value]
+    [isVertical, max, onChange, value],
   );
 
   useEffect(() => {
     if (!dragging) return;
     const move = (e) => updateFromPointer(e.clientX, e.clientY);
     const up = () => setDragging(false);
-    window.addEventListener('pointermove', move);
-    window.addEventListener('pointerup', up);
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
     return () => {
-      window.removeEventListener('pointermove', move);
-      window.removeEventListener('pointerup', up);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
     };
   }, [dragging, updateFromPointer]);
 
@@ -45,29 +52,33 @@ export default function TimelineSlider({
 
   const trackStyle = isVertical
     ? { height: size, width: 8 }
-    : { width: '100%', minWidth: typeof size === 'number' ? size : undefined, height: 8 };
+    : {
+        width: "100%",
+        minWidth: typeof size === "number" ? size : undefined,
+        height: 8,
+      };
 
   const fillStyle = isVertical
-    ? { width: '100%', height: `${ratio * 100}%`, top: 0, left: 0 }
-    : { height: '100%', width: `${ratio * 100}%`, top: 0, left: 0 };
+    ? { width: "100%", height: `${ratio * 100}%`, top: 0, left: 0 }
+    : { height: "100%", width: `${ratio * 100}%`, top: 0, left: 0 };
 
   const tickPos = (i) => {
     const r = max === 0 ? 0 : i / max;
     return isVertical
-      ? { top: `${r * 100}%`, left: '50%' }
-      : { left: `${r * 100}%`, top: '50%' };
+      ? { top: `${r * 100}%`, left: "50%" }
+      : { left: `${r * 100}%`, top: "50%" };
   };
 
   const thumbPos = isVertical
-    ? { top: `${ratio * 100}%`, left: '50%' }
-    : { left: `${ratio * 100}%`, top: '50%' };
+    ? { top: `${ratio * 100}%`, left: "50%" }
+    : { left: `${ratio * 100}%`, top: "50%" };
 
   return (
     <div
       className={cn(
-        'relative flex select-none',
-        isVertical ? 'items-stretch gap-4' : 'flex-col items-stretch gap-3',
-        className
+        "relative flex select-none",
+        isVertical ? "items-stretch gap-4" : "flex-col items-stretch gap-3",
+        className,
       )}
     >
       <div
@@ -77,8 +88,8 @@ export default function TimelineSlider({
           updateFromPointer(e.clientX, e.clientY);
         }}
         className={cn(
-          'relative cursor-pointer rounded-full bg-white/[0.06]',
-          isVertical ? 'self-stretch' : 'self-stretch'
+          "relative cursor-pointer rounded-full bg-white/[0.06]",
+          isVertical ? "self-stretch" : "self-stretch",
         )}
         style={trackStyle}
       >
@@ -86,13 +97,17 @@ export default function TimelineSlider({
           className="absolute rounded-full"
           style={{
             background: isVertical
-              ? 'linear-gradient(to bottom, rgb(var(--accent)), rgb(var(--accent-glow)))'
-              : 'linear-gradient(to right, rgb(var(--accent)), rgb(var(--accent-glow)))',
-            boxShadow: '0 0 24px rgb(var(--accent) / 0.55)',
+              ? "linear-gradient(to bottom, rgb(var(--accent)), rgb(var(--accent-glow)))"
+              : "linear-gradient(to right, rgb(var(--accent)), rgb(var(--accent-glow)))",
+            boxShadow: "0 0 24px rgb(var(--accent) / 0.55)",
             ...fillStyle,
           }}
-          animate={isVertical ? { height: `${ratio * 100}%` } : { width: `${ratio * 100}%` }}
-          transition={{ type: 'spring', stiffness: 260, damping: 32 }}
+          animate={
+            isVertical
+              ? { height: `${ratio * 100}%` }
+              : { width: `${ratio * 100}%` }
+          }
+          transition={{ type: "spring", stiffness: 260, damping: 32 }}
         />
 
         {ticks.map((_, i) => {
@@ -105,20 +120,21 @@ export default function TimelineSlider({
                 e.stopPropagation();
                 onChange(i);
               }}
-              aria-label={`Slide ${i + 1}`}
-              className="absolute grid h-4 w-4 -translate-x-1/2 -translate-y-1/2 place-items-center"
+              tabIndex={-1}
+              aria-hidden
+              className="absolute grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center"
               style={tickPos(i)}
             >
               <span
                 className={cn(
-                  'h-2 w-2 rounded-full transition',
-                  active ? 'scale-100' : 'scale-75 bg-white/30'
+                  "h-2 w-2 rounded-full transition",
+                  active ? "scale-100" : "scale-75 bg-white/30",
                 )}
                 style={
                   active
                     ? {
-                        backgroundColor: 'rgb(var(--accent))',
-                        boxShadow: '0 0 10px rgb(var(--accent) / 0.7)',
+                        backgroundColor: "rgb(var(--accent))",
+                        boxShadow: "0 0 10px rgb(var(--accent) / 0.7)",
                       }
                     : undefined
                 }
@@ -134,22 +150,22 @@ export default function TimelineSlider({
           }}
           className="absolute z-10 grid h-6 w-6 -translate-x-1/2 -translate-y-1/2 cursor-grab place-items-center rounded-full border border-white/40 bg-white shadow-[0_0_0_4px_rgb(var(--accent)/0.25)] active:cursor-grabbing"
           animate={thumbPos}
-          transition={{ type: 'spring', stiffness: 320, damping: 30 }}
-          style={{ touchAction: 'none' }}
+          transition={{ type: "spring", stiffness: 320, damping: 30 }}
+          style={{ touchAction: "none" }}
         >
           <span
             className="h-2 w-2 rounded-full"
-            style={{ backgroundColor: 'rgb(var(--accent))' }}
+            style={{ backgroundColor: "rgb(var(--accent))" }}
           />
         </motion.div>
       </div>
 
       <div
         className={cn(
-          'flex',
+          "flex",
           isVertical
-            ? 'flex-col justify-between py-1'
-            : 'flex-row items-center justify-between px-1'
+            ? "flex-col justify-between py-1"
+            : "flex-row items-center justify-between px-1",
         )}
       >
         {ticks.map((label, i) => {
@@ -159,10 +175,12 @@ export default function TimelineSlider({
               key={`${label}-${i}`}
               type="button"
               onClick={() => onChange(i)}
+              aria-label={tickLabels?.[i]}
+              aria-current={active ? "step" : undefined}
               className={cn(
-                'whitespace-nowrap text-[10px] font-medium uppercase tracking-[0.18em] transition md:text-xs',
-                isVertical ? 'text-left' : 'text-center',
-                active ? 'text-white' : 'text-white/35 hover:text-white/60'
+                "relative whitespace-nowrap after:absolute after:-inset-x-2 after:-inset-y-3.5 after:content-[''] text-[10px] font-medium uppercase tracking-[0.18em] transition md:text-xs",
+                isVertical ? "text-left" : "text-center",
+                active ? "text-white" : "text-white/55 hover:text-white/80",
               )}
             >
               {label}

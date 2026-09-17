@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
-import { cn } from '../../lib/utils.js';
+import { useEffect, useState } from "react";
+import { motion } from "motion/react";
+import { cn } from "../../lib/utils.js";
 
 const generateSparkle = (colors, i) => {
   const x = `${Math.random() * 100}%`;
@@ -15,8 +15,9 @@ const generateSparkle = (colors, i) => {
 function Sparkle({ x, y, color, delay, scale, cycle }) {
   return (
     <motion.svg
+      aria-hidden
       className="pointer-events-none absolute z-20"
-      style={{ left: x, top: y, willChange: 'transform, opacity' }}
+      style={{ left: x, top: y, willChange: "transform, opacity" }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{
         opacity: [0, 1, 0],
@@ -26,7 +27,7 @@ function Sparkle({ x, y, color, delay, scale, cycle }) {
         duration: cycle,
         repeat: Infinity,
         delay,
-        ease: 'easeInOut',
+        ease: "easeInOut",
       }}
       width="18"
       height="18"
@@ -43,26 +44,26 @@ function Sparkle({ x, y, color, delay, scale, cycle }) {
 export default function SparklesText({
   children,
   count = 8,
-  colors = { first: 'rgb(var(--accent))', second: 'rgb(var(--accent-soft))' },
+  colors = { first: "rgb(var(--accent))", second: "rgb(var(--accent-soft))" },
   className,
 }) {
   const [sparkles, setSparkles] = useState([]);
 
   useEffect(() => {
     const reduced =
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
       setSparkles([]);
       return;
     }
     setSparkles(
-      Array.from({ length: count }, (_, i) => generateSparkle(colors, i))
+      Array.from({ length: count }, (_, i) => generateSparkle(colors, i)),
     );
   }, [colors.first, colors.second, count]);
 
   return (
-    <span className={cn('relative inline-block', className)}>
+    <span className={cn("relative inline-block", className)}>
       {sparkles.map((s) => (
         <Sparkle key={s.id} {...s} />
       ))}

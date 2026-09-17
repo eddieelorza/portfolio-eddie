@@ -1,6 +1,6 @@
-import { useCallback, useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
+import { useCallback, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
 import {
   Award,
   BarChart3,
@@ -10,10 +10,10 @@ import {
   ExternalLink,
   Sparkles,
   Target,
-} from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
-import SectionHeading from './SectionHeading.jsx';
-import graduationImg from '../assets/graduation.webp';
+} from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext.jsx";
+import SectionHeading from "./SectionHeading.jsx";
+import graduationImg from "../assets/graduation.webp";
 
 /**
  * EducationSection
@@ -78,7 +78,7 @@ function CredentialHeroCard({ e }) {
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="group relative overflow-hidden rounded-3xl border border-white/10 bg-ink-800 shadow-soft transition-all duration-300 hover:border-white/25"
       style={{
-        willChange: 'transform',
+        willChange: "transform",
       }}
     >
       {/* Graduation image fills the card — taller so it covers the
@@ -99,19 +99,30 @@ function CredentialHeroCard({ e }) {
         {/* Dark scrim for legibility over the image */}
         <div
           aria-hidden
+          data-effect="dark-only"
           className="absolute inset-0 bg-gradient-to-b from-ink-950/80 via-ink-950/25 to-ink-950/90"
+        />
+        {/* Light mode: a real photographic scrim (warm near-black, weighted to
+            the bottom) instead of a cream veil over the whole image. The chips
+            and credential cards carry their own surfaces, so they stay legible. */}
+        <div
+          aria-hidden
+          data-effect="light-only"
+          className="absolute inset-0 bg-gradient-to-b from-[rgb(28_25_23/0.18)] via-transparent to-[rgb(28_25_23/0.45)]"
         />
 
         {/* Subtle accent glows in the corners */}
         <div
           aria-hidden
+          data-effect="dark-only"
           className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full opacity-45 blur-3xl"
-          style={{ background: 'rgb(var(--accent) / 0.32)' }}
+          style={{ background: "rgb(var(--accent) / 0.32)" }}
         />
         <div
           aria-hidden
+          data-effect="dark-only"
           className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full opacity-35 blur-3xl"
-          style={{ background: 'rgb(var(--accent-glow) / 0.25)' }}
+          style={{ background: "rgb(var(--accent-glow) / 0.25)" }}
         />
 
         {/* Stats — top */}
@@ -136,14 +147,14 @@ function CredentialHeroCard({ e }) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`${cred.label} — ${e.verifyLabel}`}
-                className="group/cred flex items-center gap-3 rounded-xl border border-white/15 bg-ink-950/55 p-3 backdrop-blur-md transition hover:border-white/30 hover:bg-ink-950/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                className="group/cred flex items-center gap-3 rounded-xl border border-white/15 bg-ink-950/55 p-3 backdrop-blur-md transition hover:border-white/30 hover:bg-ink-950/70"
               >
                 <span
                   aria-hidden
                   className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/[0.1]"
-                  style={{ color: 'rgb(var(--accent-soft))' }}
+                  style={{ color: "rgb(var(--accent-soft))" }}
                 >
-                  <Award className="h-4 w-4" />
+                  <Award aria-hidden className="h-4 w-4" />
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
@@ -153,7 +164,10 @@ function CredentialHeroCard({ e }) {
                     {cred.label}
                   </p>
                 </div>
-                <ExternalLink className="h-3.5 w-3.5 shrink-0 text-white/55 transition group-hover/cred:translate-x-0.5 group-hover/cred:text-white" />
+                <ExternalLink
+                  aria-hidden
+                  className="h-3.5 w-3.5 shrink-0 text-white/55 transition group-hover/cred:translate-x-0.5 group-hover/cred:text-white"
+                />
               </a>
             ))}
           </div>
@@ -166,30 +180,29 @@ function CredentialHeroCard({ e }) {
 /* ---------------------------- RIGHT: tabs panel --------------------------- */
 
 function CredentialTabsPanel({ e, activeTabId, onChange }) {
-  const activeTab =
-    e.tabs.find((tab) => tab.id === activeTabId) || e.tabs[0];
+  const activeTab = e.tabs.find((tab) => tab.id === activeTabId) || e.tabs[0];
 
   const handleTabKeyDown = useCallback(
     (event) => {
       const idx = e.tabs.findIndex((tab) => tab.id === activeTabId);
       if (idx < 0) return;
       let next = null;
-      if (event.key === 'ArrowRight') next = (idx + 1) % e.tabs.length;
-      else if (event.key === 'ArrowLeft')
+      if (event.key === "ArrowRight") next = (idx + 1) % e.tabs.length;
+      else if (event.key === "ArrowLeft")
         next = (idx - 1 + e.tabs.length) % e.tabs.length;
-      else if (event.key === 'Home') next = 0;
-      else if (event.key === 'End') next = e.tabs.length - 1;
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = e.tabs.length - 1;
       if (next === null) return;
       event.preventDefault();
       const nextId = e.tabs[next].id;
       onChange(nextId);
-      requestAnimationFrame(() => {
-        document
-          .getElementById(`edu-tab-${nextId}`)
-          ?.focus({ preventScroll: true });
-      });
+      // Every tab button is always mounted, so focus can move right away;
+      // deferring to rAF left focus behind in a backgrounded tab.
+      document
+        .getElementById(`edu-tab-${nextId}`)
+        ?.focus({ preventScroll: true });
     },
-    [e.tabs, activeTabId, onChange]
+    [e.tabs, activeTabId, onChange],
   );
 
   return (
@@ -221,18 +234,17 @@ function CredentialTabsPanel({ e, activeTabId, onChange }) {
               tabIndex={isActive ? 0 : -1}
               onClick={() => onChange(tab.id)}
               className={
-                'flex flex-1 min-w-[64px] items-center justify-center gap-2 rounded-xl px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 ' +
+                "relative flex flex-1 min-w-[64px] items-center justify-center gap-2 rounded-xl px-3 py-2 after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] text-[11px] font-semibold uppercase tracking-[0.16em] transition " +
                 (isActive
-                  ? 'bg-white/[0.08] text-white shadow-soft'
-                  : 'text-white/55 hover:bg-white/[0.04] hover:text-white/85')
+                  ? "bg-white/[0.08] text-white shadow-soft"
+                  : "text-white/55 hover:bg-white/[0.04] hover:text-white/85")
               }
             >
               <Icon
+                aria-hidden
                 className="h-3.5 w-3.5"
                 style={{
-                  color: isActive
-                    ? 'rgb(var(--accent-soft))'
-                    : 'currentColor',
+                  color: isActive ? "rgb(var(--accent-soft))" : "currentColor",
                 }}
               />
               <span>{tab.label}</span>
@@ -247,12 +259,12 @@ function CredentialTabsPanel({ e, activeTabId, onChange }) {
         role="tabpanel"
         aria-labelledby={`edu-tab-${activeTab.id}`}
         className="relative mt-3 overflow-hidden rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-5 md:p-6"
-        style={{ minHeight: '460px' }}
+        style={{ minHeight: "460px" }}
       >
         <span
           aria-hidden
           className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full opacity-50 blur-3xl"
-          style={{ background: 'rgb(var(--accent) / 0.25)' }}
+          style={{ background: "rgb(var(--accent) / 0.25)" }}
         />
 
         <AnimatePresence mode="wait">
@@ -284,15 +296,15 @@ function CredentialBento({ tab, featuredLabel }) {
           className="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-white shadow-glow"
           style={{
             background:
-              'linear-gradient(135deg, rgb(var(--accent) / 0.5), rgb(var(--accent-glow) / 0.3))',
+              "linear-gradient(135deg, rgb(var(--accent) / 0.5), rgb(var(--accent-glow) / 0.3))",
           }}
         >
-          <HeroIcon className="h-6 w-6" />
+          <HeroIcon aria-hidden className="h-6 w-6" />
         </span>
         <div className="min-w-0">
           <p
             className="text-[11px] font-semibold uppercase tracking-[0.22em]"
-            style={{ color: 'rgb(var(--accent-soft))' }}
+            style={{ color: "rgb(var(--accent-soft))" }}
           >
             {tab.category}
           </p>
@@ -307,8 +319,9 @@ function CredentialBento({ tab, featuredLabel }) {
         <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.04] p-4">
           <div className="flex items-center gap-2">
             <Award
+              aria-hidden
               className="h-3.5 w-3.5"
-              style={{ color: 'rgb(var(--accent-soft))' }}
+              style={{ color: "rgb(var(--accent-soft))" }}
             />
             <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">
               {featuredLabel}
@@ -330,28 +343,31 @@ function CredentialBento({ tab, featuredLabel }) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={item.label}
-                className="group flex items-start gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2.5 transition hover:border-white/25 hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                className="group flex items-start gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2.5 transition hover:border-white/25 hover:bg-white/[0.06]"
               >
                 <span
                   aria-hidden
                   className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md bg-white/[0.06]"
-                  style={{ color: 'rgb(var(--accent-soft))' }}
+                  style={{ color: "rgb(var(--accent-soft))" }}
                 >
-                  <Award className="h-3 w-3" />
+                  <Award aria-hidden className="h-3 w-3" />
                 </span>
                 <span className="flex-1 text-sm leading-snug text-white/85">
                   {item.label}
                 </span>
-                <ExternalLink className="mt-1 h-3 w-3 shrink-0 text-white/40 transition group-hover:translate-x-0.5 group-hover:text-white" />
+                <ExternalLink
+                  aria-hidden
+                  className="mt-1 h-3 w-3 shrink-0 text-white/40 transition group-hover:translate-x-0.5 group-hover:text-white"
+                />
               </a>
             ) : (
               <div className="flex items-start gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
                 <span
                   aria-hidden
                   className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md bg-white/[0.04]"
-                  style={{ color: 'rgb(var(--accent-soft))' }}
+                  style={{ color: "rgb(var(--accent-soft))" }}
                 >
-                  <Check className="h-3 w-3" />
+                  <Check aria-hidden className="h-3 w-3" />
                 </span>
                 <span className="text-sm leading-snug text-white/75">
                   {item.label}

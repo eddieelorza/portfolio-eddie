@@ -1,8 +1,9 @@
-import { motion, useScroll, useTransform } from 'motion/react';
-import { useLanguage } from '../contexts/LanguageContext.jsx';
-import SectionHeading from './SectionHeading.jsx';
-import { GradientWord } from './AnimatedText.jsx';
-import { REVEAL_VIEWPORT } from '../lib/animation/viewport.js';
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useLanguage } from "../contexts/LanguageContext.jsx";
+import SectionHeading from "./SectionHeading.jsx";
+import { GradientWord } from "./AnimatedText.jsx";
+import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
 
 const tagsContainer = {
   hidden: {},
@@ -22,30 +23,30 @@ const tagSharpen = {
 // Keywords highlighted with GradientWord. Lowercased + simple punctuation
 // stripped at match time so we hit "producto" inside "producto,".
 const HIGHLIGHT_KEYWORDS = new Set([
-  'producto',
-  'productos',
-  'product',
-  'products',
-  'fintech',
-  'ia',
-  'ai',
-  'pspo',
-  'msc',
+  "producto",
+  "productos",
+  "product",
+  "products",
+  "fintech",
+  "ia",
+  "ai",
+  "pspo",
+  "msc",
 ]);
 
 function stripWord(word) {
-  return word.toLowerCase().replace(/[.,;:!?()]/g, '');
+  return word.toLowerCase().replace(/[.,;:!?()]/g, "");
 }
 
 function HighlightedText({ children }) {
   return (
     <>
-      {children.split(' ').map((word, i) => {
+      {children.split(" ").map((word, i) => {
         const stripped = stripWord(word);
         const highlight = HIGHLIGHT_KEYWORDS.has(stripped);
         return (
           <span key={i}>
-            {highlight ? <GradientWord>{word}</GradientWord> : word}{' '}
+            {highlight ? <GradientWord>{word}</GradientWord> : word}{" "}
           </span>
         );
       })}
@@ -55,13 +56,19 @@ function HighlightedText({ children }) {
 
 export default function About() {
   const { t } = useLanguage();
-  const { scrollY } = useScroll();
-  // Subtle parallax on the decorative accent blob — drifts as the
-  // user scrolls past About. transform/opacity only, GPU-friendly.
-  const blobY = useTransform(scrollY, [400, 1600], [-40, 80]);
+  const sectionRef = useRef(null);
+  // Subtle parallax on the decorative accent blob — drifts as the user
+  // scrolls past About. Progress is measured against the section itself, not
+  // absolute scrollY, so the drift survives reordering the page.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const blobY = useTransform(scrollYProgress, [0, 1], [-40, 80]);
 
   return (
     <section
+      ref={sectionRef}
       id="sobre-mi"
       className="relative overflow-hidden py-24 md:py-32"
     >
@@ -69,7 +76,7 @@ export default function About() {
         aria-hidden
         style={{
           y: blobY,
-          background: 'rgb(var(--accent) / 0.32)',
+          background: "rgb(var(--accent) / 0.32)",
         }}
         className="pointer-events-none absolute right-[-12%] top-[18%] h-72 w-72 rounded-full opacity-25 blur-3xl"
       />
@@ -120,7 +127,7 @@ export default function About() {
                 >
                   <span
                     className="h-2 w-2 rounded-full"
-                    style={{ backgroundColor: 'rgb(var(--accent))' }}
+                    style={{ backgroundColor: "rgb(var(--accent))" }}
                   />
                   <span className="text-sm font-medium text-white/85">
                     {tag}

@@ -1,4 +1,4 @@
-import { motion, useScroll, useReducedMotion, useSpring } from 'motion/react';
+import { motion, useScroll, useReducedMotion, useSpring } from "motion/react";
 
 /**
  * Fixed thin scroll progress bar at the top of the viewport.

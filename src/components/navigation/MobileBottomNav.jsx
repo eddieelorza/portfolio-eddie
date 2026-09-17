@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'motion/react';
-import { cn } from '../../lib/utils.js';
-import { useLanguage } from '../../contexts/LanguageContext.jsx';
-import useActiveSection from '../../hooks/useActiveSection.js';
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { cn } from "../../lib/utils.js";
+import { useLanguage } from "../../contexts/LanguageContext.jsx";
+import useActiveSection from "../../hooks/useActiveSection.js";
 import {
   HERO_ID,
   NAV_ITEMS,
   NAV_SECTION_IDS,
-} from '../../config/navigation.js';
+} from "../../config/navigation.js";
 
 /**
  * MobileBottomNav
@@ -21,7 +21,9 @@ import {
  *  - **Hidden while at the hero** (`active === HERO_ID` or `null`):
  *    fades out + slides down so the dock only appears once the user
  *    is past About.
- *  - Container width: `min(calc(100vw - 32px), 420px)`, hard-centered.
+ *  - Container width: `min(calc(100vw - 12px), 420px)`, hard-centered —
+ *    eight 44px targets need ~355px, which a 375px phone only has with
+ *    6px gutters.
  *  - Bottom offset honours `env(safe-area-inset-bottom)`.
  */
 export default function MobileBottomNav() {
@@ -39,20 +41,22 @@ export default function MobileBottomNav() {
       animate={{
         y: visible ? 0 : 24,
         opacity: visible ? 1 : 0,
-        pointerEvents: visible ? 'auto' : 'none',
+        pointerEvents: visible ? "auto" : "none",
       }}
       transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-      aria-label="Section navigation"
-      aria-hidden={!visible}
+      aria-label={t.a11y.sectionsNav}
+      // Hidden at the hero: `inert` keeps the invisible links out of the Tab
+      // order and the accessibility tree (aria-hidden alone left them focusable).
+      inert={visible ? undefined : ""}
       className="fixed left-1/2 z-[60] lg:hidden"
       style={{
-        x: '-50%',
-        width: 'calc(100vw - 32px)',
-        maxWidth: '420px',
-        bottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))',
+        x: "-50%",
+        width: "calc(100vw - 12px)",
+        maxWidth: "420px",
+        bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
       }}
     >
-      <div className="glass-soft rounded-full px-2 py-2 shadow-soft">
+      <div className="glass-soft rounded-full px-1 py-1.5 shadow-soft">
         <ul className="flex w-full items-center">
           {items.map((item) => {
             const isActive = active === item.id;
@@ -76,7 +80,7 @@ export default function MobileBottomNav() {
                         duration: 0.18,
                         ease: [0.22, 1, 0.36, 1],
                       }}
-                      style={{ x: '-50%' }}
+                      style={{ x: "-50%" }}
                       className="pointer-events-none absolute bottom-full left-1/2 mb-2 whitespace-nowrap rounded-xl border border-white/10 bg-ink-950/95 px-3.5 py-2 text-[13px] font-medium text-white shadow-soft backdrop-blur-md"
                     >
                       {t.nav[item.labelKey]}
@@ -87,7 +91,7 @@ export default function MobileBottomNav() {
                 <a
                   href={`#${item.id}`}
                   aria-label={t.nav[item.labelKey]}
-                  aria-current={isActive ? 'true' : undefined}
+                  aria-current={isActive ? "true" : undefined}
                   onPointerEnter={() => setHoveredId(item.id)}
                   onPointerLeave={() =>
                     setHoveredId((id) => (id === item.id ? null : id))
@@ -96,10 +100,10 @@ export default function MobileBottomNav() {
                     setHoveredId((id) => (id === item.id ? null : id))
                   }
                   className={cn(
-                    'relative grid h-10 w-10 place-items-center rounded-full transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
+                    "relative grid h-11 w-11 place-items-center rounded-full transition-colors duration-200",
                     isActive
-                      ? 'text-white'
-                      : 'text-white/55 hover:text-white/90'
+                      ? "text-on-accent"
+                      : "text-white/55 hover:text-white/90",
                   )}
                 >
                   {/* Sliding highlight (single instance per layoutId). */}
@@ -110,19 +114,18 @@ export default function MobileBottomNav() {
                       className="absolute inset-0 rounded-full"
                       style={{
                         background:
-                          'linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))',
-                        boxShadow:
-                          '0 6px 18px -8px rgb(var(--accent) / 0.55)',
+                          "linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent-glow)))",
+                        boxShadow: "0 6px 18px -8px rgb(var(--accent) / 0.55)",
                       }}
                       transition={{
-                        type: 'spring',
+                        type: "spring",
                         stiffness: 380,
                         damping: 30,
                         mass: 0.55,
                       }}
                     />
                   )}
-                  <Icon className="relative h-4 w-4" />
+                  <Icon aria-hidden className="relative h-4 w-4" />
                 </a>
               </li>
             );

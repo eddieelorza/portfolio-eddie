@@ -1,19 +1,19 @@
-import { useCallback, useEffect, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { motion } from 'motion/react';
-import { ChevronUp, ChevronDown } from 'lucide-react';
-import { cn } from '../../lib/utils.js';
+import { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { motion } from "motion/react";
+import { ChevronUp, ChevronDown } from "lucide-react";
+import { cn } from "../../lib/utils.js";
 
 export default function VerticalCarousel({
   items,
   renderItem,
   className,
-  slideHeight = 'auto',
+  slideHeight = "auto",
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    axis: 'y',
+    axis: "y",
     loop: false,
-    align: 'start',
+    align: "start",
     skipSnaps: false,
   });
   const [selected, setSelected] = useState(0);
@@ -30,12 +30,14 @@ export default function VerticalCarousel({
   useEffect(() => {
     if (!emblaApi) return;
     onSelect();
-    emblaApi.on('select', onSelect);
-    emblaApi.on('reInit', onSelect);
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
   }, [emblaApi, onSelect]);
 
   return (
-    <div className={cn('relative grid gap-6 md:grid-cols-[64px_1fr]', className)}>
+    <div
+      className={cn("relative grid gap-6 md:grid-cols-[64px_1fr]", className)}
+    >
       <div className="hidden flex-col items-center gap-3 md:flex">
         <button
           aria-label="Previous"
@@ -43,7 +45,7 @@ export default function VerticalCarousel({
           onClick={() => emblaApi?.scrollPrev()}
           className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white/70 transition hover:border-white/30 hover:text-white disabled:opacity-30"
         >
-          <ChevronUp className="h-4 w-4" />
+          <ChevronUp aria-hidden className="h-4 w-4" />
         </button>
 
         <div className="flex flex-1 flex-col items-center gap-2 py-2">
@@ -60,9 +62,9 @@ export default function VerticalCarousel({
                   className="absolute inset-0 rounded-full"
                   style={{
                     background:
-                      'linear-gradient(to bottom, rgb(var(--accent)), rgb(var(--accent-glow)))',
+                      "linear-gradient(to bottom, rgb(var(--accent)), rgb(var(--accent-glow)))",
                   }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}
             </button>
@@ -75,7 +77,7 @@ export default function VerticalCarousel({
           onClick={() => emblaApi?.scrollNext()}
           className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white/70 transition hover:border-white/30 hover:text-white disabled:opacity-30"
         >
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown aria-hidden className="h-4 w-4" />
         </button>
       </div>
 
@@ -99,7 +101,7 @@ export default function VerticalCarousel({
           onClick={() => emblaApi?.scrollPrev()}
           className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white/70 disabled:opacity-30"
         >
-          <ChevronUp className="h-4 w-4" />
+          <ChevronUp aria-hidden className="h-4 w-4" />
         </button>
         <span className="text-xs text-white/50">
           {selected + 1} / {items.length}
@@ -109,7 +111,7 @@ export default function VerticalCarousel({
           onClick={() => emblaApi?.scrollNext()}
           className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white/70 disabled:opacity-30"
         >
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown aria-hidden className="h-4 w-4" />
         </button>
       </div>
     </div>
