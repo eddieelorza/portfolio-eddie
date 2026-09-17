@@ -23,7 +23,7 @@ export const translations = {
       title2: 'end-to-end.',
       subtitle:
         'Software Engineer y Product Builder con 6+ años en fintech y pagos. Del problema de negocio a la arquitectura, el código y la operación, con un enfoque AI First.',
-      chips: ['MSc IA Aplicada', 'PSPO I', 'Fintech', 'AI First'],
+      chips: ['MSc IA Aplicada', 'PSPO I'],
       ctaProjects: 'Ver proyectos',
       ctaContact: 'Hablemos',
       avatarLabel: 'El que construye el producto',
@@ -1229,7 +1229,7 @@ export const translations = {
       title2: 'end to end.',
       subtitle:
         'Software Engineer and Product Builder with 6+ years in fintech and payments. From the business problem to architecture, code and operations, with an AI First approach.',
-      chips: ['MSc Applied AI', 'PSPO I', 'Fintech', 'AI First'],
+      chips: ['MSc Applied AI', 'PSPO I'],
       ctaProjects: 'See projects',
       ctaContact: "Let's talk",
       avatarLabel: 'The one who builds the product',

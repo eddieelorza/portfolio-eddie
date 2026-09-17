@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { cn } from "../../lib/utils.js";
+import { EASE_OUT } from "../../lib/animation/doodle.js";
 
 /*
  * Letters still rise in one by one, but the outgoing word leaves as a single
@@ -48,13 +49,13 @@ export default function TextRotator({
     return () => clearInterval(t);
   }, [words.length, interval, reduceMotion]);
 
-  const longest = words.reduce((a, b) => (a.length >= b.length ? a : b));
-
   /*
-   * Letters take the active accent, with a gentle wave that blends each one
-   * toward the foreground colour.
+   * Letters take the solid accent (--accent-soft clears 4.5:1 in every
+   * accent × mode pair). The emphasis comes from a hand-drawn underline that
+   * redraws under each new word — the same mark as the section titles —
+   * instead of a colour gradient across the letters.
    *
-   * This used to be a hue sweep, `hsl(hue, 85%, 65%)`, cycling through the
+   * History: it was a blend toward --fg per letter, and before that a hue sweep, `hsl(hue, 85%, 65%)`, cycling through the
    * full wheel. On the dark canvas its worst letter already sat at 4.02:1; on
    * cream the yellow letters measured 1.04:1 — invisible — and darkening the
    * sweep enough to pass (30% lightness) still only reached 3.55:1 while
@@ -63,22 +64,23 @@ export default function TextRotator({
    * least as legible as --accent-soft, which clears 4.5:1 in all 8 accent ×
    * mode pairs.
    */
-  const colorFor = (i, total) => {
-    const phase = (i / Math.max(total - 1, 1)) * Math.PI + index * 0.9;
-    const accentShare = Math.round(82 + 18 * Math.sin(phase)); // 64–100%
-    return `color-mix(in oklab, rgb(var(--accent-soft)) ${accentShare}%, rgb(var(--fg)))`;
-  };
 
   return (
     <span
       className={cn(
-        "relative inline-block align-bottom whitespace-nowrap",
+        "relative inline-grid align-bottom whitespace-nowrap",
         className,
       )}
     >
-      <span className="invisible" aria-hidden>
-        {longest}
-      </span>
+      {/* Reserve the widest word as rendered, not the one with the most
+          characters: "experiencias premium" has as many letters as
+          "productos escalables" but is ~20px wider, and overflowed. Every
+          word sits invisible in the same grid cell; the cell takes the max. */}
+      {words.map((w) => (
+        <span key={w} className="invisible [grid-area:1/1]" aria-hidden>
+          {w}
+        </span>
+      ))}
       {/* Per-letter spans read as "A, I, …" — expose the whole word instead. */}
       <span className="sr-only">{words[index]}</span>
       <AnimatePresence initial={false}>
@@ -90,21 +92,39 @@ export default function TextRotator({
           animate="visible"
           exit={wordExit}
         >
-          {words[index].split("").map((letter, i, arr) => (
-            <motion.span
-              key={`${index}-${i}`}
-              custom={i}
-              variants={letterVariants}
-              style={{
-                color: colorFor(i, arr.length),
-                display: "inline-block",
-                textShadow: "var(--text-glow)",
-                fontWeight: "inherit",
-              }}
+          <span className="relative inline-flex">
+            {words[index].split("").map((letter, i) => (
+              <motion.span
+                key={`${index}-${i}`}
+                custom={i}
+                variants={letterVariants}
+                style={{
+                  color: "rgb(var(--accent-soft))",
+                  display: "inline-block",
+                  fontWeight: "inherit",
+                }}
+              >
+                {letter === " " ? "\u00A0" : letter}
+              </motion.span>
+            ))}
+            <svg
+              aria-hidden
+              viewBox="0 0 120 12"
+              preserveAspectRatio="none"
+              className="pointer-events-none absolute -bottom-[0.18em] left-0 h-[0.22em] w-full"
+              fill="none"
             >
-              {letter === " " ? "\u00A0" : letter}
-            </motion.span>
-          ))}
+              <motion.path
+                d="M3 8c24-5 50-6 76-3 14 2 26 2 38-3"
+                strokeWidth="4.5"
+                strokeLinecap="round"
+                style={{ stroke: "rgb(var(--accent-glow))" }}
+                initial={reduceMotion ? false : { pathLength: 0 }}
+                animate={{ pathLength: 1 }}
+                transition={{ delay: 0.35, duration: 0.55, ease: EASE_OUT }}
+              />
+            </svg>
+          </span>
         </motion.span>
       </AnimatePresence>
     </span>

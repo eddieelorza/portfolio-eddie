@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { Sparkles } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import TextRotator from "./ui/TextRotator.jsx";
 import SparklesText from "./ui/SparklesText.jsx";
@@ -51,20 +50,21 @@ export default function Hero() {
 
       <div className="container-page relative">
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_1fr]">
-          <div>
+          {/* min-w-0 + a heading size where the widest rotating word fits the
+              1.15fr track: otherwise the word's min-content widens this column
+              and squeezes the collage. */}
+          <div className="min-w-0">
             <motion.div
               variants={fadeUp}
               initial="hidden"
               animate="show"
               custom={0}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-xs text-white/70 backdrop-blur"
+              className="inline-block"
             >
-              <Sparkles
-                aria-hidden
-                className="h-3.5 w-3.5"
-                style={{ color: "rgb(var(--accent-soft))" }}
-              />
-              <span>{t.hero.badge}</span>
+              {/* Same sticker as the section eyebrows. */}
+              <span className="inline-block -rotate-2 rounded-md bg-accent px-2.5 py-1 text-xs font-bold uppercase tracking-[0.1em] text-on-accent shadow-soft">
+                {t.hero.badge}
+              </span>
             </motion.div>
 
             <SparklesText count={10} className="mt-6 block">
@@ -73,7 +73,7 @@ export default function Hero() {
                 initial="hidden"
                 animate="show"
                 custom={1}
-                className="text-[2rem] font-semibold leading-[1.08] tracking-tight md:text-5xl lg:text-[3.5rem]"
+                className="text-[1.875rem] font-semibold leading-[1.08] tracking-tight md:text-5xl lg:text-[2.75rem] xl:text-[3.25rem]"
               >
                 <span className="text-white">{t.hero.title1}</span>
                 <br className="md:hidden" />{" "}
