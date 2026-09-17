@@ -38,8 +38,8 @@ export const translations = {
       tags: ['Product Engineering', 'Fintech & Pagos', 'AI First', 'PSPO I · MSc AI'],
     },
     experience: {
-      eyebrow: 'Experiencia',
-      title: 'Seis años entre ingeniería y producto',
+      eyebrow: 'Trayectoria',
+      title: 'Experiencia entre ingeniería y producto',
       description:
         'De desarrollo web para clientes a plataformas de pagos y crédito, liderazgo técnico y productos en producción.',
       trackLabels: { prod: 'Producto', ing: 'Ingeniería' },
@@ -1238,8 +1238,8 @@ export const translations = {
       tags: ['Product Engineering', 'Fintech & Payments', 'AI First', 'PSPO I · MSc AI'],
     },
     experience: {
-      eyebrow: 'Experience',
-      title: 'Six years across engineering and product',
+      eyebrow: 'Career',
+      title: 'Experience across engineering and product',
       description:
         'From client web development to payments and credit platforms, technical leadership and products in production.',
       trackLabels: { prod: 'Product', ing: 'Engineering' },
