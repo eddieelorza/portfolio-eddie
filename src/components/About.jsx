@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
@@ -155,11 +155,69 @@ export default function About() {
  * background (black keyed out and the generator watermark erased offline).
  * Safari only plays alpha from HEVC, Chrome/Firefox from VP9 WebM; Chrome
  * skips the QuickTime source, so the order matters.
- * Reduced motion: no autoplay, the poster frame stays still.
+ * Loading: only the poster (first frame, ~50 KB) ships with the page. The
+ * sources are attached when the figure gets near the viewport, and playback
+ * pauses while it is off screen. Reduced motion never downloads the video.
+ * Looping: we jump back to 0 just before the last frame instead of relying on
+ * `loop` alone — Safari can blank an HEVC-alpha video on `ended`, which left
+ * the figure transparent for a moment. `loop` stays as a fallback.
  * Lands with a small settle when it scrolls into view.
  */
+const LOOP_EPSILON = 1.5 / 24; // a frame and a half at 24 fps
+
 function Polaroid({ alt, caption }) {
   const reduceMotion = useReducedMotion();
+  const videoRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  // Attach the sources near the viewport; play/pause with visibility.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || reduceMotion) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          if (video.currentSrc) video.play().catch(() => {});
+        } else if (video.currentSrc) {
+          video.pause();
+        }
+      },
+      { rootMargin: "300px 0px" },
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [reduceMotion]);
+
+  // <source> children added after mount are ignored until load() runs.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!shouldLoad || !video) return;
+    video.load();
+    video.play().catch(() => {});
+  }, [shouldLoad]);
+
+  // Seamless loop: restart before the clip reaches `ended`.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!shouldLoad || !video) return;
+    let handle;
+    const useFrameCallback = "requestVideoFrameCallback" in video;
+    const check = () => {
+      if (video.duration && video.currentTime >= video.duration - LOOP_EPSILON) {
+        video.currentTime = 0;
+      }
+      handle = useFrameCallback
+        ? video.requestVideoFrameCallback(check)
+        : requestAnimationFrame(check);
+    };
+    check();
+    return () =>
+      useFrameCallback
+        ? video.cancelVideoFrameCallback(handle)
+        : cancelAnimationFrame(handle);
+  }, [shouldLoad]);
+
   return (
     <motion.figure
       initial={{ opacity: 0, y: 24, rotate: -4 }}
@@ -178,19 +236,23 @@ function Polaroid({ alt, caption }) {
         }}
       />
       <video
+        ref={videoRef}
         poster={coderPoster}
-        autoPlay={!reduceMotion}
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         aria-label={alt}
         width="720"
         height="596"
         className="relative block h-auto w-full"
       >
-        <source src={coderVideoHevc} type='video/quicktime; codecs="hvc1"' />
-        <source src={coderVideoWebm} type="video/webm" />
+        {shouldLoad && (
+          <>
+            <source src={coderVideoHevc} type='video/quicktime; codecs="hvc1"' />
+            <source src={coderVideoWebm} type="video/webm" />
+          </>
+        )}
       </video>
 
       <figcaption className="absolute -bottom-4 left-1/2 -translate-x-1/2 -rotate-3">
