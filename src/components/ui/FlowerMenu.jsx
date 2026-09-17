@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Palette, X } from "lucide-react";
 import { cn } from "../../lib/utils.js";
 
@@ -12,6 +12,9 @@ export default function FlowerMenu({
   onOpenChange,
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const navRef = useRef(null);
+  // Shift applied to the whole ring so no petal lands off-screen.
+  const [shift, setShift] = useState({ x: 0, y: 0 });
 
   // Escape closes the petals from anywhere inside the menu.
   const onKeyDown = (event) => {
@@ -26,10 +29,40 @@ export default function FlowerMenu({
   }, [isOpen, onOpenChange]);
   const itemCount = items.length;
   const itemSize = togglerSize * 1.1;
-  const radius = togglerSize + 18;
+  // Petals sit on a circle; with more options the circumference has to fit
+  // them all without touching, so the radius grows past the base distance.
+  const radius = Math.max(
+    togglerSize + 18,
+    (itemCount * (itemSize + 8)) / (2 * Math.PI),
+  );
+
+  /*
+   * The dock lives in a corner (and can be dragged into any other), so a full
+   * ring around the toggler can spill past the viewport — with eight options
+   * the bottom petal sat below the fold. On open, nudge the ring's centre just
+   * enough to keep every petal inside, with an 8px margin. Measured
+   * synchronously so the first frame of the fan-out is already in place.
+   */
+  useLayoutEffect(() => {
+    if (!isOpen || !navRef.current) {
+      setShift({ x: 0, y: 0 });
+      return;
+    }
+    const rect = navRef.current.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const extent = radius + itemSize / 2 + 8;
+    const fit = (c, max) =>
+      c + extent > max ? max - extent - c : c - extent < 0 ? extent - c : 0;
+    setShift({
+      x: fit(cx, window.innerWidth),
+      y: fit(cy, window.innerHeight),
+    });
+  }, [isOpen, radius, itemSize]);
 
   return (
     <nav
+      ref={navRef}
       className="relative"
       style={{
         width: togglerSize,
@@ -46,8 +79,13 @@ export default function FlowerMenu({
        */}
       <ul
         inert={isOpen ? undefined : ""}
-        className="absolute left-1/2 top-1/2 m-0 list-none p-0"
-        style={{ width: 0, height: 0 }}
+        className="absolute left-1/2 top-1/2 m-0 list-none p-0 transition-transform"
+        style={{
+          width: 0,
+          height: 0,
+          transform: `translate(${shift.x}px, ${shift.y}px)`,
+          transitionDuration: `${animationDuration}ms`,
+        }}
       >
         {items.map((item, index) => {
           const angle = -90 + (360 / itemCount) * index;

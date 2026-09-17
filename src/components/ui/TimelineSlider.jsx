@@ -99,7 +99,6 @@ export default function TimelineSlider({
             background: isVertical
               ? "linear-gradient(to bottom, rgb(var(--accent)), rgb(var(--accent-glow)))"
               : "linear-gradient(to right, rgb(var(--accent)), rgb(var(--accent-glow)))",
-            boxShadow: "0 0 24px rgb(var(--accent) / 0.55)",
             ...fillStyle,
           }}
           animate={
@@ -130,14 +129,7 @@ export default function TimelineSlider({
                   "h-2 w-2 rounded-full transition",
                   active ? "scale-100" : "scale-75 bg-white/30",
                 )}
-                style={
-                  active
-                    ? {
-                        backgroundColor: "rgb(var(--accent))",
-                        boxShadow: "0 0 10px rgb(var(--accent) / 0.7)",
-                      }
-                    : undefined
-                }
+                style={active ? { backgroundColor: "rgb(var(--on-accent))" } : undefined}
               />
             </button>
           );
@@ -148,14 +140,14 @@ export default function TimelineSlider({
             e.stopPropagation();
             setDragging(true);
           }}
-          className="absolute z-10 grid h-6 w-6 -translate-x-1/2 -translate-y-1/2 cursor-grab place-items-center rounded-full border border-white/40 bg-white shadow-[0_0_0_4px_rgb(var(--accent)/0.25)] active:cursor-grabbing"
+          className="absolute z-10 grid h-7 w-7 -translate-x-1/2 -translate-y-1/2 cursor-grab place-items-center rounded-full border-[3px] border-ink-950 bg-accent shadow-soft active:cursor-grabbing"
           animate={thumbPos}
           transition={{ type: "spring", stiffness: 320, damping: 30 }}
           style={{ touchAction: "none" }}
         >
           <span
             className="h-2 w-2 rounded-full"
-            style={{ backgroundColor: "rgb(var(--accent))" }}
+            style={{ backgroundColor: "rgb(var(--on-accent))" }}
           />
         </motion.div>
       </div>
@@ -178,9 +170,9 @@ export default function TimelineSlider({
               aria-label={tickLabels?.[i]}
               aria-current={active ? "step" : undefined}
               className={cn(
-                "relative whitespace-nowrap after:absolute after:-inset-x-2 after:-inset-y-3.5 after:content-[''] text-[10px] font-medium uppercase tracking-[0.18em] transition md:text-xs",
+                "relative whitespace-nowrap font-hand text-xl font-bold leading-none transition-colors duration-150 after:absolute after:-inset-x-2 after:-inset-y-3.5 after:content-['']",
                 isVertical ? "text-left" : "text-center",
-                active ? "text-white" : "text-white/55 hover:text-white/80",
+                active ? "text-accent-soft" : "text-white/55 hover:text-white/80",
               )}
             >
               {label}

@@ -4,12 +4,15 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { cn } from "../../lib/utils.js";
 import { REVEAL_VIEWPORT } from "../../lib/animation/viewport.js";
+import { EASE_OUT } from "../../lib/animation/doodle.js";
+import Tape from "../doodles/Tape.jsx";
 
 /**
  * ServiceCarousel
  *
- * Minimal numbered cards in an Embla carousel — "( 001 )", an icon, and a
- * title/summary pinned to the bottom. Adapted from a shadcn/TS snippet to this
+ * Project cards as sheets taped to the page — masking tape, a small resting
+ * tilt, a handwritten number, a sticker tag and the doodle icon in a
+ * hand-drawn ring — in an Embla carousel. Adapted from a shadcn/TS snippet to this
  * repo: plain JS, `motion/react` instead of framer-motion, and no shadcn
  * Button (the site has no `--primary`/`--input` tokens for it to resolve).
  *
@@ -22,48 +25,89 @@ import { REVEAL_VIEWPORT } from "../../lib/animation/viewport.js";
  */
 
 const TONES = [
-  "linear-gradient(135deg, rgb(var(--accent) / 0.16), rgb(var(--accent-glow) / 0.05))",
-  "linear-gradient(200deg, rgb(var(--accent-glow) / 0.14), rgb(var(--accent) / 0.04))",
-  "linear-gradient(160deg, rgb(var(--accent-soft) / 0.12), rgb(var(--fg) / 0.02))",
-  "linear-gradient(90deg, rgb(var(--accent) / 0.1), rgb(var(--accent-glow) / 0.12))",
+  "linear-gradient(135deg, rgb(var(--accent) / 0.12), rgb(var(--accent-glow) / 0.03))",
+  "linear-gradient(200deg, rgb(var(--accent-glow) / 0.1), rgb(var(--accent) / 0.02))",
+  "linear-gradient(160deg, rgb(var(--accent-soft) / 0.09), rgb(var(--fg) / 0.01))",
+  "linear-gradient(90deg, rgb(var(--accent) / 0.07), rgb(var(--accent-glow) / 0.09))",
 ];
+
+/** Resting tilt, alternating so a row reads as sheets taped by hand. */
+const TILTS = ["-rotate-1", "rotate-[0.6deg]", "-rotate-[0.4deg]", "rotate-1"];
+
+/*
+ * Hover (lift + straighten) only where a real pointer hovers: on touch the
+ * hover state sticks after a tap. CSS transitions, not motion keyframes, so
+ * entering and leaving quickly retargets instead of restarting.
+ */
+const HOVER =
+  "[@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-1 [@media(hover:hover)_and_(pointer:fine)]:hover:rotate-0";
 
 function ServiceCard({ item, index }) {
   const Icon = item.icon;
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 40 }}
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={REVEAL_VIEWPORT}
-      transition={{ duration: 0.5, delay: Math.min(index, 3) * 0.08 }}
-      className="relative flex h-full min-h-[440px] flex-col overflow-hidden rounded-3xl border border-white/[0.07] bg-ink-900 p-7 sm:p-8"
+      transition={{ duration: 0.4, delay: Math.min(index, 3) * 0.06, ease: EASE_OUT }}
+      className="h-full"
     >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{ background: TONES[index % TONES.length] }}
-      />
-
-      <div className="relative flex flex-col items-start">
-        <span className="font-mono text-sm text-white/50">( {item.number} )</span>
-        {Icon && <Icon aria-hidden strokeWidth={1.5} className="mt-8 h-11 w-11 text-white" />}
-      </div>
-
-      <div className="relative mt-auto pt-10">
-        {item.eyebrow && (
-          <p className="mb-2 text-[11px] uppercase tracking-[0.16em] text-white/50">
-            {item.eyebrow}
-          </p>
+      {/* `isolate` keeps the tint's -z-10 inside the card, so the content can
+          stay unpositioned and the action button's ::after stretches over the
+          whole sheet (the entire card opens the viewer). */}
+      <article
+        className={cn(
+          "relative isolate flex h-full flex-col rounded-2xl border border-white/10 bg-ink-900 p-6 pt-8 shadow-soft sm:p-7 sm:pt-9",
+          "transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.98] motion-reduce:transition-none",
+          "focus-within:ring-2 focus-within:ring-accent",
+          TILTS[index % TILTS.length],
+          HOVER,
         )}
-        <h3 className="text-lg font-semibold uppercase leading-snug tracking-wider">
-          {item.title}
-        </h3>
-        <p className="mt-2 line-clamp-4 text-sm leading-relaxed text-white/70">
-          {item.description}
-        </p>
-        {item.action && <div className="mt-6">{item.action}</div>}
-      </div>
-    </motion.article>
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 rounded-2xl"
+          style={{ background: TONES[index % TONES.length] }}
+        />
+        <Tape tilt={index % 2 ? 3 : -3} />
+
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <span className="font-hand text-2xl font-bold leading-none text-white/60">
+            #{String(index + 1).padStart(2, "0")}
+          </span>
+          {item.eyebrow && (
+            <span
+              className={cn(
+                "whitespace-nowrap rounded-md bg-accent px-2 py-0.5 text-xs font-bold uppercase tracking-[0.06em] text-on-accent",
+                index % 2 ? "-rotate-2" : "rotate-2",
+              )}
+            >
+              {item.eyebrow}
+            </span>
+          )}
+        </div>
+
+        {Icon && (
+          <div className="relative mt-6 grid h-16 w-16 place-items-center" style={{ color: "rgb(var(--accent-soft))" }}>
+            {/* Hand-drawn ring: an open loop that overshoots its start. */}
+            <svg aria-hidden viewBox="0 0 64 64" fill="none" className="absolute inset-0 h-full w-full">
+              <path
+                d="M34 5c14 1 25 11 25 26 0 15-12 28-28 28S5 47 5 32C5 17 16 7 30 6c6 0 11 2 15 5"
+                stroke="rgb(var(--accent-glow))"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                opacity="0.7"
+              />
+            </svg>
+            <Icon aria-hidden strokeWidth={1.9} draw className="h-8 w-8" />
+          </div>
+        )}
+
+        <h3 className="mt-5 font-display text-xl font-semibold leading-snug text-white">{item.title}</h3>
+        <p className="mt-2 line-clamp-4 text-sm leading-relaxed text-white/70">{item.description}</p>
+        {item.action && <div className="mt-auto pt-6">{item.action}</div>}
+      </article>
+    </motion.div>
   );
 }
 
@@ -124,7 +168,7 @@ export default function ServiceCarousel({ items, labels, className }) {
               role="group"
               aria-roledescription="slide"
               aria-label={`${index + 1} / ${items.length}`}
-              className="min-w-0 shrink-0 grow-0 basis-[88%] pl-4 sm:basis-1/2 lg:basis-1/3"
+              className="min-w-0 shrink-0 grow-0 basis-[88%] py-5 pl-4 sm:basis-1/2 lg:basis-1/3"
             >
               <ServiceCard item={item} index={index} />
             </div>

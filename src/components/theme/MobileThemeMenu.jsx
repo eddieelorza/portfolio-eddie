@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { motion } from "motion/react";
 import { Palette } from "lucide-react";
-import { useTheme } from "../../contexts/ThemeContext.jsx";
+import { swatchBackground, useTheme } from "../../contexts/ThemeContext.jsx";
 import { useLanguage } from "../../contexts/LanguageContext.jsx";
 import { cn } from "../../lib/utils.js";
 
@@ -10,7 +10,7 @@ import { cn } from "../../lib/utils.js";
  *
  * The accent picker for screens below lg, where the draggable dock is not
  * rendered. The radial FlowerMenu needs ~110px of free space around its
- * toggler, which a header pill does not have, so here the same four swatches
+ * toggler, which a header pill does not have, so here the same swatches
  * drop down as a small row under the button.
  *
  * The popover is positioned against the header pill (the nearest `relative`
@@ -73,7 +73,7 @@ export default function MobileThemeMenu() {
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
-          className="glass-soft absolute right-0 top-full mt-2 flex gap-1 rounded-full p-1 shadow-soft"
+          className="glass-soft absolute right-0 top-full mt-2 grid grid-cols-5 gap-1 rounded-3xl p-1 shadow-soft"
         >
           {themes.map((option) => {
             const active = theme === option.id;
@@ -99,7 +99,7 @@ export default function MobileThemeMenu() {
                     active &&
                       "ring-2 ring-white/80 ring-offset-2 ring-offset-ink-900",
                   )}
-                  style={{ backgroundColor: option.swatch[mode] }}
+                  style={{ background: swatchBackground(option, mode) }}
                 />
               </button>
             );

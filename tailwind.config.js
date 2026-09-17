@@ -7,6 +7,9 @@ export default {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         display: ['"Space Grotesk"', 'Inter', 'ui-sans-serif', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        // Hand-made accents only (one word per heading, short notes); never body copy or labels.
+        marker: ['"Permanent Marker"', '"Space Grotesk"', 'cursive'],
+        hand: ['Caveat', '"Space Grotesk"', 'cursive'],
       },
       /**
        * Mode-aware colours. `ink` and `white` resolve through CSS variables

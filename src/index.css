@@ -9,7 +9,8 @@
  * (and by the pre-paint script in index.html, so there is no flash):
  *
  *   data-mode  = light | dark          → canvas, surfaces, foreground
- *   data-theme = terracota | azul | bosque | tinta   → accent
+ *   data-theme = terracota | azul | bosque | tinta     → solid accent
+ *              | solar | selva | aurora | atardecer | oceano | galaxia → gradient accent
  *
  * All values are space-separated RGB triples so Tailwind can apply alpha:
  * `rgb(var(--fg) / 0.7)`. Tailwind maps `white` → --fg and `ink-*` → the
@@ -151,6 +152,110 @@
   --on-accent: 28 25 23;
 }
 
+/*
+ * Gradient accents. Same contract as the solid ones, but --accent and
+ * --accent-glow are two different hues, so every accent → glow gradient on the
+ * site (CTAs, hero word, avatar card, carousel tints) shows both colours.
+ * --accent-glow is a CTA gradient end too, so --on-accent must clear 4.5:1 on
+ * BOTH ends.
+ *
+ * Light mode can't hold bright orange/yellow/lime: a fill that clears 3:1 on
+ * cream is too dark for dark text, so light uses deep tones with white text.
+ * Dark mode uses the vivid tones with near-black --on-accent (like `tinta`).
+ *
+ * Numbers per mode: fill vs canvas (worse of the two ends) · --accent-soft as
+ * text (worst of canvas/surface/raised) · --on-accent on --accent / on glow.
+ */
+[data-theme='solar'] {
+  /* Solar · naranja a amarillo, light: 4.30 · 5.28 · 5.18 / 4.92 */
+  --accent: 194 65 12;
+  --accent-soft: 168 56 10;
+  --accent-glow: 161 98 7;
+  --on-accent: 255 255 255;
+}
+[data-theme='solar'][data-mode='dark'] {
+  /* Solar · naranja a amarillo, dark: 8.94 · 11.23 · 7.73 / 11.42 */
+  --accent: 251 146 60;
+  --accent-soft: 253 186 116;
+  --accent-glow: 250 204 21;
+  --on-accent: 28 25 23;
+}
+
+[data-theme='selva'] {
+  /* Selva · verde a lima, light: 4.36 · 5.80 · 5.02 / 4.99 */
+  --accent: 21 128 61;
+  --accent-soft: 22 101 52;
+  --accent-glow: 77 124 15;
+  --on-accent: 255 255 255;
+}
+[data-theme='selva'][data-mode='dark'] {
+  /* Selva · verde a lima, dark: 8.88 · 13.49 · 7.68 / 11.60 */
+  --accent: 34 197 94;
+  --accent-soft: 134 239 172;
+  --accent-glow: 163 230 53;
+  --on-accent: 28 25 23;
+}
+
+[data-theme='aurora'] {
+  /* Aurora · violeta a turquesa, light: 4.68 · 7.31 · 7.10 / 5.36 */
+  --accent: 109 40 217;
+  --accent-soft: 91 33 182;
+  --accent-glow: 14 116 144;
+  --on-accent: 255 255 255;
+}
+[data-theme='aurora'][data-mode='dark'] {
+  /* Aurora · violeta a turquesa, dark: 7.43 · 10.26 · 6.43 / 9.68 */
+  --accent: 167 139 250;
+  --accent-soft: 196 181 253;
+  --accent-glow: 34 211 238;
+  --on-accent: 28 25 23;
+}
+
+[data-theme='atardecer'] {
+  /* Atardecer · rosa a naranja, light: 4.52 · 6.41 · 6.04 / 5.18 */
+  --accent: 190 24 93;
+  --accent-soft: 157 23 77;
+  --accent-glow: 194 65 12;
+  --on-accent: 255 255 255;
+}
+[data-theme='atardecer'][data-mode='dark'] {
+  /* Atardecer · rosa a naranja, dark: 7.64 · 10.45 · 6.60 / 7.73 */
+  --accent: 244 114 182;
+  --accent-soft: 249 168 212;
+  --accent-glow: 251 146 60;
+  --on-accent: 28 25 23;
+}
+
+[data-theme='oceano'] {
+  /* Océano · azul a verde agua, light: 4.78 · 7.09 · 6.70 / 5.47 */
+  --accent: 29 78 216;
+  --accent-soft: 30 64 175;
+  --accent-glow: 15 118 110;
+  --on-accent: 255 255 255;
+}
+[data-theme='oceano'][data-mode='dark'] {
+  /* Océano · azul a verde agua, dark: 7.96 · 10.51 · 6.88 / 9.39 */
+  --accent: 96 165 250;
+  --accent-soft: 147 197 253;
+  --accent-glow: 45 212 191;
+  --on-accent: 28 25 23;
+}
+
+[data-theme='galaxia'] {
+  /* Galaxia · fucsia a índigo, light: 5.52 · 6.70 · 6.32 / 7.90 */
+  --accent: 162 28 175;
+  --accent-soft: 134 25 143;
+  --accent-glow: 67 56 202;
+  --on-accent: 255 255 255;
+}
+[data-theme='galaxia'][data-mode='dark'] {
+  /* Galaxia · fucsia a índigo, dark: 6.78 · 10.77 · 7.11 / 5.86 */
+  --accent: 232 121 249;
+  --accent-soft: 240 171 252;
+  --accent-glow: 129 140 248;
+  --on-accent: 28 25 23;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -249,6 +354,18 @@
 }
 
 @layer components {
+  /*
+   * White die-cut sticker edge around a transparent cutout (the hero portrait).
+   * Stacked zero-blur drop-shadows trace the alpha outline; the last one lifts
+   * the sticker off the blob. White in both modes on purpose: it reads as a
+   * physical sticker, like the references, not as a themed border.
+   */
+  .sticker-outline {
+    filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff)
+      drop-shadow(0 3px 0 #fff) drop-shadow(0 -3px 0 #fff)
+      drop-shadow(0 14px 24px rgb(var(--shadow) / 0.28));
+  }
+
   .container-page {
     @apply mx-auto w-full max-w-6xl px-6 md:px-10;
   }

@@ -5,6 +5,9 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
  * mode — it has to be mode-aware because "tinta" is near-black in light and
  * near-cream in dark, and a fixed swatch would vanish against one of them.
  * The real accent values live in index.css as `[data-theme][data-mode]`.
+ *
+ * `swatchTo` marks a gradient accent (accent and glow are different hues); the
+ * pickers paint it with `swatchBackground()` so the option shows both colours.
  */
 export const THEMES = [
   {
@@ -27,7 +30,50 @@ export const THEMES = [
     label: "Tinta",
     swatch: { light: "#1C1917", dark: "#EDE6DA" },
   },
+  {
+    id: "solar",
+    label: "Solar · naranja a amarillo",
+    swatch: { light: "#C2410C", dark: "#FB923C" },
+    swatchTo: { light: "#A16207", dark: "#FACC15" },
+  },
+  {
+    id: "selva",
+    label: "Selva · verde a lima",
+    swatch: { light: "#15803D", dark: "#22C55E" },
+    swatchTo: { light: "#4D7C0F", dark: "#A3E635" },
+  },
+  {
+    id: "aurora",
+    label: "Aurora · violeta a turquesa",
+    swatch: { light: "#6D28D9", dark: "#A78BFA" },
+    swatchTo: { light: "#0E7490", dark: "#22D3EE" },
+  },
+  {
+    id: "atardecer",
+    label: "Atardecer · rosa a naranja",
+    swatch: { light: "#BE185D", dark: "#F472B6" },
+    swatchTo: { light: "#C2410C", dark: "#FB923C" },
+  },
+  {
+    id: "oceano",
+    label: "Océano · azul a verde agua",
+    swatch: { light: "#1D4ED8", dark: "#60A5FA" },
+    swatchTo: { light: "#0F766E", dark: "#2DD4BF" },
+  },
+  {
+    id: "galaxia",
+    label: "Galaxia · fucsia a índigo",
+    swatch: { light: "#A21CAF", dark: "#E879F9" },
+    swatchTo: { light: "#4338CA", dark: "#818CF8" },
+  },
 ];
+
+/** CSS background for a picker swatch: a gradient for gradient accents. */
+export function swatchBackground(option, mode) {
+  const from = option.swatch[mode];
+  const to = option.swatchTo?.[mode];
+  return to ? `linear-gradient(135deg, ${from}, ${to})` : from;
+}
 
 export const MODES = ["light", "dark"];
 

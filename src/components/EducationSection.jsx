@@ -1,16 +1,10 @@
 import { useCallback, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
-import {
-  Award,
-  BarChart3,
-  Brain,
-  Check,
-  Cloud,
-  ExternalLink,
-  Sparkles,
-  Target,
-} from "lucide-react";
+import { ExternalLink } from "lucide-react";
+import { EASE_OUT } from "../lib/animation/doodle.js";
+import DoodleIcon, { doodle } from "./doodles/DoodleIcon.jsx";
+import Tape from "./doodles/Tape.jsx";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 import graduationImg from "../assets/graduation.webp";
@@ -19,24 +13,26 @@ import graduationImg from "../assets/graduation.webp";
  * EducationSection
  *
  * 2-column credentials showcase (stacks on <lg):
- *  - Left: "credential hero card" — chips on top, graduation image
- *    in the middle, 2 featured credential links below. Premium
- *    group-hover (border, shadow, image scale, cred lift).
- *  - Right: tabs (AI / Product / Data / Cloud) with bento-style
- *    credential panel — featured cert + mix of linked credentials
- *    and capability badges.
+ *  - Left: the graduation photo as a taped polaroid — chips on top,
+ *    2 featured credential links below.
+ *  - Right: a taped sheet with tabs (AI / Product / Data / Cloud); the
+ *    active tab is a sticker. Each panel: featured cert + a mix of
+ *    linked credentials and capability checks.
  */
 
 const TAB_ICONS = {
-  ai: Brain,
-  product: Target,
-  data: BarChart3,
-  cloud: Cloud,
+  ai: doodle("brain"),
+  product: doodle("target"),
+  data: doodle("chart"),
+  cloud: doodle("cloud"),
 };
 
 function getTabIcon(id) {
-  return TAB_ICONS[id] || Sparkles;
+  return TAB_ICONS[id] || doodle("sparkle");
 }
+
+// Hover lift only where a real pointer hovers (sticky after a tap on touch).
+const FINE_HOVER = "[@media(hover:hover)_and_(pointer:fine)]";
 
 export default function EducationSection() {
   const { t } = useLanguage();
@@ -72,15 +68,17 @@ export default function EducationSection() {
 function CredentialHeroCard({ e }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={REVEAL_VIEWPORT}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-ink-800 shadow-soft transition-all duration-300 hover:border-white/25"
-      style={{
-        willChange: "transform",
-      }}
+      transition={{ duration: 0.45, ease: EASE_OUT }}
+      className="lg:-rotate-1"
     >
+      {/* A polaroid taped to the page: paper frame, photo inset. The tape
+          needs the frame to not clip, so overflow-hidden lives on the photo. */}
+      <div className="group relative rounded-2xl border border-white/10 bg-ink-900 p-2.5 shadow-soft sm:p-3">
+      <Tape tilt={-4} />
+      <div className="relative overflow-hidden rounded-xl">
       {/* Graduation image fills the card — taller so it covers the
           full section height next to the tabs panel on desktop. */}
       <img
@@ -90,7 +88,7 @@ function CredentialHeroCard({ e }) {
         decoding="async"
         width="1200"
         height="640"
-        className="h-[520px] w-full object-cover brightness-95 transition-transform duration-500 will-change-transform group-hover:scale-[1.02] md:h-[580px] lg:h-[600px]"
+        className={`h-[500px] w-full object-cover brightness-95 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${FINE_HOVER}:group-hover:scale-[1.02] md:h-[560px] lg:h-[580px]`}
       />
 
       {/* Always-visible overlay — stats on top, featured credentials at
@@ -109,20 +107,6 @@ function CredentialHeroCard({ e }) {
           aria-hidden
           data-effect="light-only"
           className="absolute inset-0 bg-gradient-to-b from-[rgb(28_25_23/0.18)] via-transparent to-[rgb(28_25_23/0.45)]"
-        />
-
-        {/* Subtle accent glows in the corners */}
-        <div
-          aria-hidden
-          data-effect="dark-only"
-          className="pointer-events-none absolute -right-16 -top-16 h-52 w-52 rounded-full opacity-45 blur-3xl"
-          style={{ background: "rgb(var(--accent) / 0.32)" }}
-        />
-        <div
-          aria-hidden
-          data-effect="dark-only"
-          className="pointer-events-none absolute -bottom-20 -left-16 h-48 w-48 rounded-full opacity-35 blur-3xl"
-          style={{ background: "rgb(var(--accent-glow) / 0.25)" }}
         />
 
         {/* Stats — top */}
@@ -154,10 +138,10 @@ function CredentialHeroCard({ e }) {
                   className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/[0.1]"
                   style={{ color: "rgb(var(--accent-soft))" }}
                 >
-                  <Award aria-hidden className="h-4 w-4" />
+                  <DoodleIcon name="ribbon" className="h-5 w-5" />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-white/60">
+                  <p className="truncate text-xs font-semibold uppercase tracking-[0.12em] text-white/60">
                     {e.verifyLabel}
                   </p>
                   <p className="mt-0.5 truncate text-sm font-semibold text-white">
@@ -172,6 +156,8 @@ function CredentialHeroCard({ e }) {
             ))}
           </div>
         )}
+      </div>
+      </div>
       </div>
     </motion.div>
   );
@@ -207,17 +193,18 @@ function CredentialTabsPanel({ e, activeTabId, onChange }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={REVEAL_VIEWPORT}
-      transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-3xl border border-white/10 bg-white/[0.025] p-3 shadow-soft md:p-4"
+      transition={{ duration: 0.45, delay: 0.06, ease: EASE_OUT }}
+      className="relative rounded-2xl border border-white/10 bg-ink-900 p-3 pt-6 shadow-soft md:p-4 md:pt-7"
     >
+      <Tape tilt={3} />
       {/* Tablist (segmented) */}
       <div
         role="tablist"
         aria-label={e.eyebrow}
-        className="flex flex-wrap gap-1 rounded-2xl bg-white/[0.03] p-1"
+        className="flex flex-wrap gap-1.5 p-1"
         onKeyDown={handleTabKeyDown}
       >
         {e.tabs.map((tab) => {
@@ -234,19 +221,13 @@ function CredentialTabsPanel({ e, activeTabId, onChange }) {
               tabIndex={isActive ? 0 : -1}
               onClick={() => onChange(tab.id)}
               className={
-                "relative flex flex-1 min-w-[64px] items-center justify-center gap-2 rounded-xl px-3 py-2 after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] text-[11px] font-semibold uppercase tracking-[0.16em] transition " +
+                "relative flex flex-1 min-w-[64px] items-center justify-center gap-2 rounded-lg px-3 py-2 after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] text-xs font-bold uppercase tracking-[0.08em] transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.97] " +
                 (isActive
-                  ? "bg-white/[0.08] text-white shadow-soft"
-                  : "text-white/55 hover:bg-white/[0.04] hover:text-white/85")
+                  ? "-rotate-1 bg-accent text-on-accent shadow-soft"
+                  : "text-white/60 hover:bg-white/[0.05] hover:text-white/85")
               }
             >
-              <Icon
-                aria-hidden
-                className="h-3.5 w-3.5"
-                style={{
-                  color: isActive ? "rgb(var(--accent-soft))" : "currentColor",
-                }}
-              />
+              <Icon aria-hidden className="h-4 w-4" strokeWidth={2.3} />
               <span>{tab.label}</span>
             </button>
           );
@@ -258,22 +239,17 @@ function CredentialTabsPanel({ e, activeTabId, onChange }) {
         id={`edu-tab-panel-${activeTab.id}`}
         role="tabpanel"
         aria-labelledby={`edu-tab-${activeTab.id}`}
-        className="relative mt-3 overflow-hidden rounded-2xl border border-white/[0.06] bg-gradient-to-br from-white/[0.04] to-white/[0.01] p-5 md:p-6"
+        className="relative mt-2 p-3 md:p-4"
         style={{ minHeight: "460px" }}
       >
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full opacity-50 blur-3xl"
-          style={{ background: "rgb(var(--accent) / 0.25)" }}
-        />
 
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab.id}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, y: -4, transition: { duration: 0.12 } }}
+            transition={{ duration: 0.22, ease: EASE_OUT }}
             className="relative"
           >
             <CredentialBento tab={activeTab} featuredLabel={e.featuredLabel} />
@@ -293,22 +269,16 @@ function CredentialBento({ tab, featuredLabel }) {
       <div className="flex items-start gap-3">
         <span
           aria-hidden
-          className="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-white shadow-glow"
-          style={{
-            background:
-              "linear-gradient(135deg, rgb(var(--accent) / 0.5), rgb(var(--accent-glow) / 0.3))",
-          }}
+          className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/[0.06]"
+          style={{ color: "rgb(var(--accent-soft))" }}
         >
-          <HeroIcon aria-hidden className="h-6 w-6" />
+          <HeroIcon aria-hidden className="h-7 w-7" draw />
         </span>
         <div className="min-w-0">
-          <p
-            className="text-[11px] font-semibold uppercase tracking-[0.22em]"
-            style={{ color: "rgb(var(--accent-soft))" }}
-          >
+          <p className="font-hand text-xl font-bold leading-none" style={{ color: "rgb(var(--accent-soft))" }}>
             {tab.category}
           </p>
-          <h3 className="mt-1 text-xl font-semibold tracking-tight text-white">
+          <h3 className="mt-1 font-display text-xl font-semibold tracking-tight text-white">
             {tab.title}
           </h3>
         </div>
@@ -316,14 +286,14 @@ function CredentialBento({ tab, featuredLabel }) {
 
       {/* Featured credential */}
       {tab.featured && (
-        <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.04] p-4">
+        <div className="mt-5 rounded-xl border-2 border-dashed p-4" style={{ borderColor: "rgb(var(--accent-glow) / 0.45)" }}>
           <div className="flex items-center gap-2">
-            <Award
-              aria-hidden
-              className="h-3.5 w-3.5"
+            <DoodleIcon
+              name="ribbon"
+              className="h-4 w-4"
               style={{ color: "rgb(var(--accent-soft))" }}
             />
-            <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/55">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-white/55">
               {featuredLabel}
             </p>
           </div>
@@ -343,14 +313,14 @@ function CredentialBento({ tab, featuredLabel }) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={item.label}
-                className="group flex items-start gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.03] px-3 py-2.5 transition hover:border-white/25 hover:bg-white/[0.06]"
+                className="group flex items-start gap-2.5 rounded-xl border border-white/10 px-3 py-2.5 transition-[border-color,background-color,transform] duration-150 ease-out active:scale-[0.98] hover:border-white/25 hover:bg-white/[0.04]"
               >
                 <span
                   aria-hidden
-                  className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md bg-white/[0.06]"
+                  className="mt-0.5 shrink-0"
                   style={{ color: "rgb(var(--accent-soft))" }}
                 >
-                  <Award aria-hidden className="h-3 w-3" />
+                  <DoodleIcon name="ribbon" className="h-4 w-4" />
                 </span>
                 <span className="flex-1 text-sm leading-snug text-white/85">
                   {item.label}
@@ -361,13 +331,13 @@ function CredentialBento({ tab, featuredLabel }) {
                 />
               </a>
             ) : (
-              <div className="flex items-start gap-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] px-3 py-2.5">
+              <div className="flex items-start gap-2.5 px-3 py-2.5">
                 <span
                   aria-hidden
-                  className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-md bg-white/[0.04]"
+                  className="mt-0.5 shrink-0"
                   style={{ color: "rgb(var(--accent-soft))" }}
                 >
-                  <Check aria-hidden className="h-3 w-3" />
+                  <DoodleIcon name="check" strokeWidth={2.6} className="h-4 w-4" />
                 </span>
                 <span className="text-sm leading-snug text-white/75">
                   {item.label}

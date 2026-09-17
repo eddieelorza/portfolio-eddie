@@ -4,6 +4,9 @@ import { useLanguage } from "../contexts/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 import { GradientWord } from "./AnimatedText.jsx";
 import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
+import { EASE_OUT } from "../lib/animation/doodle.js";
+import DoodleIcon from "./doodles/DoodleIcon.jsx";
+import Tape from "./doodles/Tape.jsx";
 import coderVideoHevc from "../assets/eddie-coder.mov";
 import coderVideoWebm from "../assets/eddie-coder.webm";
 import coderPoster from "../assets/eddie-coder-poster.webp";
@@ -11,11 +14,11 @@ import avatarImg from "../assets/avatar.webp";
 
 const tagsContainer = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.14, delayChildren: 0.05 } },
+  visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
 };
 
 const tagSharpen = {
-  hidden: { opacity: 0, scale: 0.9, rotate: -4 },
+  hidden: { opacity: 0, scale: 0.94, rotate: -3 },
   visible: {
     opacity: 1,
     scale: 1,
@@ -23,6 +26,10 @@ const tagSharpen = {
     transition: { type: "spring", stiffness: 420, damping: 18 },
   },
 };
+
+// One doodle per focus tag, by position (tags are translated, so the text
+// cannot be the key). Keep in the same order as t.about.tags.
+const TAG_DOODLES = ["layers", "card", "sparkle", "star"];
 
 // Keywords highlighted with GradientWord. Lowercased + simple punctuation
 // stripped at match time so we hit "producto" inside "producto,".
@@ -88,62 +95,69 @@ export default function About() {
       <div className="container-page">
         <SectionHeading eyebrow={t.about.eyebrow} title={t.about.title} />
 
-        <div className="mx-auto grid max-w-5xl items-start gap-10 md:grid-cols-2">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={REVEAL_VIEWPORT}
-            transition={{ duration: 0.6 }}
-            className="space-y-5 text-base leading-relaxed text-white/70"
-          >
-            <p>
-              <HighlightedText>{t.about.p1}</HighlightedText>
-            </p>
-            <p>
-              <HighlightedText>{t.about.p2}</HighlightedText>
-            </p>
-            {t.about.p3 && (
+        {/* Illustration first (who), then the story (what), then the four
+            focus areas as one full-width strip underneath — each row balanced
+            on its own instead of stacking unequal columns. */}
+        <div className="mx-auto max-w-5xl">
+          <div className="grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
+            <div className="relative">
+              <Polaroid alt={t.about.photoAlt} caption={t.about.photoCaption} />
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={REVEAL_VIEWPORT}
+              transition={{ duration: 0.45, ease: EASE_OUT }}
+              className="space-y-5 text-base leading-relaxed text-white/70 md:text-[1.05rem]"
+            >
               <p>
-                <HighlightedText>{t.about.p3}</HighlightedText>
+                <HighlightedText>{t.about.p1}</HighlightedText>
               </p>
-            )}
-          </motion.div>
-
-          <div className="relative">
-          <Polaroid alt={t.about.photoAlt} caption={t.about.photoCaption} />
+              <p>
+                <HighlightedText>{t.about.p2}</HighlightedText>
+              </p>
+              {t.about.p3 && (
+                <p>
+                  <HighlightedText>{t.about.p3}</HighlightedText>
+                </p>
+              )}
+            </motion.div>
+          </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="card edge-glow shimmer-border relative z-0"
+            transition={{ duration: 0.4, delay: 0.08, ease: EASE_OUT }}
+            className="relative mt-14 rounded-2xl border border-white/10 bg-ink-900 px-5 py-2 shadow-soft md:mt-16 md:px-4 md:py-5"
           >
+            <Tape tilt={-3} />
             <motion.ul
               variants={tagsContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ ...REVEAL_VIEWPORT, amount: 0.15 }}
-              className="space-y-3"
+              className="grid grid-cols-1 divide-y-2 divide-dashed divide-white/10 sm:grid-cols-2 sm:divide-y-0 md:grid-cols-4 md:divide-x-2"
             >
-              {t.about.tags.map((tag) => (
+              {t.about.tags.map((tag, i) => (
                 <motion.li
                   key={tag}
                   variants={tagSharpen}
-                  className="flex items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3"
+                  className="flex items-center gap-3 py-3.5 sm:px-4 md:flex-col md:justify-center md:gap-2.5 md:py-1 md:text-center"
                 >
                   <span
-                    className="h-2 w-2 rounded-full"
-                    style={{ backgroundColor: "rgb(var(--accent))" }}
-                  />
-                  <span className="text-sm font-medium text-white/85">
-                    {tag}
+                    aria-hidden
+                    className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/[0.06]"
+                    style={{ color: "rgb(var(--accent-soft))" }}
+                  >
+                    <DoodleIcon name={TAG_DOODLES[i] ?? "check"} strokeWidth={2.1} draw delay={0.15 + i * 0.06} className="h-5 w-5" />
                   </span>
+                  <span className="font-display text-base font-semibold leading-snug text-white">{tag}</span>
                 </motion.li>
               ))}
             </motion.ul>
           </motion.div>
-          </div>
         </div>
       </div>
     </section>
@@ -224,7 +238,7 @@ function Polaroid({ alt, caption }) {
       whileInView={{ opacity: 1, y: 0, rotate: 0 }}
       viewport={REVEAL_VIEWPORT}
       transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-      className="relative z-10 mx-auto mb-10 w-full max-w-[440px]"
+      className="relative z-10 mx-auto w-full max-w-[440px]"
     >
       <div
         aria-hidden
