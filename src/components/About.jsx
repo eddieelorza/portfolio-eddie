@@ -1,9 +1,13 @@
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
 import { GradientWord } from "./AnimatedText.jsx";
 import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
+import coderVideoHevc from "../assets/eddie-coder.mov";
+import coderVideoWebm from "../assets/eddie-coder.webm";
+import coderPoster from "../assets/eddie-coder-poster.webp";
+import avatarImg from "../assets/avatar.webp";
 
 const tagsContainer = {
   hidden: {},
@@ -11,12 +15,12 @@ const tagsContainer = {
 };
 
 const tagSharpen = {
-  hidden: { opacity: 0, y: 14, scale: 0.97 },
+  hidden: { opacity: 0, scale: 0.9, rotate: -4 },
   visible: {
     opacity: 1,
-    y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    rotate: 0,
+    transition: { type: "spring", stiffness: 420, damping: 18 },
   },
 };
 
@@ -105,12 +109,15 @@ export default function About() {
             )}
           </motion.div>
 
+          <div className="relative">
+          <Polaroid alt={t.about.photoAlt} caption={t.about.photoCaption} />
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="card edge-glow shimmer-border"
+            className="card edge-glow shimmer-border relative z-0"
           >
             <motion.ul
               variants={tagsContainer}
@@ -136,8 +143,72 @@ export default function About() {
               ))}
             </motion.ul>
           </motion.div>
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+/*
+ * The marker portrait, animated as a looping video with a transparent
+ * background (black keyed out and the generator watermark erased offline).
+ * Safari only plays alpha from HEVC, Chrome/Firefox from VP9 WebM; Chrome
+ * skips the QuickTime source, so the order matters.
+ * Reduced motion: no autoplay, the poster frame stays still.
+ * Lands with a small settle when it scrolls into view.
+ */
+function Polaroid({ alt, caption }) {
+  const reduceMotion = useReducedMotion();
+  return (
+    <motion.figure
+      initial={{ opacity: 0, y: 24, rotate: -4 }}
+      whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+      viewport={REVEAL_VIEWPORT}
+      transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+      className="relative z-10 mx-auto mb-10 w-full max-w-[440px]"
+    >
+      <div
+        aria-hidden
+        className="absolute inset-[8%] rounded-full opacity-50 blur-3xl"
+        style={{
+          background:
+            "linear-gradient(135deg, rgb(var(--accent) / 0.35), rgb(var(--accent-glow) / 0.35))",
+          transform: "translateZ(0)",
+        }}
+      />
+      <video
+        poster={coderPoster}
+        autoPlay={!reduceMotion}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label={alt}
+        width="720"
+        height="596"
+        className="relative block h-auto w-full"
+      >
+        <source src={coderVideoHevc} type='video/quicktime; codecs="hvc1"' />
+        <source src={coderVideoWebm} type="video/webm" />
+      </video>
+
+      <figcaption className="absolute -bottom-4 left-1/2 -translate-x-1/2 -rotate-3">
+        <span
+          className="block whitespace-nowrap rounded-xl px-4 py-2 font-display text-base font-bold shadow-soft"
+          style={{ background: "rgb(var(--fg))", color: "rgb(var(--ink-950))" }}
+        >
+          {caption}
+        </span>
+      </figcaption>
+
+      <span
+        aria-hidden
+        className="absolute -bottom-6 right-0 grid aspect-square w-20 rotate-[10deg] place-items-center overflow-hidden rounded-full border-[3px] border-white shadow-soft"
+        style={{ background: "rgb(var(--ink-900))" }}
+      >
+        <img src={avatarImg} alt="" loading="lazy" width="80" height="80" className="h-full w-full object-contain" />
+      </span>
+    </motion.figure>
   );
 }

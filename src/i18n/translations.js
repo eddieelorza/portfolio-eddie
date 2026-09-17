@@ -36,6 +36,8 @@ export const translations = {
       p2: 'Mi trabajo cubre todo el ciclo: reglas de negocio, arquitectura, contratos de API, pruebas y operación. Cuando el proyecto lo necesita, escribo el PRD y construyo lo que define.',
       p3: 'Tengo una maestría en Inteligencia Artificial Aplicada y la certificación PSPO I. Trabajo con un enfoque AI First: uso agentes de IA en todo el desarrollo y llevo IA al producto donde aporta valor.',
       tags: ['Product Engineering', 'Fintech & Pagos', 'AI First', 'PSPO I · MSc AI'],
+      photoAlt: 'Ilustración de Eddie Elorza programando en su laptop',
+      photoCaption: 'Detrás del código',
     },
     experience: {
       eyebrow: 'Trayectoria',
@@ -1236,6 +1238,8 @@ export const translations = {
       p2: 'My work covers the full lifecycle: business rules, architecture, API contracts, testing and operations. When a project needs it, I write the PRD and then build what it defines.',
       p3: 'I hold an MSc in Applied Artificial Intelligence and the PSPO I certification. I work AI First: I use AI agents throughout development and bring AI into products where it adds value.',
       tags: ['Product Engineering', 'Fintech & Payments', 'AI First', 'PSPO I · MSc AI'],
+      photoAlt: 'Illustration of Eddie Elorza coding on his laptop',
+      photoCaption: 'Behind the code',
     },
     experience: {
       eyebrow: 'Career',
