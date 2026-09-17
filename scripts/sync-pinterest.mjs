@@ -91,6 +91,8 @@ async function fetchBoardPins() {
       items.push({
         id: pin.id,
         pin: `https://www.pinterest.com/pin/${pin.id}/`,
+        // A title set on the pin ("Paris") is written on the polaroid.
+        title: (pin.title || pin.grid_title || "").trim(),
         original,
         date: Number.isNaN(date.getTime()) ? null : date.toISOString(),
       });
@@ -131,7 +133,9 @@ const toHex = ({ r, g, b }) =>
 
 async function processPhoto(item, previous) {
   const files = WIDTHS.map((w) => path.join(OUT_DIR, `${item.id}-${w}.webp`));
-  if (previous && files.every(existsSync)) return { ...previous, pin: item.pin };
+  // Titles can be edited on Pinterest after the photo was processed.
+  const title = item.title ?? previous?.title ?? "";
+  if (previous && files.every(existsSync)) return { ...previous, pin: item.pin, title };
 
   // `rotate()` with no angle applies the EXIF orientation from the phone.
   const source = sharp(await download(item.original)).rotate();
@@ -149,6 +153,7 @@ async function processPhoto(item, previous) {
   return {
     id: item.id,
     pin: item.pin,
+    title,
     width: info.width,
     height: info.height,
     color: toHex(dominant),
