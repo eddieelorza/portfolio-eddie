@@ -1,26 +1,28 @@
 import { useEffect, useMemo, useState } from 'react';
 
 /**
- * Tracks which section is currently in view using IntersectionObserver.
+ * Tracks which section the reader is in: the one crossing a reading line
+ * placed `line` of the way down the viewport.
  *
- *  - Handles lazily-mounted sections (React.lazy + Suspense): a
- *    MutationObserver retries the lookup until every requested id is
- *    in the DOM, so sections that arrive late still get observed.
- *  - Picks the highest visible intersection ratio as "active".
+ * This used to pick the section with the highest IntersectionObserver ratio.
+ * A ratio is the share of the *section itself* that is visible, so near the
+ * end of a tall section (Cómo trabajo, Proyectos) a short neighbour peeking
+ * in scored higher and the nav jumped one item ahead. The reading line has
+ * no such bias: exactly one section crosses it.
  *
- * @param {string[]} sectionIds            Stable array of DOM ids to observe.
+ *  - Lazily-mounted sections (React.lazy + Suspense) need no retry logic:
+ *    ids are looked up on every check, and a ResizeObserver on <body>
+ *    re-checks when late sections change the page height.
+ *  - At the very bottom the last section wins even if it is too short to
+ *    reach the line.
+ *  - Checks are coalesced to one per frame.
+ *
+ * @param {string[]} sectionIds       Stable array of DOM ids, in page order.
  * @param {object}   [options]
- * @param {string}   [options.rootMargin]  IO rootMargin.
- * @param {number[]} [options.threshold]   IO thresholds.
- * @returns {string | null}                Id of the most-visible section.
+ * @param {number}   [options.line]   Reading line as a fraction of viewport height.
+ * @returns {string | null}           Id of the current section.
  */
-export default function useActiveSection(
-  sectionIds,
-  {
-    rootMargin = '-35% 0px -35% 0px',
-    threshold = [0, 0.1, 0.2, 0.4, 0.6, 0.8, 1],
-  } = {}
-) {
+export default function useActiveSection(sectionIds, { line = 0.35 } = {}) {
   const [active, setActive] = useState(null);
 
   // Serialise ids so the effect re-runs only when the actual set
@@ -28,83 +30,52 @@ export default function useActiveSection(
   const idsKey = useMemo(() => sectionIds.join(','), [sectionIds]);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-      return undefined;
-    }
+    if (typeof window === 'undefined') return undefined;
 
     const ids = idsKey.split(',');
-    const visibility = new Map();
-    let intersectionObserver = null;
-    let mutationObserver = null;
-    let cancelled = false;
+    let frame = 0;
 
-    function pickBest() {
-      let bestId = null;
-      let bestRatio = 0;
-      for (const [id, ratio] of visibility) {
-        if (ratio > bestRatio) {
-          bestRatio = ratio;
-          bestId = id;
-        }
-      }
-      if (bestRatio > 0 && bestId) setActive(bestId);
-    }
-
-    function attach(sections) {
-      intersectionObserver?.disconnect();
-      if (sections.length === 0) return;
-      intersectionObserver = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            visibility.set(entry.target.id, entry.intersectionRatio);
-          }
-          pickBest();
-        },
-        { rootMargin, threshold }
-      );
-      sections.forEach((section) =>
-        intersectionObserver.observe(section)
-      );
-    }
-
-    function findSections() {
-      return ids
+    function check() {
+      frame = 0;
+      const sections = ids
         .map((id) => document.getElementById(id))
         .filter(Boolean);
+      if (sections.length === 0) return;
+
+      const doc = document.documentElement;
+      const atBottom = window.innerHeight + window.scrollY >= doc.scrollHeight - 2;
+      if (atBottom) {
+        setActive(sections[sections.length - 1].id);
+        return;
+      }
+
+      const y = window.innerHeight * line;
+      let current = null;
+      for (const section of sections) {
+        if (section.getBoundingClientRect().top <= y) current = section.id;
+        else break;
+      }
+      setActive(current);
     }
 
-    // Initial pass — covers sections already in the DOM.
-    let sections = findSections();
-    attach(sections);
-
-    // If any section is missing (Suspense still streaming), keep
-    // watching the document until all expected ids exist, then
-    // re-attach the IntersectionObserver with the complete set.
-    if (sections.length < ids.length) {
-      mutationObserver = new MutationObserver(() => {
-        if (cancelled) return;
-        const next = findSections();
-        if (next.length > sections.length) {
-          sections = next;
-          attach(sections);
-        }
-        if (sections.length === ids.length) {
-          mutationObserver.disconnect();
-          mutationObserver = null;
-        }
-      });
-      mutationObserver.observe(document.body, {
-        childList: true,
-        subtree: true,
-      });
+    function schedule() {
+      if (!frame) frame = requestAnimationFrame(check);
     }
+
+    check();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    const resizeObserver =
+      'ResizeObserver' in window ? new ResizeObserver(schedule) : null;
+    resizeObserver?.observe(document.body);
 
     return () => {
-      cancelled = true;
-      intersectionObserver?.disconnect();
-      mutationObserver?.disconnect();
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      resizeObserver?.disconnect();
     };
-  }, [idsKey, rootMargin, threshold]);
+  }, [idsKey, line]);
 
   return active;
 }

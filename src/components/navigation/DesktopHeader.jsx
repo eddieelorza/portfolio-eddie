@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Code2 } from "lucide-react";
+import useMeasure from "react-use-measure";
 import { cn } from "../../lib/utils.js";
 import { useLanguage } from "../../contexts/LanguageContext.jsx";
 import useScrollState from "../../hooks/useScrollState.js";
@@ -36,6 +37,11 @@ const LAYOUT_DURATION = 0.35;
  * links follow focus — the toggles and CTA stay scrolled-only, because the
  * corner pill already holds the toggles and unmounting it while one of its
  * buttons has focus would drop focus to <body>.
+ *
+ * That leaves one state with both pieces on screen: focus in the nav at the
+ * top of the page. The full-width pill used to slide under the corner pill
+ * and the last links and the corner toggles overlapped, so the nav row then
+ * reserves the corner pill's measured width on the right.
  */
 export default function DesktopHeader() {
   const { t } = useLanguage();
@@ -44,6 +50,8 @@ export default function DesktopHeader() {
   const links = NAV_ITEMS.filter((item) => item.desktop);
   const [focusInNav, setFocusInNav] = useState(false);
   const expanded = scrolled || focusInNav;
+  const [cornerRef, corner] = useMeasure();
+  const reserveCorner = expanded && !scrolled;
 
   return (
     <motion.header
@@ -58,6 +66,7 @@ export default function DesktopHeader() {
         <AnimatePresence>
           {!scrolled && (
             <motion.div
+              ref={cornerRef}
               key="lang-corner"
               initial={{ opacity: 0, scale: 0.92, x: 8 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -72,7 +81,10 @@ export default function DesktopHeader() {
         </AnimatePresence>
 
         {/* Main pill — expands from logo-only to full nav. */}
-        <div className="flex justify-center">
+        <div
+          className="flex justify-center"
+          style={{ paddingRight: reserveCorner ? corner.width + 12 : 0 }}
+        >
           <motion.nav
             layout
             aria-label={t.a11y.primaryNav}
