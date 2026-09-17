@@ -20,7 +20,7 @@
           root.setAttribute('data-mode', mode === 'dark' ? 'dark' : 'light');
           root.setAttribute(
             'data-theme',
-            /^(terracota|azul|bosque|tinta)$/.test(theme) ? theme : 'terracota'
+            /^(terracota|azul|bosque|tinta|solar|selva|aurora|atardecer|oceano|galaxia)$/.test(theme) ? theme : 'terracota'
           );
           if (mode === 'dark') {
             document.querySelector('meta[name="theme-color"]').setAttribute('content', '#06060a');

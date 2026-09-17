@@ -87,7 +87,7 @@ export default function ThemeColorDock() {
       {/*
        * Desktop only. On phones the floating pill sat over the page's own
        * content and CTAs, and dragging it fought with scrolling; the header's
-       * MobileThemeMenu holds the same four swatches below lg.
+       * MobileThemeMenu holds the same swatches below lg.
        */}
       {ready && !isMobile && (
         <motion.div

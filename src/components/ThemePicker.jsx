@@ -1,4 +1,4 @@
-import { useTheme } from "../contexts/ThemeContext.jsx";
+import { swatchBackground, useTheme } from "../contexts/ThemeContext.jsx";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import FlowerMenu from "./ui/FlowerMenu.jsx";
 import { cn } from "../lib/utils.js";
@@ -31,8 +31,8 @@ export default function ThemePicker({ onOpenChange }) {
           }}
         >
           <span
-            className="block h-3.5 w-3.5 rounded-full"
-            style={{ backgroundColor: color }}
+            className="block h-[18px] w-[18px] rounded-full"
+            style={{ background: swatchBackground(t, mode) }}
           />
         </button>
       );

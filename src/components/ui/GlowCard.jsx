@@ -6,6 +6,12 @@ const glowColorMap = {
   azul: { base: 222, spread: 30 },
   bosque: { base: 138, spread: 30 },
   tinta: { base: 30, spread: 20 },
+  solar: { base: 35, spread: 25 },
+  selva: { base: 110, spread: 35 },
+  aurora: { base: 230, spread: 60 },
+  atardecer: { base: 350, spread: 40 },
+  oceano: { base: 200, spread: 40 },
+  galaxia: { base: 275, spread: 35 },
 };
 
 export default function GlowCard({
