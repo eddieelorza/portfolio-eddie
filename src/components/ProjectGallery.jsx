@@ -32,6 +32,12 @@ import octoOpcionesImg from "../assets/projects/octobile/boton-opciones.webp";
 import eosReviewImg from "../assets/projects/english-os/review-sitting.webp";
 import eosReaderImg from "../assets/projects/english-os/interactive-reader.webp";
 import eosStatsImg from "../assets/projects/english-os/stats-evidence.webp";
+import spineLandingImg from "../assets/projects/spine/landing.webp";
+import spineWhyImg from "../assets/projects/spine/why.webp";
+import spineGuardrailsImg from "../assets/projects/spine/guardrails.webp";
+import spineCheckImg from "../assets/projects/spine/check.webp";
+import spineArquitecturaImg from "../assets/projects/spine/arquitectura.webp";
+import spineAgentesImg from "../assets/projects/spine/agentes.webp";
 /**
  * Screens are keyed by name so translations.js stays free of asset imports:
  * each project lists `gallery: [{ image: "monto", caption }]` and the key is
@@ -74,6 +80,12 @@ export const PROJECT_IMAGES = {
   "eos-review": eosReviewImg,
   "eos-reader": eosReaderImg,
   "eos-stats": eosStatsImg,
+  "spine-landing": spineLandingImg,
+  "spine-why": spineWhyImg,
+  "spine-guardrails": spineGuardrailsImg,
+  "spine-check": spineCheckImg,
+  "spine-arquitectura": spineArquitecturaImg,
+  "spine-agentes": spineAgentesImg,
 };
 
 /**

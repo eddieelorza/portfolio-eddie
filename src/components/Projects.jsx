@@ -3,6 +3,7 @@ import {
   Boxes,
   Building2,
   CreditCard,
+  GitBranch,
   Languages,
   LayoutGrid,
   MessagesSquare,
@@ -23,6 +24,7 @@ const ICONS = [
   Building2, // Plataforma comercial hotelera — hotel group
   UtensilsCrossed, // Tastify — restaurants SaaS
   Languages, // English OS — study system
+  GitBranch, // Spine — product reasoning graph in git
   CreditCard, // Paga Fácil — payments platform
   Boxes, // Sistema Regional — independent microfrontends
   MessagesSquare, // Octobile — internal messaging app

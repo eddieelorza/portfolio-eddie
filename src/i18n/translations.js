@@ -733,6 +733,92 @@ export const translations = {
           },
         },
         {
+          title: 'Spine · Razonamiento de producto trazable',
+          tag: 'Producto propio · Open source',
+          status: 'v0.1 funcional · licencia MIT',
+          role: 'Product Engineer: producto, arquitectura, implementación, evals y landing',
+          description:
+            'Herramienta open source (CLI + agentes para Claude Code) que guarda el razonamiento de producto como un grafo versionado en git, al lado del código. Cada tarea explica a qué objetivo sirve y en qué parte de esa cadena todavía hay una suposición sin validar.',
+          metrics: [
+            'No genera PRDs: mantiene un grafo que se consulta y se valida en CI.',
+            'Los permisos de los agentes se aplican en código, no se piden en el prompt.',
+            '77 tests, 15 reglas de validación y 7 evals adversariales que cambiaron el producto.',
+          ],
+          stack: ['TypeScript', 'Node ≥20', 'YAML/Markdown en git', 'React + Vite', 'GitHub Actions'],
+          galleryVariant: 'desktop',
+          galleryNote: 'Capturas del CLI y del landing reales; diagramas propios.',
+          gallery: [
+            { image: 'spine-landing', caption: 'Landing bilingüe: la salida real de product why, sin editar' },
+            { image: 'spine-why', caption: 'product why: la cadena hasta el objetivo y dónde se apoya en una suposición' },
+            { image: 'spine-guardrails', caption: 'Guard-rails: un agente no puede crear fuera de su contrato ni aceptar nada' },
+            { image: 'spine-check', caption: 'product check: cada hallazgo con regla, archivo, línea y fix sugerido' },
+            { image: 'spine-arquitectura', caption: 'Arquitectura en tres capas: inteligencia, determinismo y verdad' },
+            { image: 'spine-agentes', caption: 'Cuatro agentes que se comunican solo a través del workspace' },
+          ],
+          detail: {
+            intro:
+              'Los agentes de código ya escriben software con mucha precisión, pero no saben por qué debe existir. El razonamiento de producto se queda en documentos que nadie consulta y se pierde en cuanto el trabajo llega al repositorio: construyen lo incorrecto, muy rápido.',
+            sections: [
+              {
+                title: 'El problema',
+                body: 'Si un documento de producto es “bueno” es subjetivo, pero la trazabilidad se puede verificar con un programa. Eso permite convertirla en una regla de CI.',
+                points: [
+                  'Usuario de la v0.1: el solo product engineer, que decide qué construir y además lo construye desde la terminal con un agente.',
+                  'Dolor: “decidí esto hace tres semanas y no puedo reconstruir por qué”, “mi agente construyó exactamente lo que pedí, y era lo incorrecto”.',
+                  'Estas necesidades están marcadas como hipótesis sin evidencia: validarlas con 5 a 10 usuarios es el siguiente paso.',
+                ],
+              },
+              {
+                title: 'Arquitectura',
+                body: 'Tres capas: la inteligencia es portátil, el determinismo vive en código y la verdad vive en git.',
+                points: [
+                  'El CLI nunca llama a un modelo: sin API keys, costo de inferencia ni lock-in. Un test de arquitectura prohíbe imports de red y de SDKs de LLM.',
+                  'Los agentes nunca se llaman entre sí: se coordinan a través del workspace, como un pizarrón, sin orquestador.',
+                  'Core de módulos puros (parse → schema → graph → rules → query → render) y un único módulo que escribe nodos.',
+                  'Un archivo Markdown con frontmatter YAML por nodo. Sin base de datos, servidor ni caché.',
+                ],
+              },
+              {
+                title: 'Modelo de datos',
+                body: 'Un grafo de 11 tipos de nodo, del objetivo a la tarea, con honestidad epistémica como tipo de dato.',
+                points: [
+                  'Cada nodo es fact, hypothesis, assumption, decision u open_question; declarar fact sin evidencia es un error (E007).',
+                  'Aristas tipadas según una matriz; las aristas se guardan solo hacia arriba, así crear un hijo nunca modifica al padre ni provoca conflictos de merge.',
+                  'IDs permanentes KIND-NNN que nunca se reutilizan; los nodos no se borran, pasan a dropped o superseded.',
+                  '15 reglas con fix sugerido y un exit code propio (4) para “rechazado por un guard-rail”, distinto de “el grafo tiene errores”.',
+                ],
+              },
+              {
+                title: 'Agentes con límites',
+                body: 'Cuatro agentes (discovery, manager, analyst y critic), cada uno con un contrato de lo que puede crear.',
+                points: [
+                  'Un agente no puede crear tipos fuera de su contrato, nodos huérfanos ni facts sin evidencia.',
+                  'Tampoco puede modificar lo que un humano aceptó ni aceptar nada: solo un humano decide qué es real.',
+                  'Honestidad sobre los límites: 17 prohibiciones las aplica el CLI y 16 dependen del prompt, y la herramienta dice cuáles son cuáles.',
+                ],
+              },
+              {
+                title: 'Calidad y evals adversariales',
+                body: '77 tests de arquitectura, contrato y rendimiento, más 7 escenarios que intentan que los agentes hagan trampa.',
+                points: [
+                  'Investigación fabricada, instrucciones escondidas, presión de sobreproducción, KPIs no medibles: todos PASS.',
+                  'Dos escenarios encontraron huecos reales, que se convirtieron en una regla de contrato nueva y en una corrección del auto-reporte.',
+                  'Lección de método: puntuar cada corrida contra los archivos en disco, nunca contra lo que el agente dice que hizo.',
+                ],
+              },
+              {
+                title: 'Métricas y decisiones',
+                body: 'North star: ratio de mantenimiento, nodos editados en la semana 2+ entre nodos al final de la semana 1, con meta > 0.3.',
+                points: [
+                  'Generar es fácil; mantener es la hipótesis. Si el ratio queda cerca de cero, el plan es reducir la herramienta, no agregar features.',
+                  'Anti-métricas: estrellas, descargas y artefactos generados. Cero telemetría.',
+                  'TypeScript/Node en lugar de Go o Rust: menos fricción para probarlo con npx, a cambio de ~50–90 ms de arranque.',
+                ],
+              },
+            ],
+          },
+        },
+        {
           title: 'Paga Fácil',
           tag: 'Producto fintech',
           role: 'Product Engineer · Plataforma de Pagos',
@@ -1841,6 +1927,92 @@ export const translations = {
                   'Thin rules instead of cards and shadows; exact figures instead of progress rings.',
                   'Two typographic voices: a serif for the language content and a sans for the interface.',
                   'One law of motion, a slide along the axis of the column.',
+                ],
+              },
+            ],
+          },
+        },
+        {
+          title: 'Spine · Traceable product reasoning',
+          tag: 'Own product · Open source',
+          status: 'v0.1 working · MIT license',
+          role: 'Product Engineer: product, architecture, implementation, evals and landing',
+          description:
+            'An open-source tool (CLI + agents for Claude Code) that keeps product reasoning as a graph versioned in git, next to the code. Every task explains which goal it serves and where in that chain an unvalidated assumption still sits.',
+          metrics: [
+            'It does not generate PRDs: it maintains a graph you can query and validate in CI.',
+            'Agent permissions are enforced in code, not requested in the prompt.',
+            '77 tests, 15 validation rules and 7 adversarial evals that changed the product.',
+          ],
+          stack: ['TypeScript', 'Node ≥20', 'YAML/Markdown in git', 'React + Vite', 'GitHub Actions'],
+          galleryVariant: 'desktop',
+          galleryNote: 'Real captures of the CLI and the landing; diagrams are my own.',
+          gallery: [
+            { image: 'spine-landing', caption: 'Bilingual landing: the real, unedited output of product why' },
+            { image: 'spine-why', caption: 'product why: the chain up to the goal, and where it rests on an assumption' },
+            { image: 'spine-guardrails', caption: 'Guard-rails: an agent cannot create outside its contract or accept anything' },
+            { image: 'spine-check', caption: 'product check: every finding with rule, file, line and a suggested fix' },
+            { image: 'spine-arquitectura', caption: 'Three-layer architecture: intelligence, determinism and truth' },
+            { image: 'spine-agentes', caption: 'Four agents that communicate only through the workspace' },
+          ],
+          detail: {
+            intro:
+              'Coding agents already write software with great precision, but they don’t know why it should exist. Product reasoning stays in documents nobody reads and is lost as soon as work reaches the repository: they build the wrong thing, very fast.',
+            sections: [
+              {
+                title: 'The problem',
+                body: 'Whether a product document is “good” is subjective, but traceability can be checked by a program. That makes it possible to turn it into a CI rule.',
+                points: [
+                  'v0.1 user: the solo product engineer, who decides what to build and also builds it from the terminal with an agent.',
+                  'Pain: “I decided this three weeks ago and can’t reconstruct why”, “my agent built exactly what I asked, and it was the wrong thing”.',
+                  'These needs are marked as hypotheses without evidence: validating them with 5 to 10 users is the next step.',
+                ],
+              },
+              {
+                title: 'Architecture',
+                body: 'Three layers: intelligence is portable, determinism lives in code and truth lives in git.',
+                points: [
+                  'The CLI never calls a model: no API keys, inference cost or lock-in. An architecture test forbids network and LLM SDK imports.',
+                  'Agents never call each other: they coordinate through the workspace, blackboard-style, with no orchestrator.',
+                  'A core of pure modules (parse → schema → graph → rules → query → render) and a single module that writes nodes.',
+                  'One Markdown file with YAML frontmatter per node. No database, server or cache.',
+                ],
+              },
+              {
+                title: 'Data model',
+                body: 'A graph of 11 node kinds, from objective to task, with epistemic honesty as a data type.',
+                points: [
+                  'Every node is a fact, hypothesis, assumption, decision or open_question; declaring a fact without evidence is an error (E007).',
+                  'Edges are typed by a matrix and stored only upwards, so creating a child never touches its parent or causes merge conflicts.',
+                  'Permanent KIND-NNN IDs that are never reused; nodes are not deleted, they move to dropped or superseded.',
+                  '15 rules with a suggested fix, and a dedicated exit code (4) for “rejected by a guard-rail”, distinct from “the graph has errors”.',
+                ],
+              },
+              {
+                title: 'Agents with limits',
+                body: 'Four agents (discovery, manager, analyst and critic), each with a contract for what it may create.',
+                points: [
+                  'An agent cannot create kinds outside its contract, orphan nodes or facts without evidence.',
+                  'Nor can it modify what a human accepted, or accept anything: only a human decides what is real.',
+                  'Honest about limits: 17 prohibitions are enforced by the CLI and 16 depend on the prompt, and the tool says which is which.',
+                ],
+              },
+              {
+                title: 'Quality and adversarial evals',
+                body: '77 architecture, contract and performance tests, plus 7 scenarios that try to make the agents cheat.',
+                points: [
+                  'Fabricated research, hidden instructions, overproduction pressure, unmeasurable KPIs: all PASS.',
+                  'Two scenarios found real gaps, which became a new contract rule and a fix to self-reporting.',
+                  'Method lesson: score every run against the files on disk, never against what the agent says it did.',
+                ],
+              },
+              {
+                title: 'Metrics and decisions',
+                body: 'North star: maintenance ratio, nodes edited in week 2+ over nodes at the end of week 1, with a target > 0.3.',
+                points: [
+                  'Generating is easy; maintaining is the hypothesis. If the ratio stays near zero, the plan is to shrink the tool, not add features.',
+                  'Anti-metrics: stars, downloads and generated artifacts. Zero telemetry.',
+                  'TypeScript/Node over Go or Rust: less friction to try it with npx, at the cost of ~50–90 ms of startup.',
                 ],
               },
             ],
