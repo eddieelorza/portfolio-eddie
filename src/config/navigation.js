@@ -1,5 +1,6 @@
 import {
   Briefcase,
+  Camera,
   FolderKanban,
   GraduationCap,
   Layers,
@@ -26,6 +27,7 @@ export const NAV_ITEMS = [
   { id: 'producto',    labelKey: 'product',    icon: Workflow,       desktop: true,  bottomNav: true  },
   { id: 'estudios',    labelKey: 'education',  icon: GraduationCap,  desktop: true,  bottomNav: true  },
   { id: 'stack',       labelKey: 'stack',      icon: Layers,         desktop: true,  bottomNav: true  },
+  { id: 'personal',    labelKey: 'personal',   icon: Camera,         desktop: false, bottomNav: true  },
   { id: 'contact',     labelKey: 'contact',    icon: Mail,           desktop: false, bottomNav: true  },
 ];
 

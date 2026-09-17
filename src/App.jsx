@@ -18,6 +18,7 @@ const EducationSection = lazy(
 );
 const Projects = lazy(() => import("./components/Projects.jsx"));
 const TechStack = lazy(() => import("./components/TechStack.jsx"));
+const Personal = lazy(() => import("./components/Personal.jsx"));
 const Contact = lazy(() => import("./components/Contact.jsx"));
 const Footer = lazy(() => import("./components/Footer.jsx"));
 const ThemeColorDock = lazy(
@@ -163,6 +164,7 @@ export default function App() {
                 <ProductOperatingSystem />
                 <EducationSection />
                 <TechStack />
+                <Personal />
                 <Contact />
               </Suspense>
             </main>
