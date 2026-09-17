@@ -3,7 +3,7 @@ export const translations = {
     nav: {
       about: 'Sobre mí',
       experience: 'Experiencia',
-      product: 'Producto',
+      product: 'Cómo trabajo',
       education: 'Estudios',
       projects: 'Proyectos',
       stack: 'Stack',
@@ -11,38 +11,37 @@ export const translations = {
       cta: 'Hablemos',
     },
     hero: {
-      badge: 'Product Engineer · Arquitectura frontend · IA y transformación digital',
-      // Non-breaking space keeps 'para' with 'producto' on 375px phones.
-      title1: 'Construyo producto\u00a0para',
-      titleHighlight: 'pagos a escala',
+      badge: 'Software Engineer · Product Builder · Fintech & IA',
+      title1: 'Diseño y construyo',
+      titleHighlight: 'productos escalables',
       rotatingWords: [
-        'pagos a escala',
-        'operación financiera',
-        'automatización',
-        'equipos comerciales',
+        'productos escalables',
+        'experiencias premium',
+        'soluciones con IA',
+        'plataformas fintech',
       ],
-      title2: 'del discovery a producción.',
+      title2: 'end-to-end.',
       subtitle:
-        '6+ años entre fintech, pagos y operación. Entiendo el problema de negocio, lo traduzco en decisiones técnicas y lo llevo a producción — aplicando IA cuando aporta valor, y evitando complejidad cuando una solución determinística es suficiente.',
-      chips: ['MSc IA Aplicada', 'PSPO I', 'Fintech', 'IA y automatización'],
-      ctaProjects: 'Ver iniciativas',
+        'Software Engineer y Product Builder con 6+ años en fintech y pagos. Del problema de negocio a la arquitectura, el código y la operación, con un enfoque AI First.',
+      chips: ['MSc IA Aplicada', 'PSPO I', 'Fintech', 'AI First'],
+      ctaProjects: 'Ver proyectos',
       ctaContact: 'Hablemos',
       avatarLabel: 'El que construye el producto',
       photoLabel: 'El que lidera la ejecución',
     },
     about: {
       eyebrow: 'Sobre mí',
-      title: 'Producto e ingeniería, en partes iguales.',
-      p1: '6+ años construyendo producto en fintech, pagos y operación. En Paga Fácil lideré a un equipo fullstack de 5 personas —roadmap, backlog, Scrum, asignación de actividades y code reviews— sin dejar de desarrollar.',
-      p2: 'Trabajo en la intersección entre producto e ingeniería: traduzco necesidades de negocio en decisiones técnicas, prioridades de roadmap y entregas medibles. Colaboro cerca de operaciones, vendors y stakeholders.',
-      p3: 'MSc en Inteligencia Artificial Aplicada y PSPO I. Aplico IA y automatización para reducir esfuerzo operativo y mejorar la toma de decisiones.',
-      tags: ['Product Engineering', 'Fintech y pagos', 'IA y automatización', 'PSPO I · MSc IA'],
+      title: 'Software Engineer con mentalidad de producto.',
+      p1: 'Llevo más de 6 años construyendo software en fintech y pagos. En Paga Fácil lideré un equipo fullstack de cinco personas sin dejar de programar. Hoy construyo el back office de crédito en Clip, y construí y mantengo un CRM en producción para un grupo hotelero.',
+      p2: 'Mi trabajo cubre todo el ciclo: reglas de negocio, arquitectura, contratos de API, pruebas y operación. Cuando el proyecto lo necesita, escribo el PRD y construyo lo que define.',
+      p3: 'Tengo una maestría en Inteligencia Artificial Aplicada y la certificación PSPO I. Trabajo con un enfoque AI First: uso agentes de IA en todo el desarrollo y llevo IA al producto donde aporta valor.',
+      tags: ['Product Engineering', 'Fintech & Pagos', 'AI First', 'PSPO I · MSc AI'],
     },
     experience: {
       eyebrow: 'Experiencia',
-      title: 'Producto e ingeniería, en la misma trayectoria',
+      title: 'Seis años entre ingeniería y producto',
       description:
-        'Más de seis años alternando los dos lados del mismo problema: construir el sistema y decidir qué se construye. Cada rol lleva la etiqueta de desde dónde trabajé, producto o ingeniería.',
+        'De desarrollo web para clientes a plataformas de pagos y crédito, liderazgo técnico y productos en producción.',
       trackLabels: { prod: 'Producto', ing: 'Ingeniería' },
       phases: [
         'Web Developer',
@@ -58,32 +57,27 @@ export const translations = {
           period: 'Ago 2026 — Actualidad',
           track: ['ing'],
           summary:
-            'Producto de crédito y pagos con el equipo repartido entre México y China. Entro desde el análisis de sistema, así que la especificación se acuerda antes de que alguien escriba la pantalla.',
+            'Frontend del Back Office de crédito en un equipo distribuido entre México y China.',
           impact: [
-            'Llevo el frontend desde el análisis de sistema hasta la entrega, y traduzco los requerimientos de producto y diseño a especificaciones técnicas antes de que se escriba código.',
-            'Construyo el Back Office de crédito como microfrontend con React, TypeScript, Umi Max, Ant Design Pro y qiankun; cubre originación y servicing.',
-            'Defino contratos de API tipados con adapters y mocks, así el frontend avanza aunque el backend o el ambiente todavía no estén listos.',
-            'Uso Jest, Testing Library y Playwright, con test points y cobertura como criterio de entrega.',
-            'Diagnostico los fallos de integración entre host, microfrontends y backend: dependencias compartidas, runtime de React duplicado y contratos que cambiaron sin avisar.',
-            'Automatizo con agentes de IA la verificación de arquitectura y documentación, para que las inconsistencias aparezcan antes de la entrega.',
+            'Desarrollo microfrontends con React, TypeScript, Umi Max y qiankun para originación y servicing de crédito.',
+            'Defino contratos de API tipados con adapters y mocks para que el frontend avance sin esperar al backend.',
+            'Pruebo con Jest, Testing Library y Playwright, y diagnostico fallos de integración entre host, microfrontends y servicios.',
           ],
           tags: ['React', 'TypeScript', 'Microfrontends', 'Playwright'],
         },
         {
           company: 'Operadora SI · CRM hotelero',
-          role: 'Producto end-to-end · Discovery, diseño, desarrollo y operación',
+          role: 'Producto end-to-end · Proyecto para cliente',
           period: 'May 2026 — Actualidad',
           track: ['prod', 'ing'],
           summary:
-            'Producto propio de punta a punta con el cliente: hago el discovery, lo construyo, lo opero y atiendo sus tickets. En producción desde el 6 de septiembre de 2026 con 10 hoteles y 16 personas.',
+            'CRM a medida para un grupo de 10 hoteles, en producción desde septiembre de 2026.',
           impact: [
-            'El discovery cambió el encargo: pedían pantallas y el problema era que dirección no sabía si el equipo salía a la calle.',
-            'Justifiqué construir a la medida frente a HubSpot o Salesforce, porque diez hoteles con cartera propia, y una misma marca trabajada por varios, no caben en un CRM genérico.',
-            'Los permisos viven en la base, con RLS de Postgres, y una suite automática los revisa en cada cambio: nadie lee la cartera de otro hotel, ni armando la consulta a mano.',
-            '354 pull requests y 175 migraciones de base de datos; nada entra a producción sin revisión de tipos, reglas de acceso y build.',
-            'Pospuse la IA generativa a la fase 2 con una hipótesis explícita, que aporta valor solo con histórico suficiente, y dejé lista la arquitectura de datos.',
+            'Llevo el producto end-to-end: discovery, PRD, diseño, desarrollo y operación.',
+            'Implementé permisos por hotel y rol con RLS en Postgres, verificados con pruebas automáticas.',
+            'Prioricé el registro de visitas y el seguimiento comercial; la IA generativa quedó para una segunda fase.',
           ],
-          tags: ['Discovery', 'MVP', 'Build-vs-buy', 'Supabase (RLS)'],
+          tags: ['Discovery', 'PRD', 'Supabase · RLS', 'React'],
         },
         {
           company: 'Banco Azteca · Paga Fácil',
@@ -91,16 +85,14 @@ export const translations = {
           period: 'Ene 2025 — Mar 2026',
           track: ['prod', 'ing'],
           summary:
-            'La pasarela con la que un cliente de crédito paga en línea, dentro de una plataforma de ~6M de transacciones diarias. Lideré la iniciativa y a un equipo fullstack de 5 personas, del discovery a producción.',
+            'Pasarela para pagar créditos en línea. Lideré la iniciativa y a un equipo fullstack de 5 personas.',
           impact: [
-            'Migré la pasarela de Vue 2 a React como microfrontend federado con configuración de PWA, y con esa migración salió de on-premise a AWS.',
-            'Modelé el flujo de pago end-to-end en diagramas BPM y de secuencia antes de construirlo, con sus cuatro flujos de cobro: adquirente, billetera, gemas y pago inicial.',
-            'Gestioné el proyecto completo: roadmap, backlog, Scrum, asignación de actividades, revisión de avance y code reviews, sin dejar de desarrollar features nuevas y sobre el monolito.',
-            'Implementé la clave de idempotencia por intento de pago, así un reintento, un doble toque o una red caída no terminan en dos abonos al mismo crédito.',
-            'Prioricé el backlog por impacto en el cobro y sostuve los trade-offs frente a negocio, operación e ingeniería.',
-            'En el área de Abonos, fuera del producto, automaticé la resolución de incidencias: 500+ al día y ~6h → ~2h por ciclo (estimación operativa).',
+            'Gestioné roadmap, backlog, Scrum y code reviews sin dejar de desarrollar features.',
+            'Migré la pasarela de Vue 2 a React como microfrontend con Module Federation y PWA.',
+            'Implementé la clave de idempotencia por intento de pago para manejar reintentos sin duplicar abonos.',
+            'En el área de Abonos automaticé la resolución de incidencias.',
           ],
-          tags: ['Liderazgo', 'Pagos', 'Microfrontends', 'Automatización'],
+          tags: ['Liderazgo técnico', 'Pagos', 'React', 'Microfrontends'],
         },
         {
           company: 'Banco Azteca · Sistema Regional',
@@ -108,15 +100,11 @@ export const translations = {
           period: 'Dic 2023 — Ene 2025',
           track: ['ing'],
           summary:
-            'Volví a la plataforma a construir los módulos encima del core que yo mismo había levantado en la primera etapa.',
+            'Segunda etapa en la plataforma de crédito y cobranza: módulos sobre el core compartido.',
           impact: [
-            'Entregué los tres módulos en orden: portafolio por cliente, información crediticia del cliente y administración de usuarios.',
-            'El portafolio dejó la cartera navegable en tres niveles, gestor → cliente → pedido, con los totales de saldo y atraso siguiendo al nivel que se estuviera consultando.',
-            'Trabajé de la mano de un backend: primero entendíamos el contrato, yo montaba mocks contra él y seguía construyendo mientras llegaba la integración real de las APIs.',
-            'En administración de usuarios usé Context para lo transversal, catálogos y filtros que comparten varias pantallas; el estado de cada vista se quedó local.',
-            'Sostuve el core como base común (layout, login, tema y biblioteca de componentes) que los microfrontends consumen en tiempo de ejecución con Module Federation.',
-            'Actualicé a React 19 la plantilla base con la que arrancan los microfrontends nuevos.',
-            'Escribí pruebas con Jest y React Testing Library, e integré mis módulos a los controles del pipeline: tipos, análisis estático, escaneo de seguridad y despliegue.',
+            'Desarrollé portafolio por cliente, información crediticia y administración de usuarios.',
+            'Construí contra contratos y mocks acordados con backend mientras llegaba la integración real.',
+            'Mantuve el core y la plantilla base de microfrontends, y escribí pruebas con Jest y Testing Library.',
           ],
           tags: ['React', 'Module Federation', 'Testing', 'CI/CD'],
         },
@@ -126,15 +114,13 @@ export const translations = {
           period: 'Abr 2023 — Dic 2023',
           track: ['ing'],
           summary:
-            'Aplicaciones empresariales para proyectos de pensiones y banca. Entré a construir y acabé coordinando el frente de frontend.',
+            'Aplicaciones para proyectos de pensiones y banca con React, Java e integraciones por API.',
           impact: [
-            'Definí la arquitectura de frontend e implementé soluciones escalables con React, Java e integraciones por API.',
-            'Coordiné el día a día del frontend: prioridades, discusiones técnicas y lo que tuviera trabado al equipo.',
-            'Participé en producto: análisis de requerimientos, historias de usuario, backlog y definición de roadmap.',
-            'Subí el rendimiento de la aplicación con optimización de código y buenas prácticas de frontend, verificado con monitoreo.',
-            'Implementé prácticas de observabilidad para detectar las incidencias antes de que las reportara el usuario.',
+            'Coordiné prioridades y decisiones técnicas del frontend.',
+            'Participé en análisis de requerimientos, historias de usuario y backlog.',
+            'Trabajé en optimización de rendimiento y prácticas de observabilidad.',
           ],
-          tags: ['React', 'Java', 'Observabilidad', 'Agile'],
+          tags: ['React', 'Java', 'APIs', 'Observabilidad'],
         },
         {
           company: 'Banco Azteca · Sistema Regional',
@@ -142,33 +128,27 @@ export const translations = {
           period: 'Oct 2022 — Abr 2023',
           track: ['ing'],
           summary:
-            'La primera fase del proyecto: mantener vivo el monolito de crédito y cobranza mientras documentaba y construía encima la arquitectura que iba a reemplazarlo.',
+            'Primera etapa: mantener el sistema heredado mientras se construía la nueva base de microfrontends.',
           impact: [
-            'Daba mantenimiento al sistema heredado en JSP, jQuery y AJAX, y en paralelo levanté la arquitectura de microfrontends que lo iba a suceder.',
-            'Mapeé los diagramas y los contratos entre aplicaciones, maqueté las pantallas y armé la UI de esa primera fase.',
-            'Construí el core frontend, la base común que publica layout, login, tema, estilos y componentes con Module Federation para que cada módulo los consuma en tiempo de ejecución.',
-            'Cada entrega pasaba por la certificación interna del grupo, que revisa vulnerabilidades del repositorio, arquitectura y observabilidad.',
-            'Los módulos se mostraban embebidos en iframe dentro del sistema heredado, y la respuesta hacia el contenedor viajaba por postMessage.',
-            'Implementé testing y CI/CD para bajar el riesgo de cada release.',
+            'Di mantenimiento al sistema heredado en JSP, jQuery y AJAX.',
+            'Construí el core frontend: layout, login, tema y componentes compartidos con Module Federation.',
+            'Documenté los contratos entre aplicaciones y la integración de los módulos en el sistema heredado.',
           ],
-          tags: ['JSP → React', 'Module Federation', 'Arquitectura', 'Jest'],
+          tags: ['JSP → React', 'Module Federation', 'Core frontend', 'Documentación'],
         },
         {
           company: 'MRCI',
-          role: 'Product & Software Engineer · Product Owner de facto',
+          role: 'Product & Software Engineer',
           period: 'Nov 2021 — Oct 2022',
           track: ['prod', 'ing'],
           summary:
-            'Una empresa externa desarrollaba la mayor parte de Octobile, la app interna de mensajería, así que tomé los dos sombreros a la vez: coordinar a ese equipo y meter mano en el código.',
+            'Octobile, app interna de mensajería construida con un proveedor externo, y proyectos de e-commerce.',
           impact: [
-            'Llevé el roadmap, el backlog y las historias de usuario, y coordiné al equipo externo de concepto a producción.',
-            'Definí flujos, diagramas y criterios de aceptación; gestioné testing y revisión de bugs como puente entre negocio y los desarrolladores externos.',
-            'Di mantenimiento y construí componentes dentro de la app en React Native.',
-            'Monté la internacionalización de la versión web con react-i18next (un espacio de nombres por componente, archivos en.js y es.js, detección de idioma y fallback) y escribí los copys en español e inglés.',
-            'Construí e-commerce con foco en rendimiento, accesibilidad y UX, integrando APIs REST y componentes reutilizables.',
-            'Trabajé con el cliente para definir alcance y acompañé el ciclo completo: requerimientos, desarrollo, pruebas, releases y soporte.',
+            'Llevé roadmap, backlog, historias de usuario y criterios de aceptación con el proveedor.',
+            'Desarrollé componentes en React Native e implementé i18n en la versión web con react-i18next.',
+            'Coordiné pruebas y revisión de entregas hasta producción.',
           ],
-          tags: ['Product Ownership', 'Roadmap', 'React Native', 'i18n'],
+          tags: ['Roadmap', 'React Native', 'i18n', 'QA'],
         },
         {
           company: 'Lapbytes',
@@ -176,131 +156,148 @@ export const translations = {
           period: 'Ene 2020 — Nov 2021',
           track: ['ing'],
           summary:
-            'Mis primeros años entregando plataformas web y de e-commerce para clientes de industrias distintas, tratando con ellos de los requerimientos a la entrega.',
+            'Sitios y plataformas de e-commerce para clientes de distintas industrias.',
           impact: [
-            'Construí y mantuve ~6 plataformas web y de e-commerce con HTML, CSS, JavaScript y WordPress.',
-            'Traduje necesidades de negocio en soluciones digitales, tratando directo con el cliente.',
-            'Llevé varios proyectos en paralelo y entregué a tiempo los que se traslapaban.',
+            'Desarrollé y mantuve cerca de 6 plataformas con HTML, CSS, JavaScript y WordPress.',
+            'Trabajé directo con clientes, de requerimientos a entrega.',
           ],
-          tags: ['JavaScript', 'CSS', 'E-commerce', 'Clientes'],
+          tags: ['JavaScript', 'CSS', 'WordPress', 'E-commerce'],
         },
       ],
     },
     product: {
-      eyebrow: 'Product OS',
-      title: 'Mi forma de construir producto',
+      eyebrow: 'Método · AI First',
+      title: 'Cómo trabajo',
       description:
-        'Una forma de convertir retos fintech, IA y operación en productos escalables con impacto de negocio.',
-      relatedLabel: 'Capacidades relacionadas',
+        'Trabajo con un enfoque AI First: uso agentes de IA en todo el ciclo, del análisis al código y la revisión, y llevo IA al producto cuando aporta valor. Siete pasos, del problema a la operación.',
+      relatedLabel: 'Pasos relacionados',
       closeLabel: 'Cerrar',
       categories: {
-        core: 'Núcleo',
-        strategic: 'Estratégica',
-        'ai-enabled': 'Con IA',
-        execution: 'Ejecución',
+        problem: 'Paso 1',
+        scope: 'Paso 2',
+        solution: 'Paso 3',
+        plan: 'Paso 4',
+        build: 'Paso 5',
+        quality: 'Paso 6',
+        operate: 'Paso 7',
       },
       craft: {
-        title: 'El estándar que aplico en cada proyecto',
-        note: 'Cada punto con el ejemplo concreto de dónde lo apliqué.',
+        title: 'Estándares de ingeniería',
+        note: 'Lo que cuido al construir y operar software.',
         items: [
           {
             k: 'Arquitectura',
-            v: 'Core compartido y microfrontends federados que se despliegan por separado — y criterio para no separar cuando no hace falta.',
+            v: 'Módulos y microfrontends cuando el equipo y el despliegue lo justifican, con contratos claros entre piezas; una base simple cuando no.',
           },
           {
             k: 'Rendimiento',
-            v: 'Code splitting, lazy loading y caching en la PWA de pagos; en este mismo sitio, cada sección entra en su propio chunk y las capturas son WebP.',
+            v: 'Code splitting, lazy loading, caching y control de dependencias para que la aplicación cargue rápido también en dispositivos modestos.',
           },
           {
             k: 'Seguridad',
-            v: 'Permisos por fila en Postgres (RLS) verificados en cada cambio; análisis estático y de seguridad como fase propia, no como último paso.',
+            v: 'Permisos aplicados en el servidor y la base de datos, validación de entradas y análisis de seguridad como parte del flujo de entrega.',
           },
           {
             k: 'Confiabilidad',
-            v: 'Clave de idempotencia por intento de pago: si la red se cae, se consulta el estado del intento y se reintenta con la misma clave — nunca dos abonos.',
+            v: 'Reintentos idempotentes y estados de carga, vacío y error bien definidos, para que una falla no deje resultados ambiguos.',
           },
           {
             k: 'Observabilidad',
-            v: 'Un identificador por intento que va del front al servicio de pagos, más dashboards y KPIs de transacciones y errores en una plataforma de ~6M de operaciones diarias.',
+            v: 'Identificadores de correlación, logs y métricas de errores para diagnosticar problemas con datos, no a ciegas.',
           },
           {
             k: 'Testing',
-            v: 'Pruebas unitarias, de integración y end-to-end; en Sistema Regional dejé testing y CI/CD para bajar el riesgo de cada release.',
+            v: 'Pruebas unitarias, de integración y end-to-end enfocadas en el comportamiento que importa, integradas al pipeline de CI/CD.',
           },
           {
             k: 'Accesibilidad',
-            v: 'Este mismo sitio: foco visible, áreas táctiles de 44 px, contraste AA en los cuatro acentos y respeto a reduced-motion.',
+            v: 'Foco visible, navegación por teclado, áreas táctiles adecuadas, buen contraste y respeto a reduced-motion.',
           },
           {
             k: 'DevEx',
-            v: 'CI/CD por módulo: cada equipo despliega sin esperar al calendario del sistema que lo aloja.',
+            v: 'Plantillas, convenciones y documentación para que un módulo nuevo arranque rápido y cada equipo despliegue sin bloquear a otros.',
           },
           {
             k: 'Delivery',
-            v: 'Del discovery a producción: secuencié el MVP del CRM para validar el flujo crítico antes de invertir en lo secundario.',
+            v: 'Entregas incrementales: primero el flujo crítico, con alcance y criterios de aceptación claros.',
           },
           {
             k: 'Product Analytics',
-            v: 'Métricas que no engañan: el podio ordena por porcentaje de la meta propia y el pipeline se mide en oportunidades, no en pesos.',
+            v: 'Métricas ligadas al objetivo del producto, definidas antes de construir y fáciles de interpretar.',
           },
         ],
       },
       items: [
         {
-          id: 'payments',
-          title: 'Pagos & Fintech',
-          category: 'core',
+          id: 'problem',
+          short: 'Problema',
+          title: 'Entender el problema y las reglas de negocio',
+          category: 'problem',
           content:
-            'Construcción y evolución de productos de pago, flujos de checkout y procesos financieros en entornos de alto volumen.',
-          related: ['discovery', 'prioritization', 'delivery'],
+            'En el CRM hotelero, el punto de partida fue la operación comercial: visitas, metas distintas por puesto y convenios con vencimiento. Esas reglas definieron qué debía registrar y calcular el sistema.',
+          related: ['scope'],
         },
         {
-          id: 'discovery',
-          title: 'Product Discovery',
-          category: 'strategic',
+          id: 'scope',
+          short: 'Alcance',
+          title: 'Definir alcance y criterios',
+          category: 'scope',
           content:
-            'Conversión de dolores operativos, necesidades de usuario y restricciones de negocio en oportunidades de producto validadas.',
-          related: ['payments', 'prioritization', 'stakeholders'],
+            'Para el CRM escribí el PRD: problema, usuarios, los tres recorridos del MVP y lo que quedaba fuera, como la IA generativa. En Octobile, los flujos y criterios de aceptación definían qué debía incluir cada entrega.',
+          related: ['problem', 'solution'],
         },
         {
-          id: 'prioritization',
-          title: 'Priorización & Estrategia',
-          category: 'strategic',
+          id: 'solution',
+          short: 'Solución',
+          title: 'Analizar el sistema y diseñar la solución',
+          category: 'solution',
           content:
-            'Evaluación de trade-offs entre impacto de negocio, esfuerzo técnico, riesgo operativo y valor estratégico.',
-          related: ['discovery', 'payments', 'delivery'],
+            'En Paga Fácil modelé el flujo antes de construirlo, incluido el resultado incierto de un pago interrumpido. En Sistema Regional, la solución tuvo que convivir con el sistema heredado mediante un core compartido.',
+          related: ['scope', 'plan'],
         },
         {
-          id: 'ai',
-          title: 'Automatización con IA',
-          category: 'ai-enabled',
+          id: 'plan',
+          short: 'Plan',
+          title: 'Planear la entrega',
+          category: 'plan',
           content:
-            'Aplicación de IA y automatización para reducir trabajo manual, mejorar decisiones y escalar procesos operativos.',
-          related: ['discovery', 'stakeholders', 'delivery'],
+            'En Paga Fácil lideré un equipo de cinco personas: roadmap, backlog, Scrum, asignación de actividades y revisión de avance, sin dejar de desarrollar.',
+          related: ['solution', 'build'],
         },
         {
-          id: 'stakeholders',
-          title: 'Alineación de Stakeholders',
-          category: 'execution',
+          id: 'build',
+          short: 'Construcción',
+          title: 'Construir end-to-end',
+          category: 'build',
           content:
-            'Conexión entre negocio, operación, compliance e ingeniería alrededor de objetivos y prioridades compartidas.',
-          related: ['discovery', 'prioritization', 'ai'],
+            'En el CRM y en Tastify trabajé interfaz, base de datos y lógica de servidor: permisos en Postgres, migraciones y cálculo de importes en el servidor. En Paga Fácil desarrollé features nuevas y cambios sobre el monolito.',
+          related: ['plan', 'quality'],
         },
         {
-          id: 'delivery',
-          title: 'Product Delivery',
-          category: 'execution',
+          id: 'quality',
+          short: 'Calidad',
+          title: 'Asegurar calidad, seguridad y confiabilidad',
+          category: 'quality',
           content:
-            'Ejecución de iniciativas desde discovery hasta producción, balanceando escalabilidad, confiabilidad y valor de negocio.',
-          related: ['payments', 'prioritization', 'ai', 'stakeholders'],
+            'En el CRM, los permisos por hotel y rol se verifican con pruebas de acceso. En Paga Fácil implementé la clave de idempotencia por intento de pago, y la entrega pasó por pruebas, análisis estático y revisión de seguridad.',
+          related: ['build', 'operate'],
+        },
+        {
+          id: 'operate',
+          short: 'Operación',
+          title: 'Operar y medir',
+          category: 'operate',
+          content:
+            'El CRM está en producción: las solicitudes llegan como tickets dentro del sistema y el cumplimiento se mide contra la meta de cada persona. En Paga Fácil, un identificador por intento permite seguir cada transacción.',
+          related: ['quality'],
         },
       ],
     },
     education: {
-      eyebrow: 'Educación & Certificaciones',
-      title: 'Formación que impulsa mi impacto',
+      eyebrow: 'Educación',
+      title: 'Formación y certificaciones',
       description:
-        'Combinación estratégica de educación avanzada y certificaciones que respaldan mi enfoque en producto, IA, datos y ejecución técnica.',
+        'Maestría en IA Aplicada y certificaciones en producto, datos y cloud.',
       photoAlt:
         'Título de Maestría en Inteligencia Artificial Aplicada de Eddie Elorza',
       verifyLabel: 'Verificar',
@@ -356,7 +353,7 @@ export const translations = {
           id: 'data',
           label: 'Data',
           category: 'Analítica',
-          title: 'Decisiones basadas en datos',
+          title: 'Datos y analítica',
           featured: 'Data Science + Data Visualization',
           items: [
             {
@@ -401,18 +398,17 @@ export const translations = {
               label: 'Algoritmos JS · freeCodeCamp',
               href: 'https://www.freecodecamp.org/certification/eddieelorza/javascript-algorithms-and-data-structures',
             },
-            { label: 'Producto con visión cloud' },
           ],
         },
       ],
     },
     projects: {
-      eyebrow: 'Proyectos destacados',
+      eyebrow: 'Proyectos',
       viewLabel: 'Ver proyecto',
       noDemoLabel: 'Sistema interno · sin demo pública',
       newTabLabel: 'se abre en una pestaña nueva',
       detail: {
-        open: 'Ver detalle',
+        open: 'Ver recursos',
         keyPoints: 'Puntos clave',
         close: 'Cerrar',
         breadcrumb: 'Proyectos',
@@ -423,6 +419,11 @@ export const translations = {
           stack: 'Stack',
         },
       },
+      carousel: {
+        region: 'Proyectos',
+        prev: 'Proyecto anterior',
+        next: 'Siguiente proyecto',
+      },
       gallery: {
         open: 'Ampliar pantalla',
         note: 'Capturas con datos ficticios',
@@ -430,25 +431,23 @@ export const translations = {
         next: 'Siguiente',
         close: 'Cerrar',
       },
-      title: 'Iniciativas con impacto real',
+      title: 'Lo que he construido',
       description:
-        'Iniciativas donde combiné producto, ingeniería y liderazgo técnico para resolver problemas reales en pagos, crédito, hotelería y restaurantes.',
+        'Plataformas de pagos y crédito, un CRM en producción y productos propios con IA: el problema, mi rol y las decisiones técnicas.',
       items: [
         {
-          title: 'Plataforma de inteligencia comercial hotelera',
+          title: 'CRM comercial hotelero',
           tag: 'Producto · Cliente',
           status: 'En producción',
           role: 'Producto end-to-end',
           period: 'May 2026 — Actualidad',
-          href: 'https://claude.ai/artifact/1NdBmWQUNSSghuNwdmpTxv',
-          linkLabel: 'Ver caso de estudio',
           description:
             'CRM a medida para un grupo hotelero (Operadora SI) que reemplazó un Excel de cumplimiento de visitas. Producto end-to-end —discovery, diseño, desarrollo y operación—, en producción desde septiembre de 2026.',
           metrics: [
-            'Discovery: el dolor real era la falta de visibilidad comercial, no las pantallas pedidas — reorientó el roadmap.',
+            'Discovery: el problema de fondo era la falta de visibilidad comercial, no las pantallas pedidas; eso reorientó el roadmap.',
             'Build-vs-buy: justifiqué construir a la medida frente a HubSpot / Salesforce para un proceso comercial multi-hotel.',
-            'Permisos por fila en Postgres (RLS), verificados por una suite automática en cada cambio: nadie lee la cartera de otro hotel.',
-            'Metas justas: el podio ordena por % de la meta propia y el pipeline se mide en oportunidades, no en pesos.',
+            'Permisos por fila en Postgres (RLS), verificados por pruebas automáticas en cada cambio: cada hotel ve solo su cartera.',
+            'Metas comparables: el ranking ordena por % de la meta propia y el pipeline se mide en oportunidades, no en pesos.',
           ],
           stack: ['React', 'TypeScript', 'TanStack Query', 'Supabase · RLS', 'Vercel'],
           galleryVariant: 'desktop',
@@ -463,7 +462,7 @@ export const translations = {
           ],
           detail: {
             intro:
-              'Diez hoteles, cada uno con su cartera y su equipo. El valor no está en guardar datos: está en que dirección vea si el equipo sale a la calle y en que un ejecutivo no pierda una cuenta por olvido.',
+              'Diez hoteles, cada uno con su cartera y su equipo. El objetivo: que dirección tenga visibilidad de la actividad comercial y que cada ejecutivo lleve el seguimiento de sus cuentas.',
             sections: [
               {
                 title: 'El problema',
@@ -471,14 +470,14 @@ export const translations = {
                 points: [
                   'Una visita repetida contaba dos veces y una cuenta abandonada no se notaba hasta perderla.',
                   'Capturar una visita tenía que costar menos que anotarla en la hoja: el ejecutivo trabaja de pie, entre citas, desde el teléfono.',
-                  'Cada quien debía ver solo su cartera y su equipo; dirección, la respuesta a “¿cumplen?” sin pedirle un reporte a nadie.',
+                  'Cada quien debía ver solo su cartera y su equipo; dirección, el avance contra la meta sin pedir reportes.',
                 ],
               },
               {
                 title: 'Mi rol',
                 body: 'Producto end-to-end con el cliente: discovery, diseño, desarrollo, puesta en producción y operación. Trabajo solo, así que cada decisión de producto es también una decisión técnica.',
                 points: [
-                  'Discovery: el dolor real era la falta de visibilidad comercial, no las pantallas que pidieron. Eso reorientó el roadmap.',
+                  'Discovery: el problema de fondo era la falta de visibilidad comercial, no las pantallas que pidieron. Eso reorientó el roadmap.',
                   'Build-vs-buy: justifiqué construir a la medida frente a HubSpot o Salesforce para un proceso multi-hotel con cartera por propiedad.',
                   'Secuencié el MVP para validar el flujo crítico —registrar la visita— antes de invertir en lo secundario.',
                   'Dirección reporta fallos y mejoras con tickets dentro del mismo CRM; yo los atiendo y los libero.',
@@ -488,11 +487,11 @@ export const translations = {
                 title: 'Lo que resuelve',
                 body: 'Tres recorridos, en este orden: registrar una visita, saber qué toca hoy, y ver si el equipo cumple.',
                 points: [
-                  'Cumplimiento: la tabla que vivía en Excel, calculada desde las visitas registradas. Solo cuenta la visita verdadera: cita realizada y capturada el mismo día vale una vez.',
+                  'Cumplimiento: la tabla que vivía en Excel, calculada desde las visitas registradas. Cuenta la cita realizada y capturada el mismo día, una sola vez.',
                   'Equipo hoy: a dónde va cada quien, qué seguimientos se vencieron y qué cuentas llevan días paradas.',
                   'Pipeline en tres niveles: por hotel, por persona y tablero por etapa, con el pulso de cada cuenta en la tarjeta.',
-                  'Ficha de empresa: próximo paso, decisor y último contacto arriba; el historial con autor real de cada visita abajo.',
-                  'Convenios: tarifas corporativas por hotel, con aviso 45 días antes del vencimiento — la renovación se negocia antes, no después.',
+                  'Ficha de empresa: próximo paso, decisor y último contacto arriba; el historial de visitas con su autor abajo.',
+                  'Convenios: tarifas corporativas por hotel, con aviso 45 días antes del vencimiento para negociar la renovación con tiempo.',
                 ],
               },
               {
@@ -502,14 +501,14 @@ export const translations = {
                   'El pipeline se mide en oportunidades, no en pesos: venden convenios de hospedaje, y un monto estimado al inicio engaña más de lo que informa.',
                   'El podio ordena por porcentaje de la meta propia, así un gerente con meta de 20 y un ejecutivo con meta de 25 se miden con la misma vara.',
                   'El ritmo de una cuenta se muestra en color: seis ritmos con nombre sobre nueve semanas de actividad, para ver “a la baja” antes de que se enfríe.',
-                  'Lo que un hotel ve de la plaza que otro trabaja de la misma marca está acotado a propósito: etapa, dueño y última actividad, nunca contactos ni tarifas.',
+                  'Lo que un hotel ve de una cuenta que otro trabaja bajo la misma marca está acotado: etapa, responsable y última actividad, sin contactos ni tarifas.',
                 ],
               },
               {
                 title: 'Ingeniería',
-                body: 'Es un producto con datos comerciales de un cliente real y una sola persona manteniéndolo: la seguridad y la automatización no son opcionales.',
+                body: 'Maneja datos comerciales de un cliente y lo mantiene una sola persona, así que la seguridad y la automatización son prioridad.',
                 points: [
-                  'Permisos por fila en Postgres (RLS): un ejecutivo no lee la cartera de otro hotel aunque arme la consulta a mano. Una suite automática revisa esas reglas en cada cambio.',
+                  'Permisos por fila en Postgres (RLS): un ejecutivo no puede leer la cartera de otro hotel, ni consultando la base directamente. Pruebas automáticas revisan esas reglas en cada cambio.',
                   'Una acción solo aparece en la interfaz si el servidor la va a aceptar.',
                   'Edición concurrente: si dos personas abren la misma empresa, la segunda recibe un aviso en lugar de pisar el trabajo de la primera.',
                   'Bloqueo tras tres intentos fallidos, cierre de sesión por inactividad, tokens que caducan a los 15 minutos y cabeceras de seguridad verificadas en el build.',
@@ -521,8 +520,6 @@ export const translations = {
           },
           figures: [
             { value: '10', label: 'hoteles' },
-            { value: '16', label: 'personas' },
-            { value: '928', label: 'empresas' },
           ],
         },
         {
@@ -532,10 +529,10 @@ export const translations = {
           role: 'Producto propio, end-to-end',
           period: 'Abr 2026 — Actualidad',
           description:
-            'Menú por QR con mesero de IA, carrito compartido por mesa y un panel que recibe cada ronda en vivo. Lo diseñé y lo construí completo: producto, datos, seguridad y operación.',
+            'Menú por QR con mesero de IA, carrito compartido por mesa y un panel que recibe cada ronda en vivo. Lo diseñé y lo construí: producto, datos, seguridad y operación.',
           metrics: [
             'Tres apps sobre la misma base: comensal, panel del restaurante y landing.',
-            'Las reglas viven en Postgres: ningún precio llega desde el navegador.',
+            'Las reglas viven en Postgres: los precios se calculan en el servidor, no en el navegador.',
             'El mesero de IA sugiere, pero la base de datos decide qué existe y qué está agotado.',
           ],
           stack: ['React 18', 'TypeScript', 'Supabase · RLS', 'Realtime', 'Gemini'],
@@ -547,7 +544,7 @@ export const translations = {
           ],
           detail: {
             intro:
-              'El dinero de una mesa se pierde en los momentos lentos: esperar al mesero para la segunda ronda, dividir la cuenta de cabeza, un PDF que nadie entiende. Tastify se mete ahí, en la mesa, sin reemplazar la caja del restaurante.',
+              'En un restaurante se pierde tiempo en momentos concretos: esperar al mesero para otra ronda, dividir la cuenta, entender el menú. Tastify resuelve eso desde la mesa, sin reemplazar el punto de venta del restaurante.',
             diagrams: [
               {
                 id: 'tastify',
@@ -593,8 +590,8 @@ export const translations = {
                 points: [
                   'El comensal escanea el QR, pide con su grupo en un carrito compartido y ve cuánto va a pagar, sin crear cuenta.',
                   'La cocina recibe rondas con folio, extras y notas, y las mueve de estado con un toque: recibida, preparando, lista, entregada.',
-                  'El mesero ve el piso, cobra por persona y libera mesas; el dueño ve cuánto vendió y qué empujó la IA.',
-                  'El mesero de IA responde con platillos del menú real y ofrece el acompañamiento que sí existe.',
+                  'El mesero ve el piso, registra el cobro por persona y libera mesas; el dueño ve cuánto vendió y qué ventas vinieron de la IA.',
+                  'El mesero de IA responde con platillos del menú disponible y sugiere acompañamientos que sí existen.',
                 ],
               },
               {
@@ -603,27 +600,27 @@ export const translations = {
                 points: [
                   'Las órdenes solo nacen dentro de submit_order, que recalcula precio, extras y disponibilidad en una transacción: editar la petición en el navegador no te hace pagar menos.',
                   'El QR es un token opaco. Cambiar un número en la URL no te sienta en otra mesa.',
-                  'El comensal entra con autenticación anónima, y aun así tiene identidad real en la base para que las políticas por fila validen su mesa.',
+                  'El comensal entra con autenticación anónima y aun así tiene un identificador en la base para que las políticas por fila validen su mesa.',
                   'Realtime invalida queries en lugar de replicar estado, con sondeo de respaldo cada 4 segundos si la conexión se cae.',
-                  'La llave de IA y el acceso privilegiado viven solo en Edge Functions; si Gemini falla, responde una búsqueda local y el comensal nunca ve un error.',
+                  'La llave de IA y el acceso privilegiado viven solo en Edge Functions; si Gemini falla, responde una búsqueda local.',
                 ],
               },
               {
-                title: 'Cuenta dividida, al centavo',
+                title: 'Cuenta dividida',
                 body: 'Cada platillo guarda quién lo pidió, y lo compartido se reparte por pesos.',
                 points: [
-                  'La función que calcula el saldo por persona usa la misma fórmula que la que cobra, así la suma siempre reconcilia con el total.',
-                  'Lo que no se puede atribuir aparece como “Sin asignar” y nunca se esconde: con dinero real, es dinero que alguien tiene que pagar.',
+                  'La función que calcula el saldo por persona usa la misma fórmula que la del cobro, así la suma cuadra con el total.',
+                  'Lo que no se puede atribuir aparece como “Sin asignar” y queda visible para revisarlo.',
                 ],
               },
               {
-                title: 'Que compile no significa que funcione',
+                title: 'Verificación',
                 body: 'Es un producto que toca dinero y lo mantengo yo solo, así que las guardas están del lado del sistema.',
                 points: [
-                  'Un script ejercita la base real después de cada despliegue: permisos por rol, guardias de las funciones, firmas y columnas que usa el frontend.',
+                  'Un script revisa la base de datos después de cada despliegue: permisos por rol, guardias de las funciones, firmas y columnas que usa el frontend.',
                   'El entorno local se reconstruye desde cero con las migraciones, que es la única prueba de que reproducen el esquema de producción.',
                   'Un envoltorio del CLI aborta si el proyecto enlazado no es el correcto y bloquea las banderas destructivas.',
-                  'Grabando la demo salió un descuadre real: el panel mostraba $490 y el consumo por persona $355. El aviso de descuadre lo detectó, y el arreglo fue invalidar el saldo en cada ronda nueva y en cada reconexión. El sistema encontró su propio error antes que un cliente pagara de más.',
+                  'Grabando la demo apareció un descuadre: el panel mostraba $490 y el consumo por persona $355. El aviso de descuadre lo detectó; la corrección fue recalcular el saldo en cada ronda nueva y en cada reconexión.',
                 ],
               },
               {
@@ -654,10 +651,10 @@ export const translations = {
           role: 'Producto, diseño e ingeniería, end-to-end',
           period: 'May 2026 — Sep 2026',
           description:
-            'Un sistema para pasar de B1 a C1 que observa lo que produzco, modela mis errores y genera cada lectura, práctica y podcast a partir de ese modelo. Corre entero en mi Mac, con IA local y sin un solo servicio en la nube.',
+            'Sistema de estudio de inglés que registra lo que produzco, detecta mis errores frecuentes y genera lecturas, prácticas y podcasts a partir de ellos. Corre en mi Mac con IA local.',
           metrics: [
-            'Las apps de idiomas optimizan engagement; esta optimiza nivel, y por eso no tiene rachas que proteger.',
-            'SQLite como fuente de verdad y un worker que procesa una inferencia a la vez, para no calentar la laptop.',
+            'Diseñado para mejorar el nivel, no para sostener rachas ni engagement.',
+            'SQLite como fuente de verdad y un worker que procesa una inferencia a la vez para no saturar la máquina.',
             'Tres arquitecturas en tres meses, cada corte con verificación previa y marcha atrás.',
           ],
           stack: ['React', 'TypeScript', 'FastAPI', 'SQLite · FSRS', 'Ollama'],
@@ -670,14 +667,14 @@ export const translations = {
           ],
           detail: {
             intro:
-              'Anki me daba memoria de tarjetas, Notion me daba páginas y un tutor daba correcciones que se perdían en prosa. Ninguna pieza sabía lo que hacían las otras, y lo que faltaba era un modelo del aprendiz: qué palabras están atascadas, qué errores se repiten y en qué nivel leo de verdad.',
+              'Anki guardaba tarjetas, Notion guardaba notas y las correcciones de un tutor quedaban en texto suelto. Ninguna herramienta conectaba con las otras, y faltaba un modelo del aprendizaje: qué palabras no se fijan, qué errores se repiten y en qué nivel leo.',
             sections: [
               {
                 title: 'El problema',
                 body: 'Soy hispanohablante, estudio entre 60 y 75 minutos por la mañana, y ninguna herramienta construía sobre lo que yo producía.',
                 points: [
-                  'La única métrica de éxito es el nivel real: errores por cada 100 palabras a la baja y pruebas externas. No hay racha que proteger.',
-                  'Dos restricciones dieron forma al producto: abandono las actividades que piden escribir mucho, así que todo es opción múltiple.',
+                  'La métrica que importa es el nivel: menos errores por cada 100 palabras y pruebas externas. No hay rachas.',
+                  'Dos restricciones dieron forma al producto: dejo las actividades que piden escribir mucho, así que la práctica diaria prioriza opción múltiple.',
                   'Y la IA local tarda de 15 a 80 segundos, así que la espera se diseñó como un estado de primera clase, no como un spinner.',
                 ],
               },
@@ -693,11 +690,11 @@ export const translations = {
               },
               {
                 title: 'El ciclo diario',
-                body: 'Seis pasos, y ninguno depende de que la IA responda a tiempo.',
+                body: 'Cinco pasos, y ninguno depende de que la IA responda a tiempo.',
                 points: [
                   'Abro el día y veo mi nivel de trabajo con su razón: retención, comprensión y la evidencia que lo sostiene.',
                   'Hago la sentada de repaso con un presupuesto en minutos y el ritmo calibrado por la mediana entre respuestas.',
-                  'Al cerrarla se encolan los trabajos del día, así que la sesión nunca falla por culpa del modelo.',
+                  'Al cerrarla se encolan los trabajos del día, así la sesión no depende de que el modelo responda.',
                   'El worker genera lectura, actividades y tema de escritura con mis palabras atascadas y mis errores frecuentes.',
                   'Todo lo que produzco se corrige y alimenta la misma tabla de errores, que es la que cierra el círculo.',
                 ],
@@ -708,17 +705,17 @@ export const translations = {
                 points: [
                   'SQLite como fuente de verdad: un archivo, sin servidor, fácil de respaldar. Costo: sin sincronización entre dispositivos.',
                   'IA local por defecto: privado y sin costo por token. Costo: respuestas de 15 a 80 segundos.',
-                  'FSRS sin aleatoriedad: el intervalo que muestra cada botón es exactamente el que se agenda. Honestidad sobre optimización.',
-                  'Congelar Anki: un solo sistema agenda, porque dos fuentes generaban conflictos imposibles de explicar. Costo: se pierde el estudio en el celular.',
+                  'FSRS sin aleatoriedad: el intervalo que muestra cada botón es exactamente el que se agenda.',
+                  'Congelar Anki: un solo sistema agenda, porque dos fuentes generaban conflictos difíciles de rastrear. Costo: sin estudio en el celular.',
                   'Nivel con evidencia múltiple: cada fuente declara si tiene datos suficientes, y con pocos datos dice “no hay datos” en vez de inventar un número.',
                 ],
               },
               {
-                title: 'Tres problemas que no se veían desde la interfaz',
+                title: 'Problemas que no se veían en la interfaz',
                 body: 'Lo que más aprendí no estaba en la pantalla.',
                 points: [
-                  'El worker moría en silencio: el bloqueo de archivo no serializa hilos, y abrirlo en modo escritura truncaba un archivo que el propio proceso tenía bloqueado. Arreglo en dos capas, y el loop ahora sobrevive a excepciones.',
-                  'Los conteos mentían: la app parecía tener más de todo, pero 77 de 77 escrituras y 79 de 86 lecturas tenían el cuerpo vacío. La lección fue comparar contenido, no filas.',
+                  'El worker se detenía sin avisar: el bloqueo de archivo no serializa hilos, y abrirlo en modo escritura truncaba un archivo que el propio proceso tenía bloqueado. Lo corregí en dos capas y el loop ahora sobrevive a excepciones.',
+                  'Los conteos engañaban: la app parecía tener más contenido, pero 77 de 77 escrituras y 79 de 86 lecturas estaban vacías. Aprendí a comparar contenido, no filas.',
                   'Cortar el sistema viejo sin perder historia: se cruzaron las tarjetas en vivo contra el sistema anterior, con cero divergencia, respaldo obligatorio y un comando de marcha atrás.',
                 ],
               },
@@ -787,8 +784,8 @@ export const translations = {
                   'Discovery con negocio y operación para entender qué frenaba el cobro digital antes de comprometer pantallas.',
                   'Backlog y roadmap de la iniciativa, priorizados por impacto en el cobro y valor para el usuario, no por orden de llegada.',
                   'Qué migrar, qué mantener y qué cambios no justificaban su costo: los trade-offs entre producto, complejidad técnica y tiempos.',
-                  'Riesgos operativos sobre la mesa desde el inicio: en una pasarela de cobro un error no es un bug, es el dinero de un cliente.',
-                  'Sin ser backend, me involucré en los contratos de API, en la validación en base de datos y en los despliegues, porque liderar la entrega exige entender ese lado.',
+                  'Identifiqué riesgos operativos desde el inicio: en una pasarela de pago, un error afecta directamente el dinero del cliente.',
+                  'Aunque mi foco era frontend, participé en contratos de API, validación en base de datos y despliegues para liderar la entrega con contexto completo.',
                   'El ciclo completo: problema → discovery → priorización → decisión técnica → implementación → entrega → producción → seguimiento.',
                 ],
               },
@@ -831,7 +828,7 @@ export const translations = {
                 title: 'Calidad y seguridad',
                 body: 'La migración se planeó con fases propias de certificación, seguridad y calidad, no como un paso final.',
                 points: [
-                  'Implementé la clave de idempotencia por intento de pago: si el usuario reintenta, toca dos veces o la red duplica la petición, esa misma clave se resuelve como un solo abono. Aquí aprendí por qué en pagos eso no es opcional.',
+                  'Implementé la clave de idempotencia por intento de pago: si el usuario reintenta, toca dos veces o la red duplica la petición, esa misma clave se resuelve como un solo abono.',
                   'Si la red se cae a media transacción, la app consulta el estado del intento y reintenta con esa misma clave, en vez de dejar al usuario frente a un error ambiguo.',
                   'Ese identificador de intento viaja del front al servicio de pagos, así un cobro concreto se puede seguir de punta a punta.',
                   'Pruebas unitarias, de integración y end-to-end.',
@@ -840,9 +837,9 @@ export const translations = {
                 ],
               },              {
                 title: 'Qué haría distinto hoy',
-                body: 'La decisión que revisaría no es de código, es de arquitectura.',
+                body: 'Revisaría una decisión de arquitectura.',
                 points: [
-                  'Module Federation también llegó por su momento. Hoy compararía alternativas antes de comprometerme: una PWA moderna no necesariamente pide federación, y la elección debería sostenerse por el problema, no por la popularidad de la herramienta.',
+                  'Module Federation se eligió en parte por su adopción en ese momento. Hoy compararía alternativas antes de comprometerme: una PWA moderna no necesariamente necesita federación, y la elección debe responder al problema.',
                   'Dedicaría más tiempo a entender a fondo la arquitectura —la del sistema que la aloja y la del propio producto— antes de elegir con qué construirla.',
                 ],
               },
@@ -858,7 +855,7 @@ export const translations = {
             'Plataforma interna de crédito y cobranza que convivía con un sistema heredado. Desarrollé el core frontend —la base común que los microfrontends consumen en tiempo de ejecución con Module Federation— y tres de sus módulos: administración de usuarios, información crediticia del cliente y portafolio por cliente.',
           metrics: [
             'Core compartido: layout, login, tema y componentes que consumen los módulos.',
-            'Tres módulos propios: usuarios, información crediticia y portafolio.',
+            'Tres módulos desarrollados por mí: usuarios, información crediticia y portafolio.',
             'Cartera navegable en tres niveles: gestor → cliente → pedido.',
             'Plantilla base de nuevos microfrontends actualizada a React 19.',
           ],
@@ -933,7 +930,7 @@ export const translations = {
                 body: 'El core no orquesta ni monta aplicaciones: es un remoto que publica la base visual y los componentes comunes, y cada microfrontend los consume en tiempo de ejecución con Webpack Module Federation.',
                 points: [
                   'Actualizar un elemento compartido no obliga a copiar código entre repositorios ni a recompilar cada aplicación consumidora.',
-                  'React se comparte como singleton: una sola instancia de la librería, sin problemas de hooks ni runtimes duplicados.',
+                  'React se comparte como singleton para evitar runtimes duplicados y errores de hooks.',
                   'El estado vive aislado dentro de cada microfrontend.',
                   'En administración de usuarios usé Context para lo transversal —catálogos y filtros que comparten varias pantallas—; el estado de cada vista se queda local.',
                   'Los módulos se muestran embebidos en iframe dentro del sistema heredado, que aporta el contexto para iniciar la consulta; en portafolio, la respuesta hacia el contenedor va por postMessage.',
@@ -963,8 +960,8 @@ export const translations = {
                 title: 'Cómo lo llevaría a la siguiente etapa',
                 body: 'El siguiente paso no es cambiar tecnologías por versiones más nuevas: es bajar el acoplamiento, hacer explícitos los contratos entre aplicaciones y convertir el frontend en una plataforma más fácil de evolucionar y de operar.',
                 points: [
-                  'Contratos entre aplicaciones: formalizar la comunicación entre el sistema heredado y los microfrontends con contratos tipados, versionados y validados en runtime, para que nadie dependa de conocimiento implícito sobre la implementación de otro.',
-                  'Independencia real: revisar qué dependencias vale la pena compartir en runtime y cuáles conviene aislar, mirando tamaño de bundle, frecuencia de actualización, compatibilidad y despliegue independiente. Compartir de más también acopla.',
+                  'Contratos entre aplicaciones: formalizar la comunicación entre el sistema heredado y los microfrontends con contratos tipados, versionados y validados en runtime, sin depender de conocimiento implícito.',
+                  'Independencia entre módulos: revisar qué dependencias vale la pena compartir en runtime y cuáles conviene aislar, considerando tamaño de bundle, frecuencia de actualización, compatibilidad y despliegue independiente.',
                   'Observabilidad como parte de la arquitectura: una estrategia común de errores, rendimiento, navegación y llamadas a servicios, con identificadores de correlación donde haya soporte end-to-end, para reconstruir una operación completa en lugar de investigar cada aplicación por separado.',
                   'Rendimiento medible: pasar de optimizaciones sueltas a performance budgets compartidos —bundle, tiempo de carga, renders costosos— como criterio del pipeline, para detectar regresiones antes de producción.',
                   'Resiliencia consistente: estandarizar carga, vacíos, errores, timeouts, reintentos y pérdida de conexión en el core o en librerías comunes, en vez de que cada equipo resuelva lo mismo a su manera.',
@@ -979,10 +976,10 @@ export const translations = {
           title: 'Octobile · App interna de mensajería',
           tag: 'Producto · Vendor externo',
           status: 'Entregado a producción',
-          role: 'Product Owner de facto y desarrollo',
+          role: 'Coordinación de producto y desarrollo',
           period: 'Nov 2021 — Oct 2022',
           description:
-            'App de mensajería tipo WhatsApp para uso interno de la empresa, con versión web y móvil. Una empresa externa construía la mayor parte del producto; yo llevé el roadmap, coordiné a ese equipo y metí mano en el código.',
+            'App de mensajería interna con versión web y móvil. Un proveedor externo desarrolló la mayor parte del producto; yo llevé el roadmap, coordiné a ese equipo y participé en el desarrollo.',
           metrics: [
             'Coordiné al equipo externo de desarrollo desde concepto hasta producción.',
             'Monté la internacionalización de la versión web y escribí los copys en español e inglés.',
@@ -1024,11 +1021,11 @@ export const translations = {
               },
             },
             intro:
-              'Cuando el desarrollo vive fuera de la empresa, el riesgo no es que no se construya: es que se construya otra cosa. La mayor parte de mi trabajo fue cerrar esa distancia con criterios de aceptación, pruebas y documentación que cualquiera pudiera seguir.',
+              'Con el desarrollo fuera de la empresa, el mayor riesgo era que lo entregado no coincidiera con lo que se necesitaba. Mi trabajo fue reducir esa brecha con criterios de aceptación, pruebas y documentación.',
             sections: [
               {
                 title: 'Mi papel',
-                body: 'Sin el título, pero con el trabajo: llevar el producto y ser el puente entre negocio y un equipo de desarrollo que no estaba en la empresa.',
+                body: 'Llevar el producto y ser el puente entre negocio y un equipo de desarrollo externo.',
                 points: [
                   'Roadmap, backlog e historias de usuario de la aplicación, de concepto a producción.',
                   'Flujos, diagramas y criterios de aceptación para que la ambigüedad se resolviera antes de programar, no en la revisión.',
@@ -1037,7 +1034,7 @@ export const translations = {
               },
               {
                 title: 'Lo que construí',
-                body: 'No solo especifiqué: también trabajé dentro del código, junto al equipo externo.',
+                body: 'Además de especificar, desarrollé junto al equipo externo.',
                 points: [
                   'Mantenimiento y componentes nuevos dentro de la app en React Native.',
                   'La internacionalización de la versión web con react-i18next: un espacio de nombres por componente, archivos en.js y es.js, detección de idioma del navegador y un idioma de respaldo.',
@@ -1051,7 +1048,7 @@ export const translations = {
                   'Checklist función por función, con estado explícito: funciona, no funciona, función estática o función nueva.',
                   'Plan de pruebas propio para la versión móvil en iOS y Android.',
                   'Cada documento con quién lo elaboró y quién lo revisó, para que la revisión fuera de otra persona.',
-                  'Control de errores con su reporte, para que un bug encontrado no dependiera de la memoria de nadie.',
+                  'Registro de errores con su reporte, para dar seguimiento a cada bug encontrado.',
                 ],
               },
               {
@@ -1060,7 +1057,7 @@ export const translations = {
                 points: [
                   'Manuales para levantar la aplicación en Windows, macOS y dispositivos móviles, para que un integrante nuevo no dependiera de que alguien tuviera tiempo de explicarle.',
                   'Manual de traducciones para que cualquiera pudiera agregar una pantalla sin romper el esquema de idiomas.',
-                  'Lineamientos de nomenclatura, de modo oscuro y de formatos de imagen, que son las decisiones que un equipo externo resuelve distinto cada vez si nadie las escribe.',
+                  'Lineamientos de nomenclatura, modo oscuro y formatos de imagen, para mantener consistencia entre entregas.',
                 ],
               },
             ],
@@ -1070,16 +1067,16 @@ export const translations = {
     },
     stack: {
       eyebrow: 'Toolbox',
-      title: 'El toolbox detrás del producto',
+      title: 'Herramientas con las que trabajo',
       description:
-        'Herramientas que uso día a día para discovery, decisiones técnicas, automatización con IA y entrega en producción.',
+        'Lo que uso para discovery, desarrollo, automatización con IA y entrega.',
       categories: ['Product', 'AI', 'Data', 'Engineering', 'Delivery'],
     },
     contact: {
       eyebrow: 'Contacto',
-      title: 'Hablemos',
+      title: '¿Trabajamos juntos?',
       description:
-        'Abierto a conversar sobre roles de Product Engineering, arquitectura frontend y liderazgo técnico, sobre todo donde se cruzan producto, operación e IA.',
+        'Estoy abierto a roles de Software Engineer, Product Engineer y liderazgo técnico en fintech, pagos y producto con IA. Si crees que encajo, hablemos.',
       cta: 'Enviar un mensaje',
       form: {
         name: 'Nombre',
@@ -1096,7 +1093,7 @@ export const translations = {
         error: 'No se pudo enviar. Intenta de nuevo.',
       },
     },
-    footer: 'Eddie Elorza Ruiz · Product Engineer · Arquitectura frontend · IA y transformación digital',
+    footer: 'Eddie Elorza Ruiz · Software Engineer · Product Builder · Fintech & IA',
     languageLabel: 'Idioma',
     themeLabel: 'Color',
     mode: {
@@ -1120,7 +1117,7 @@ export const translations = {
     nav: {
       about: 'About',
       experience: 'Experience',
-      product: 'Product',
+      product: 'How I work',
       education: 'Education',
       projects: 'Projects',
       stack: 'Stack',
@@ -1128,37 +1125,37 @@ export const translations = {
       cta: "Let's talk",
     },
     hero: {
-      badge: 'Product Engineer · Frontend Architecture · AI & Digital Transformation',
-      title1: 'I build product for',
-      titleHighlight: 'payments at scale',
+      badge: 'Software Engineer · Product Builder · Fintech & AI',
+      title1: 'Designing and building',
+      titleHighlight: 'scalable products',
       rotatingWords: [
-        'payments at scale',
-        'financial operations',
-        'automation',
-        'commercial teams',
+        'scalable products',
+        'premium experiences',
+        'AI-powered solutions',
+        'fintech platforms',
       ],
-      title2: 'from discovery to production.',
+      title2: 'end to end.',
       subtitle:
-        '6+ years across fintech, payments and operations. I understand the business problem, turn it into technical decisions and take it to production — applying AI when it adds value, and avoiding complexity when a deterministic solution is enough.',
-      chips: ['MSc Applied AI', 'PSPO I', 'Fintech', 'AI & Automation'],
-      ctaProjects: 'See initiatives',
+        'Software Engineer and Product Builder with 6+ years in fintech and payments. From the business problem to architecture, code and operations, with an AI First approach.',
+      chips: ['MSc Applied AI', 'PSPO I', 'Fintech', 'AI First'],
+      ctaProjects: 'See projects',
       ctaContact: "Let's talk",
       avatarLabel: 'The one who builds the product',
       photoLabel: 'The one who leads execution',
     },
     about: {
       eyebrow: 'About me',
-      title: 'Product and engineering, in equal parts.',
-      p1: '6+ years building product across fintech, payments and operations. On Paga Fácil I led a fullstack team of 5 — roadmap, backlog, Scrum, task assignment and code reviews — while still writing code.',
-      p2: 'I work at the intersection of product and engineering: I turn business needs into technical decisions, roadmap priorities and measurable delivery. I work closely with operations, vendors and stakeholders.',
-      p3: 'MSc in Applied Artificial Intelligence and PSPO I. I apply AI and automation to cut operational effort and improve decision-making.',
-      tags: ['Product Engineering', 'Fintech & Payments', 'AI & Automation', 'PSPO I · MSc AI'],
+      title: 'Software engineer with a product mindset.',
+      p1: 'I’ve spent 6+ years building software in fintech and payments. At Paga Fácil, I led a full-stack team of five while continuing to ship code. Today I build the credit back office at Clip, and I built and maintain a production CRM for a hotel group.',
+      p2: 'My work covers the full lifecycle: business rules, architecture, API contracts, testing and operations. When a project needs it, I write the PRD and then build what it defines.',
+      p3: 'I hold an MSc in Applied Artificial Intelligence and the PSPO I certification. I work AI First: I use AI agents throughout development and bring AI into products where it adds value.',
+      tags: ['Product Engineering', 'Fintech & Payments', 'AI First', 'PSPO I · MSc AI'],
     },
     experience: {
       eyebrow: 'Experience',
-      title: 'Product and engineering, one trajectory',
+      title: 'Six years across engineering and product',
       description:
-        'Over six years alternating between the two sides of the same problem: building the system and deciding what gets built. Each role is tagged with the side I worked from, product or engineering.',
+        'From client web development to payments and credit platforms, technical leadership and products in production.',
       trackLabels: { prod: 'Product', ing: 'Engineering' },
       phases: [
         'Web Developer',
@@ -1174,32 +1171,27 @@ export const translations = {
           period: 'Aug 2026 — Present',
           track: ['ing'],
           summary:
-            'A credit and payments product built by a team split between Mexico and China. I come in at system analysis, so the specification gets agreed before anyone writes the screen.',
+            'Frontend for the credit back office, on a team split between Mexico and China.',
           impact: [
-            'I carry the frontend from system analysis through delivery, turning product and design requirements into technical specifications before any code is written.',
-            'I build the credit Back Office as a microfrontend with React, TypeScript, Umi Max, Ant Design Pro and qiankun; it covers origination and servicing.',
-            'I define typed API contracts with adapters and mocks, so the frontend keeps moving even when the backend or the environment is not ready yet.',
-            'I use Jest, Testing Library and Playwright, with test points and coverage as delivery criteria.',
-            'I diagnose the integration failures across host, microfrontends and backend: shared dependencies, a duplicated React runtime, and contracts that changed without notice.',
-            'I automate architecture and documentation checks with AI agents, so inconsistencies surface before delivery.',
+            'I build microfrontends with React, TypeScript, Umi Max and qiankun for loan origination and servicing.',
+            'I define typed API contracts with adapters and mocks so the frontend can move ahead of the backend.',
+            'I test with Jest, Testing Library and Playwright, and debug integration issues across the host, microfrontends and services.',
           ],
           tags: ['React', 'TypeScript', 'Microfrontends', 'Playwright'],
         },
         {
           company: 'Operadora SI · Hotel CRM',
-          role: 'End-to-end product · Discovery, design, development and operation',
+          role: 'End-to-end product · Client project',
           period: 'May 2026 — Present',
           track: ['prod', 'ing'],
           summary:
-            'My own end-to-end product with the client: I run discovery, build it, operate it and handle their tickets. In production since 6 September 2026 with 10 hotels and 16 people.',
+            'Custom CRM for a group of 10 hotels, in production since September 2026.',
           impact: [
-            'Discovery changed the brief: they asked for screens, and the problem was that management could not tell whether the team was out on the street.',
-            'I made the case for building it instead of HubSpot or Salesforce, because ten hotels each owning their book, with one brand worked by several, does not fit a generic CRM.',
-            'Permissions live in the database, with Postgres RLS, and an automated suite checks them on every change: nobody reads another hotel\'s book, not even by crafting the query by hand.',
-            '354 pull requests and 175 database migrations; nothing reaches production without type checks, access rules and build.',
-            'I deferred generative AI to phase 2 with an explicit hypothesis, that it only pays off with enough history, and left the data architecture ready for it.',
+            'I own the product end to end: discovery, PRD, design, development and operations.',
+            'I implemented per-hotel and per-role permissions with Postgres RLS, checked by automated tests.',
+            'I prioritized visit logging and sales follow-up; generative AI is planned for a second phase.',
           ],
-          tags: ['Discovery', 'MVP', 'Build-vs-buy', 'Supabase (RLS)'],
+          tags: ['Discovery', 'PRD', 'Supabase · RLS', 'React'],
         },
         {
           company: 'Banco Azteca · Paga Fácil',
@@ -1207,16 +1199,14 @@ export const translations = {
           period: 'Jan 2025 — Mar 2026',
           track: ['prod', 'ing'],
           summary:
-            'The gateway a credit customer pays online with, inside a platform handling ~6M daily transactions. I led the initiative and a fullstack team of 5, from discovery to production.',
+            'Online credit payment gateway. I led the initiative and a full-stack team of five.',
           impact: [
-            'I migrated the gateway from Vue 2 to React as a federated microfrontend with PWA configuration, and that same migration moved it from on-premise to AWS.',
-            'I modeled the end-to-end payment flow in BPM and sequence diagrams before it was built, with its four charging flows: acquirer, wallet, gems and initial payment.',
-            'Managed the whole project: roadmap, backlog, Scrum, task assignment, progress reviews and code reviews, while still building features, both new ones and on the monolith.',
-            'Implemented the per-attempt idempotency key, so a retry, a double tap or a dropped connection does not end in two payments against the same credit account.',
-            'I prioritized the backlog by impact on collections and defended the trade-offs with business, operations and engineering.',
-            'In the Deposits area, outside the product, I automated incident resolution: 500+ a day and ~6h → ~2h per cycle (operational estimate).',
+            'I ran the roadmap, backlog, Scrum and code reviews while still building features.',
+            'I migrated the gateway from Vue 2 to React as a microfrontend with Module Federation and PWA support.',
+            'I implemented a per-attempt idempotency key so retries don’t create duplicate payments.',
+            'In the Abonos (payments) area, I automated incident resolution.',
           ],
-          tags: ['Leadership', 'Payments', 'Microfrontends', 'Automation'],
+          tags: ['Technical leadership', 'Payments', 'React', 'Microfrontends'],
         },
         {
           company: 'Banco Azteca · Sistema Regional',
@@ -1224,15 +1214,11 @@ export const translations = {
           period: 'Dec 2023 — Jan 2025',
           track: ['ing'],
           summary:
-            'I came back to build the modules on top of the core I had raised myself during the first stint.',
+            'Second stage on the credit and collections platform: modules built on the shared core.',
           impact: [
-            'Delivered the three modules in order: portfolio by customer, customer credit information, and user administration.',
-            'The portfolio left the book navigable through three levels, manager → customer → order, with the balance and arrears totals following whichever level was open.',
-            'I worked side by side with a backend engineer: we agreed the contract first, I built mocks against it and kept going while the real API integration landed.',
-            'In user administration I used Context for the cross-cutting parts, catalogs and filters shared by several screens; each view\'s own state stayed local.',
-            'Kept the core as the shared base (layout, login, theme and component library) that the microfrontends consume at runtime with Module Federation.',
-            'Upgraded the base template used to start new microfrontends to React 19.',
-            'Wrote tests with Jest and React Testing Library, and wired my modules into the pipeline gates: types, static analysis, security scan and deployment.',
+            'I built the customer portfolio, credit information and user administration modules.',
+            'I worked against contracts and mocks agreed with the backend team until the real integration was ready.',
+            'I maintained the core and the microfrontend template, and wrote tests with Jest and Testing Library.',
           ],
           tags: ['React', 'Module Federation', 'Testing', 'CI/CD'],
         },
@@ -1242,15 +1228,13 @@ export const translations = {
           period: 'Apr 2023 — Dec 2023',
           track: ['ing'],
           summary:
-            'Enterprise applications for pension and banking projects. I joined to build and ended up running the frontend workstream.',
+            'Applications for pension and banking projects with React, Java and API integrations.',
           impact: [
-            'Defined the frontend architecture and implemented scalable solutions with React, Java and API integrations.',
-            'Ran the day-to-day of frontend work: priorities, technical discussions and whatever had the team stuck.',
-            'Took part in product work: requirements analysis, user stories, backlog and roadmap definition.',
-            'Raised application performance through code optimization and frontend practice, verified with monitoring.',
-            'Implemented observability practices to catch issues before a user reported them.',
+            'I coordinated frontend priorities and technical decisions.',
+            'I took part in requirements analysis, user stories and backlog work.',
+            'I worked on performance optimization and observability practices.',
           ],
-          tags: ['React', 'Java', 'Observability', 'Agile'],
+          tags: ['React', 'Java', 'APIs', 'Observability'],
         },
         {
           company: 'Banco Azteca · Sistema Regional',
@@ -1258,33 +1242,27 @@ export const translations = {
           period: 'Oct 2022 — Apr 2023',
           track: ['ing'],
           summary:
-            'The first phase of the project: keeping the credit and collections monolith alive while documenting and building the architecture meant to replace it.',
+            'First stage: maintaining the legacy system while the new microfrontend foundation was built.',
           impact: [
-            'Maintained the legacy system in JSP, jQuery and AJAX while raising the microfrontend architecture that would succeed it.',
-            'Mapped the diagrams and the contracts between applications, mocked up the screens and assembled the UI for that first phase.',
-            'Built the frontend core, the shared base that publishes layout, login, theme, styles and components with Module Federation for each module to consume at runtime.',
-            'Every delivery went through the group\'s internal certification, which reviews repository vulnerabilities, architecture and observability.',
-            'Modules were embedded in an iframe inside the legacy system, and the response back to the container travelled through postMessage.',
-            'Put testing and CI/CD in place to lower the risk of every release.',
+            'I maintained the legacy JSP, jQuery and AJAX system.',
+            'I built the frontend core: layout, login, theming and shared components with Module Federation.',
+            'I documented the contracts between applications and how modules integrate into the legacy system.',
           ],
-          tags: ['JSP → React', 'Module Federation', 'Architecture', 'Jest'],
+          tags: ['JSP → React', 'Module Federation', 'Frontend core', 'Documentation'],
         },
         {
           company: 'MRCI',
-          role: 'Product & Software Engineer · de facto Product Owner',
+          role: 'Product & Software Engineer',
           period: 'Nov 2021 — Oct 2022',
           track: ['prod', 'ing'],
           summary:
-            'An external company was building most of Octobile, the internal messaging app, so I took both hats at once: coordinating that team and working in the code myself.',
+            'Octobile, an internal messaging app built with an external vendor, plus e-commerce projects.',
           impact: [
-            'Owned the roadmap, backlog and user stories, and coordinated the external team from concept to production.',
-            'Defined flows, diagrams and acceptance criteria; ran testing and bug review as the bridge between business and the external developers.',
-            'Maintained and built components inside the React Native app.',
-            'Set up internationalization on the web version with react-i18next (a namespace per component, en.js and es.js files, language detection and a fallback) and wrote the copy in Spanish and English.',
-            'Built e-commerce sites focused on performance, accessibility and UX, integrating REST APIs and reusable components.',
-            'Worked with the client to define scope and followed the full cycle: requirements, development, testing, releases and support.',
+            'I owned the roadmap, backlog, user stories and acceptance criteria with the vendor.',
+            'I built React Native components and implemented i18n for the web version with react-i18next.',
+            'I coordinated testing and delivery reviews through to production.',
           ],
-          tags: ['Product Ownership', 'Roadmap', 'React Native', 'i18n'],
+          tags: ['Roadmap', 'React Native', 'i18n', 'QA'],
         },
         {
           company: 'Lapbytes',
@@ -1292,131 +1270,148 @@ export const translations = {
           period: 'Jan 2020 — Nov 2021',
           track: ['ing'],
           summary:
-            'My first years delivering web and e-commerce platforms for clients across different industries, dealing with them from requirements to handover.',
+            'Websites and e-commerce platforms for clients across industries.',
           impact: [
-            'Built and maintained ~6 web and e-commerce platforms with HTML, CSS, JavaScript and WordPress.',
-            'Translated business needs into digital solutions, dealing with the client directly.',
-            'Ran several projects in parallel and delivered the overlapping ones on time.',
+            'I built and maintained about six platforms with HTML, CSS, JavaScript and WordPress.',
+            'I worked directly with clients, from requirements to delivery.',
           ],
-          tags: ['JavaScript', 'CSS', 'E-commerce', 'Client work'],
+          tags: ['JavaScript', 'CSS', 'WordPress', 'E-commerce'],
         },
       ],
     },
     product: {
-      eyebrow: 'Product OS',
-      title: 'Product Operating System',
+      eyebrow: 'Approach · AI First',
+      title: 'How I work',
       description:
-        'A system for turning fintech, AI and operational challenges into scalable product outcomes.',
-      relatedLabel: 'Related Capabilities',
+        'I work AI First: I use AI agents across the whole cycle, from analysis to code and review, and bring AI into the product when it adds value. Seven steps, from the problem to operations.',
+      relatedLabel: 'Related steps',
       closeLabel: 'Close',
       categories: {
-        core: 'Core',
-        strategic: 'Strategic',
-        'ai-enabled': 'AI-enabled',
-        execution: 'Execution',
+        problem: 'Step 1',
+        scope: 'Step 2',
+        solution: 'Step 3',
+        plan: 'Step 4',
+        build: 'Step 5',
+        quality: 'Step 6',
+        operate: 'Step 7',
       },
       craft: {
-        title: 'The bar I hold in every project',
-        note: 'Each one with the concrete example of where I applied it.',
+        title: 'Engineering standards',
+        note: 'What I pay attention to when building and running software.',
         items: [
           {
             k: 'Architecture',
-            v: 'A shared core and federated microfrontends that deploy separately — and the judgment not to split when it is not needed.',
+            v: 'Modules and microfrontends when the team and deployment needs justify them, with clear contracts between pieces; a simple setup when they don’t.',
           },
           {
             k: 'Performance',
-            v: 'Code splitting, lazy loading and caching in the payment PWA; on this very site, every section loads as its own chunk and screenshots are WebP.',
+            v: 'Code splitting, lazy loading, caching and dependency control so the app loads fast on modest devices too.',
           },
           {
             k: 'Security',
-            v: 'Row-level permissions in Postgres (RLS) verified on every change; static and security analysis as their own phase, not a final step.',
+            v: 'Permissions enforced on the server and in the database, input validation, and security analysis as part of the delivery pipeline.',
           },
           {
             k: 'Reliability',
-            v: 'An idempotency key per payment attempt: if the network drops, the attempt status is checked and retried with the same key — never two payments.',
+            v: 'Idempotent retries and well-defined loading, empty and error states, so a failure doesn’t leave ambiguous results.',
           },
           {
             k: 'Observability',
-            v: 'An attempt identifier travelling from the frontend to the payment service, plus dashboards and KPIs for transactions and errors on a platform handling ~6M operations a day.',
+            v: 'Correlation IDs, logs and error metrics to diagnose issues with data instead of guesswork.',
           },
           {
             k: 'Testing',
-            v: 'Unit, integration and end-to-end tests; in the Regional System I left testing and CI/CD in place to lower release risk.',
+            v: 'Unit, integration and end-to-end tests focused on the behavior that matters, wired into the CI/CD pipeline.',
           },
           {
             k: 'Accessibility',
-            v: 'This very site: visible focus, 44px touch targets, AA contrast across all four accents, and reduced-motion honored.',
+            v: 'Visible focus, keyboard navigation, adequate touch targets, good contrast and support for reduced motion.',
           },
           {
             k: 'DevEx',
-            v: 'CI/CD per module: each team ships without waiting on the host system release train.',
+            v: 'Templates, conventions and documentation so a new module starts fast and each team ships without blocking others.',
           },
           {
             k: 'Delivery',
-            v: 'From discovery to production: I sequenced the CRM MVP to validate the critical flow before investing in the rest.',
+            v: 'Incremental releases: the critical flow first, with clear scope and acceptance criteria.',
           },
           {
             k: 'Product Analytics',
-            v: 'Metrics that do not flatter: the leaderboard ranks by percentage of each person\'s own target, and pipeline is measured in opportunities, not pesos.',
+            v: 'Metrics tied to the product goal, defined before building and easy to interpret.',
           },
         ],
       },
       items: [
         {
-          id: 'payments',
-          title: 'Payments & Fintech',
-          category: 'core',
+          id: 'problem',
+          short: 'Problem',
+          title: 'Understand the problem and the business rules',
+          category: 'problem',
           content:
-            'Building and evolving payment products, checkout flows and financial workflows in high-volume environments.',
-          related: ['discovery', 'prioritization', 'delivery'],
+            'For the hotel CRM, the starting point was the sales operation: visits, different targets by role and rate agreements that expire. Those rules defined what the system had to record and calculate.',
+          related: ['scope'],
         },
         {
-          id: 'discovery',
-          title: 'Product Discovery',
-          category: 'strategic',
+          id: 'scope',
+          short: 'Scope',
+          title: 'Define scope and criteria',
+          category: 'scope',
           content:
-            'Turning operational pain points, user needs and business constraints into validated product opportunities.',
-          related: ['payments', 'prioritization', 'stakeholders'],
+            'I wrote the PRD for the CRM: the problem, the users, the three MVP journeys and what stayed out, such as generative AI. On Octobile, flows and acceptance criteria defined what each delivery had to include.',
+          related: ['problem', 'solution'],
         },
         {
-          id: 'prioritization',
-          title: 'Prioritization & Strategy',
-          category: 'strategic',
+          id: 'solution',
+          short: 'Solution',
+          title: 'Analyze the system and design the solution',
+          category: 'solution',
           content:
-            'Evaluating trade-offs between business impact, technical effort, operational risk and strategic value.',
-          related: ['discovery', 'payments', 'delivery'],
+            'On Paga Fácil I modeled the flow before building it, including the uncertain result of an interrupted payment. On Sistema Regional, the solution had to coexist with the legacy system through a shared core.',
+          related: ['scope', 'plan'],
         },
         {
-          id: 'ai',
-          title: 'AI Automation',
-          category: 'ai-enabled',
+          id: 'plan',
+          short: 'Plan',
+          title: 'Plan the delivery',
+          category: 'plan',
           content:
-            'Applying AI and automation to reduce manual work, improve decision-making and scale operational processes.',
-          related: ['discovery', 'stakeholders', 'delivery'],
+            'On Paga Fácil I led a team of five: roadmap, backlog, Scrum, task assignment and progress reviews, while still building.',
+          related: ['solution', 'build'],
         },
         {
-          id: 'stakeholders',
-          title: 'Stakeholder Alignment',
-          category: 'execution',
+          id: 'build',
+          short: 'Build',
+          title: 'Build end to end',
+          category: 'build',
           content:
-            'Connecting business, operations, compliance and engineering teams around shared outcomes and priorities.',
-          related: ['discovery', 'prioritization', 'ai'],
+            'On the CRM and Tastify I worked across the interface, database and server logic: Postgres permissions, migrations and server-side totals. On Paga Fácil I built new features and changes to the monolith.',
+          related: ['plan', 'quality'],
         },
         {
-          id: 'delivery',
-          title: 'Product Delivery',
-          category: 'execution',
+          id: 'quality',
+          short: 'Quality',
+          title: 'Ensure quality, security and reliability',
+          category: 'quality',
           content:
-            'Driving initiatives from discovery to production while balancing scalability, reliability and business value.',
-          related: ['payments', 'prioritization', 'ai', 'stakeholders'],
+            'In the CRM, permissions by hotel and role are verified with access tests. On Paga Fácil I implemented a per-attempt idempotency key, and delivery went through tests, static analysis and a security review.',
+          related: ['build', 'operate'],
+        },
+        {
+          id: 'operate',
+          short: 'Operate',
+          title: 'Operate and measure',
+          category: 'operate',
+          content:
+            'The CRM is in production: requests arrive as tickets inside the system, and progress is measured against each person’s own target. On Paga Fácil, a per-attempt identifier makes each transaction traceable.',
+          related: ['quality'],
         },
       ],
     },
     education: {
-      eyebrow: 'Education & Certifications',
-      title: 'Education that drives my impact',
+      eyebrow: 'Education',
+      title: 'Education and certifications',
       description:
-        'A strategic mix of advanced education and certifications backing my focus on product, AI, data and technical execution.',
+        'A master’s in Applied AI and certifications in product, data and cloud.',
       photoAlt:
         "Eddie Elorza's Master's diploma in Applied Artificial Intelligence",
       verifyLabel: 'Verify',
@@ -1472,7 +1467,7 @@ export const translations = {
           id: 'data',
           label: 'Data',
           category: 'Analytics',
-          title: 'Data-informed decisions',
+          title: 'Data and analytics',
           featured: 'Data Science + Data Visualization',
           items: [
             {
@@ -1517,18 +1512,17 @@ export const translations = {
               label: 'JS Algorithms · freeCodeCamp',
               href: 'https://www.freecodecamp.org/certification/eddieelorza/javascript-algorithms-and-data-structures',
             },
-            { label: 'Cloud-aware product thinking' },
           ],
         },
       ],
     },
     projects: {
-      eyebrow: 'Featured projects',
+      eyebrow: 'Projects',
       viewLabel: 'View project',
       noDemoLabel: 'Internal system · no public demo',
       newTabLabel: 'opens in a new tab',
       detail: {
-        open: 'View details',
+        open: 'View resources',
         keyPoints: 'Key points',
         close: 'Close',
         breadcrumb: 'Projects',
@@ -1539,6 +1533,11 @@ export const translations = {
           stack: 'Stack',
         },
       },
+      carousel: {
+        region: 'Projects',
+        prev: 'Previous project',
+        next: 'Next project',
+      },
       gallery: {
         open: 'Enlarge screen',
         note: 'Screenshots with fictitious data',
@@ -1546,25 +1545,23 @@ export const translations = {
         next: 'Next',
         close: 'Close',
       },
-      title: 'Initiatives with real impact',
+      title: 'What I’ve built',
       description:
-        'Initiatives where I combined product, engineering and technical leadership to solve real problems in payments, credit, hospitality and restaurants.',
+        'Payments and credit platforms, a CRM in production and my own AI products: the problem, my role and the technical decisions.',
       items: [
         {
-          title: 'Hotel Commercial Intelligence Platform',
+          title: 'Hotel sales CRM',
           tag: 'Product · Client work',
           status: 'In production',
           role: 'End-to-end product',
           period: 'May 2026 — Present',
-          href: 'https://claude.ai/artifact/1NdBmWQUNSSghuNwdmpTxv',
-          linkLabel: 'View case study (Spanish)',
           description:
             'A custom CRM for a hotel group (Operadora SI) that replaced a visit-compliance spreadsheet. End-to-end product — discovery, design, development and operations — in production since September 2026.',
           metrics: [
-            'Discovery revealed the real pain was lack of commercial visibility, not the screens they asked for — reshaped the roadmap.',
+            'Discovery: the underlying problem was lack of sales visibility, not the screens they asked for, which reshaped the roadmap.',
             'Build-vs-buy: justified building custom over HubSpot / Salesforce for a multi-hotel commercial process.',
-            'Row-level permissions in Postgres (RLS), checked by an automated suite on every change: no one can read another hotel\'s accounts.',
-            'Fair targets: the leaderboard ranks by % of each person\'s own target, and the pipeline counts opportunities, not pesos.',
+            'Row-level permissions in Postgres (RLS), checked by automated tests on every change: each hotel sees only its own accounts.',
+            'Comparable targets: the ranking uses % of each person’s own target, and the pipeline counts opportunities, not pesos.',
           ],
           stack: ['React', 'TypeScript', 'TanStack Query', 'Supabase · RLS', 'Vercel'],
           galleryVariant: 'desktop',
@@ -1579,7 +1576,7 @@ export const translations = {
           ],
           detail: {
             intro:
-              'Ten hotels, each with its own book of business and its own team. The value is not in storing data: it is in management seeing whether the team is out on the street, and in an executive never losing an account to forgetfulness.',
+              'Ten hotels, each with its own accounts and team. The goal: give management visibility into sales activity and help each executive keep track of their accounts.',
             sections: [
               {
                 title: 'The problem',
@@ -1587,14 +1584,14 @@ export const translations = {
                 points: [
                   'A repeated visit counted twice, and an abandoned account went unnoticed until it was lost.',
                   'Logging a visit had to cost less than writing it in the sheet: the executive works on their feet, between meetings, from a phone.',
-                  'Everyone had to see only their own book and their team; management needed the answer to "are they hitting target?" without asking anyone for a report.',
+                  'Each person had to see only their own accounts and team; management needed progress against target without requesting reports.',
                 ],
               },
               {
                 title: 'My role',
                 body: 'End-to-end product with the client: discovery, design, development, launch and operation. I work alone, so every product decision is also a technical one.',
                 points: [
-                  'Discovery: the real pain was the lack of commercial visibility, not the screens they asked for. That redirected the roadmap.',
+                  'Discovery: the underlying problem was lack of sales visibility, not the screens they asked for. That reshaped the roadmap.',
                   'Build-vs-buy: I made the case for building it rather than HubSpot or Salesforce, for a multi-hotel process where each property owns its book.',
                   'I sequenced the MVP to validate the critical flow — logging the visit — before investing in anything else.',
                   'Management reports bugs and requests through tickets inside the CRM itself; I handle and ship them.',
@@ -1604,11 +1601,11 @@ export const translations = {
                 title: 'What it solves',
                 body: 'Three journeys, in this order: log a visit, know what today holds, and see whether the team is hitting target.',
                 points: [
-                  'Compliance: the table that used to live in Excel, computed from the logged visits. Only a true visit counts: a meeting held and logged the same day counts once.',
+                  'Compliance: the table that used to live in Excel, calculated from logged visits. A meeting held and logged the same day counts once.',
                   'Team today: where everyone is going, which follow-ups are overdue and which accounts have gone quiet.',
                   'Pipeline in three levels: by hotel, by person and a board by stage, with each account\'s pulse on the card.',
-                  'Company file: next step, decision maker and last contact at the top; the history with the real author of each visit below.',
-                  'Rate agreements: corporate rates per hotel, flagged 45 days before expiry — renewals get negotiated before, not after.',
+                  'Company record: next step, decision maker and last contact at the top; visit history with its author below.',
+                  'Rate agreements: corporate rates per hotel, with a notice 45 days before expiry so renewals can be negotiated in time.',
                 ],
               },
               {
@@ -1618,14 +1615,14 @@ export const translations = {
                   'The pipeline is measured in opportunities, not pesos: they sell lodging agreements, and an estimated amount at the start misleads more than it informs.',
                   'The leaderboard ranks by percentage of each person\'s own target, so a manager on 20 and an executive on 25 are measured by the same yardstick.',
                   'An account\'s rhythm shows in color: six named rhythms over nine weeks of activity, so "cooling down" is visible before the account goes cold.',
-                  'What one hotel sees of an account another works under the same brand is deliberately bounded: stage, owner and last activity — never contacts or rates.',
+                  'What one hotel sees of an account another hotel works under the same brand is limited: stage, owner and last activity, without contacts or rates.',
                 ],
               },
               {
                 title: 'Engineering',
-                body: 'It holds a real client\'s commercial data and one person maintains it: security and automation are not optional.',
+                body: 'It handles a client’s sales data and is maintained by one person, so security and automation are a priority.',
                 points: [
-                  'Row-level permissions in Postgres (RLS): an executive cannot read another hotel\'s book even by crafting the query by hand. An automated suite checks those rules on every change.',
+                  'Row-level permissions in Postgres (RLS): an executive can’t read another hotel’s accounts, even by querying the database directly. Automated tests check those rules on every change.',
                   'An action only appears in the interface if the server is going to accept it.',
                   'Concurrent editing: if two people open the same company, the second gets a warning instead of overwriting the first one\'s work.',
                   'Lockout after three failed attempts, session close on inactivity, tokens expiring in 15 minutes, and security headers verified at build time.',
@@ -1637,8 +1634,6 @@ export const translations = {
           },
           figures: [
             { value: '10', label: 'hotels' },
-            { value: '16', label: 'people' },
-            { value: '928', label: 'companies' },
           ],
         },
         {
@@ -1648,10 +1643,10 @@ export const translations = {
           role: 'My own product, end to end',
           period: 'Apr 2026 — Present',
           description:
-            'A QR menu with an AI waiter, a cart shared across the table, and a panel that receives every round live. I designed and built all of it: product, data, security and operation.',
+            'A QR menu with an AI waiter, a cart shared across the table, and a panel that receives every round live. I designed and built it: product, data, security and operation.',
           metrics: [
             'Three apps on one base: diner, restaurant panel and landing.',
-            'The rules live in Postgres: no price ever arrives from the browser.',
+            'The rules live in Postgres: prices are calculated on the server, not in the browser.',
             'The AI waiter suggests, but the database decides what exists and what is sold out.',
           ],
           stack: ['React 18', 'TypeScript', 'Supabase · RLS', 'Realtime', 'Gemini'],
@@ -1663,7 +1658,7 @@ export const translations = {
           ],
           detail: {
             intro:
-              'A table loses money in its slow moments: waiting for the waiter to order a second round, splitting the bill in someone\'s head, a PDF menu nobody understands. Tastify sits there, at the table, without replacing the restaurant\'s till.',
+              'Restaurants lose time in specific moments: waiting for a server to order another round, splitting the bill, making sense of the menu. Tastify handles that from the table, without replacing the restaurant’s point of sale.',
             diagrams: [
               {
                 id: 'tastify',
@@ -1709,8 +1704,8 @@ export const translations = {
                 points: [
                   'The diner scans the QR, orders with their group in a shared cart and sees what they owe, without creating an account.',
                   'The kitchen receives rounds with a ticket number, extras and notes, and moves them through states with one tap: received, preparing, ready, delivered.',
-                  'The waiter sees the floor, charges per person and frees tables; the owner sees sales and what the AI pushed.',
-                  'The AI waiter answers with dishes from the real menu and offers a side that actually exists.',
+                  'Servers see the floor, record payment per person and free up tables; owners see sales and which ones came from the AI.',
+                  'The AI waiter answers with dishes from the available menu and suggests sides that exist.',
                 ],
               },
               {
@@ -1719,27 +1714,27 @@ export const translations = {
                 points: [
                   'Orders are only born inside submit_order, which recalculates price, extras and availability in one transaction: editing the request in the browser does not make you pay less.',
                   'The QR is an opaque token. Changing a number in the URL does not seat you at another table.',
-                  'The diner signs in anonymously and still gets a real identity in the database, so row-level policies can check their table.',
+                  'Diners sign in anonymously but still get an identifier in the database, so row-level policies can validate their table.',
                   'Realtime invalidates queries instead of replicating state, with a 4-second polling fallback if the connection drops.',
-                  'The AI key and privileged access live only in Edge Functions; if Gemini fails, a local search answers and the diner never sees an error.',
+                  'The AI key and privileged access live only in Edge Functions; if Gemini fails, a local search responds instead.',
                 ],
               },
               {
-                title: 'Split bill, to the cent',
+                title: 'Split bill',
                 body: 'Every dish records who ordered it, and shared items are split by weights.',
                 points: [
-                  'The function that computes each person\'s balance uses the same formula as the one that charges, so the per-person sum always reconciles with the total.',
-                  'Anything that cannot be attributed shows as “Unassigned” and is never hidden: with real money, that is money someone has to pay.',
+                  'The per-person balance uses the same formula as the charge, so the sum matches the total.',
+                  'Anything that can’t be attributed shows as “Unassigned” and stays visible for review.',
                 ],
               },
               {
-                title: 'Compiling is not the same as working',
+                title: 'Verification',
                 body: 'This product touches money and I maintain it alone, so the guardrails sit on the system side.',
                 points: [
-                  'A script exercises the real database after every deploy: per-role permissions, function guards, signatures and the columns the frontend uses.',
+                  'A script checks the database after every deploy: role permissions, function guards, signatures and the columns the frontend uses.',
                   'The local environment rebuilds from scratch through the migrations, which is the only proof they reproduce the production schema.',
                   'A CLI wrapper aborts if the linked project is the wrong one and blocks destructive flags.',
-                  'Recording the demo surfaced a real mismatch: the panel showed $490 while the per-person total stayed at $355. The mismatch warning caught it, and the fix was to invalidate balances on every new round and every reconnection. The system found its own error before a customer overpaid.',
+                  'While recording the demo, a mismatch showed up: the panel showed $490 and the per-person total $355. The mismatch warning caught it; the fix was to recalculate balances on every new round and reconnection.',
                 ],
               },
               {
@@ -1770,10 +1765,10 @@ export const translations = {
           role: 'Product, design and engineering, end to end',
           period: 'May 2026 — Sep 2026',
           description:
-            'A system for going from B1 to C1 that watches what I produce, models my errors, and generates every reading, drill and podcast from that model. It runs entirely on my Mac, with local AI and no cloud service at all.',
+            'An English study system that tracks what I produce, detects my recurring mistakes and generates readings, exercises and podcasts from them. It runs on my Mac with local AI.',
           metrics: [
-            'Language apps optimize for engagement; this one optimizes for level, which is why it has no streak to protect.',
-            'SQLite as the source of truth and a worker that runs one inference at a time, to keep the laptop cool.',
+            'Built to improve level, not to maintain streaks or engagement.',
+            'SQLite as the source of truth and a worker that runs one inference at a time to avoid overloading the machine.',
             'Three architectures in three months, each cut-over with a preflight check and a way back.',
           ],
           stack: ['React', 'TypeScript', 'FastAPI', 'SQLite · FSRS', 'Ollama'],
@@ -1786,14 +1781,14 @@ export const translations = {
           ],
           detail: {
             intro:
-              'Anki gave me card memory, Notion gave me pages, and a tutor gave corrections that dissolved into prose. No piece knew what the others were doing, and what was missing was a model of the learner: which words are stuck, which errors repeat, and what level I actually read at.',
+              'Anki held flashcards, Notion held notes and a tutor’s corrections stayed in loose text. None of the tools connected, and there was no model of my learning: which words weren’t sticking, which mistakes repeated and what level I read at.',
             sections: [
               {
                 title: 'The problem',
                 body: 'I am a Spanish speaker, I study 60 to 75 minutes in the morning, and no tool built on what I produced.',
                 points: [
-                  'The only success metric is the real level: errors per 100 words going down, and external tests. There is no streak to protect.',
-                  'Two constraints shaped the product: I abandon activities that ask for a lot of writing, so everything is multiple choice.',
+                  'The metric that matters is level: fewer errors per 100 words and external tests. No streaks.',
+                  'Two constraints shaped the product: I drop activities that require a lot of writing, so daily practice favors multiple choice.',
                   'And local AI takes 15 to 80 seconds, so waiting was designed as a first-class state rather than a spinner.',
                 ],
               },
@@ -1809,11 +1804,11 @@ export const translations = {
               },
               {
                 title: 'The daily loop',
-                body: 'Six steps, and none of them depends on the model answering in time.',
+                body: 'Five steps, and none depends on the model responding in time.',
                 points: [
                   'I open the day and see my working level with its reason: retention, comprehension and the evidence behind it.',
                   'I do the review sitting with a budget in minutes and a pace calibrated by the median time between answers.',
-                  'Closing it enqueues the day\'s jobs, so the session never fails because of the model.',
+                  'Closing it queues the day’s jobs, so the session doesn’t depend on the model responding.',
                   'The worker generates the reading, the drills and the writing prompt from my stuck words and my frequent errors.',
                   'Everything I produce gets corrected and feeds the same errors table, which is what closes the loop.',
                 ],
@@ -1824,17 +1819,17 @@ export const translations = {
                 points: [
                   'SQLite as the source of truth: one file, no server, easy to back up. Cost: no sync between devices.',
                   'Local AI by default: private and with no per-token cost. Cost: answers that take 15 to 80 seconds.',
-                  'FSRS without fuzz: the interval each button shows is exactly the one it schedules. Honesty over optimization.',
-                  'Freezing Anki: one system schedules, because two sources produced conflicts impossible to explain. Cost: no studying on the phone.',
+                  'FSRS without fuzz: the interval each button shows is exactly the one it schedules.',
+                  'Freezing Anki: a single system schedules reviews, because two sources created conflicts that were hard to trace. Cost: no studying on the phone.',
                   'A level built from several sources of evidence: each one declares whether it has enough data, and says "no data yet" instead of inventing a number.',
                 ],
               },
               {
-                title: 'Three problems invisible from the interface',
+                title: 'Problems the interface didn’t show',
                 body: 'What I learned most was not on the screen.',
                 points: [
-                  'The worker was dying silently: the file lock does not serialize threads, and opening it in write mode truncated a file the process itself had locked. A two-layer fix, and the loop now survives exceptions.',
-                  'The counts were lying: the app seemed to have more of everything, but 77 of 77 writings and 79 of 86 readings had an empty body. The lesson was to compare content, not rows.',
+                  'The worker stopped without warning: the file lock doesn’t serialize threads, and opening it in write mode truncated a file the process had locked. I fixed it in two layers, and the loop now survives exceptions.',
+                  'The counts were misleading: the app seemed to have more content, but 77 of 77 writings and 79 of 86 readings were empty. I learned to compare content, not rows.',
                   'Cutting off the old system without losing history: cards were cross-checked live against it, with zero divergence, a mandatory backup and a revert command.',
                 ],
               },
@@ -1903,8 +1898,8 @@ export const translations = {
                   'Discovery with business and operations to understand what was holding digital payments back before committing to screens.',
                   'Backlog and roadmap for the initiative, prioritized by impact on collections and user value rather than by order of arrival.',
                   'What to migrate, what to keep and which changes did not justify their cost: the trade-offs between product, technical complexity and timelines.',
-                  'Operational risk on the table from the start: in a payment gateway an error is not a bug, it is a customer\'s money.',
-                  'Not a backend engineer, but I got into the API contracts, the database validation and the deployments, because leading delivery demands understanding that side.',
+                  'I identified operational risks from the start: in a payment gateway, an error directly affects a customer’s money.',
+                  'Although my focus was frontend, I worked on API contracts, database validation and deployments to lead delivery with full context.',
                   'The full cycle: problem → discovery → prioritization → technical decision → implementation → delivery → production → follow-up.',
                 ],
               },
@@ -1947,7 +1942,7 @@ export const translations = {
                 title: 'Quality and security',
                 body: 'The migration plan gave certification, security and quality their own phases instead of a final step.',
                 points: [
-                  'I implemented the per-attempt idempotency key: if the user retries, double-taps or the network duplicates the request, that same key resolves to a single payment. This is where I learned why that is not optional in payments.',
+                  'I implemented a per-attempt idempotency key: if the user retries, double-taps or the network duplicates the request, the same key resolves to a single payment.',
                   'If the network drops mid-transaction, the app checks the attempt status and retries with that same key, instead of leaving the user with an ambiguous error.',
                   'That attempt identifier travels from the frontend to the payment service, so a single charge can be followed end to end.',
                   'Unit, integration and end-to-end tests.',
@@ -1956,9 +1951,9 @@ export const translations = {
                 ],
               },              {
                 title: 'What I would do differently today',
-                body: 'The call I would revisit is not about code, it is about architecture.',
+                body: 'I would revisit an architecture decision.',
                 points: [
-                  'Module Federation also arrived on its moment. Today I would compare alternatives before committing: a modern PWA does not necessarily call for federation, and the choice should hold up because of the problem, not the popularity of the tool.',
+                  'Module Federation was chosen partly because of its adoption at the time. Today I’d compare alternatives first: a modern PWA doesn’t necessarily need federation, and the choice should follow the problem.',
                   'I would spend more time truly understanding the architecture — of the host system and of the product itself — before choosing what to build it with.',
                 ],
               },
@@ -1974,7 +1969,7 @@ export const translations = {
             'An internal credit and collections platform running alongside a legacy system. I built the frontend core — the shared base the microfrontends consume at runtime with Module Federation — and three of its modules: user administration, customer credit information and portfolio by customer.',
           metrics: [
             'Shared core: layout, login, theme and components the modules consume.',
-            'Three modules of my own: users, credit information and portfolio.',
+            'Three modules I developed: users, credit information and portfolio.',
             'Portfolio navigable in three levels: manager → customer → order.',
             'Base template for new microfrontends upgraded to React 19.',
           ],
@@ -2049,7 +2044,7 @@ export const translations = {
                 body: 'The core does not orchestrate or mount applications: it is a remote that publishes the visual base and common components, and each microfrontend consumes them at runtime with Webpack Module Federation.',
                 points: [
                   'Updating a shared element does not mean copying code between repositories or rebuilding every consuming application.',
-                  'React is shared as a singleton: one instance of the library, no hook problems and no duplicate runtimes.',
+                  'React is shared as a singleton to avoid duplicate runtimes and hook errors.',
                   'State stays isolated inside each microfrontend.',
                   'In user administration I used Context for the cross-cutting parts — catalogs and filters several screens share; each view\'s own state stays local.',
                   'Modules are embedded in an iframe inside the legacy system, which provides the context to start the query; in the portfolio module, the response back to the container goes through postMessage.',
@@ -2079,8 +2074,8 @@ export const translations = {
                 title: 'How I would take it to the next stage',
                 body: 'The next step is not swapping technologies for newer versions: it is lowering coupling, making the contracts between applications explicit, and turning the frontend into a platform that is easier to evolve and to operate.',
                 points: [
-                  'Contracts between applications: formalize the communication between the legacy system and the microfrontends with typed, versioned contracts validated at runtime, so no application depends on implicit knowledge of how another one is implemented.',
-                  'Real independence: review which dependencies are worth sharing at runtime and which are better isolated, weighing bundle size, update frequency, compatibility and independent deployability. Sharing too much couples too.',
+                  'Contracts between applications: formalize communication between the legacy system and the microfrontends with typed, versioned contracts validated at runtime, instead of relying on implicit knowledge.',
+                  'Independence between modules: review which dependencies are worth sharing at runtime and which to isolate, weighing bundle size, update frequency, compatibility and independent deployment.',
                   'Observability as part of the architecture: one common strategy for errors, performance, navigation and service calls, with correlation identifiers where end-to-end support exists, to reconstruct a whole operation instead of investigating each application on its own.',
                   'Measurable performance: move from isolated optimizations to shared performance budgets — bundle, load time, expensive renders — as pipeline criteria, to catch regressions before production.',
                   'Consistent resilience: standardize loading, empty states, errors, timeouts, retries and connection loss in the core or in common libraries, instead of every team solving the same cases differently.',
@@ -2095,10 +2090,10 @@ export const translations = {
           title: 'Octobile · Internal messaging app',
           tag: 'Product · External vendor',
           status: 'Shipped to production',
-          role: 'De facto Product Owner and development',
+          role: 'Product coordination and development',
           period: 'Nov 2021 — Oct 2022',
           description:
-            'A WhatsApp-style messaging app for internal company use, with a web and a mobile version. An external company built most of the product; I owned the roadmap, coordinated that team and worked in the code myself.',
+            'An internal messaging app with web and mobile versions. An external vendor built most of the product; I owned the roadmap, coordinated that team and contributed to development.',
           metrics: [
             'Coordinated the external development team from concept to production.',
             'Set up internationalization on the web version and wrote the copy in Spanish and English.',
@@ -2140,11 +2135,11 @@ export const translations = {
               },
             },
             intro:
-              'When development lives outside the company, the risk is not that nothing gets built: it is that something else gets built. Most of my work was closing that distance with acceptance criteria, tests and documentation anyone could follow.',
+              'With development outside the company, the main risk was that what got delivered wouldn’t match what was needed. My job was to close that gap with acceptance criteria, testing and documentation.',
             sections: [
               {
                 title: 'My role',
-                body: 'Without the title, but with the job: owning the product and bridging business and a development team that did not sit in the company.',
+                body: 'Owning the product and acting as the bridge between the business and an external development team.',
                 points: [
                   'Roadmap, backlog and user stories for the application, from concept to production.',
                   'Flows, diagrams and acceptance criteria, so ambiguity got resolved before coding rather than at review.',
@@ -2153,7 +2148,7 @@ export const translations = {
               },
               {
                 title: 'What I built',
-                body: 'I did not only specify: I worked inside the code alongside the external team.',
+                body: 'Beyond writing specs, I also developed alongside the external team.',
                 points: [
                   'Maintenance and new components inside the React Native app.',
                   'Internationalization on the web version with react-i18next: a namespace per component, en.js and es.js files, browser language detection and a fallback language.',
@@ -2167,7 +2162,7 @@ export const translations = {
                   'A checklist feature by feature, with an explicit state: works, does not work, static placeholder, or new feature.',
                   'A test plan of my own for the mobile version on iOS and Android.',
                   'Every document recording who wrote it and who reviewed it, so review always came from someone else.',
-                  'Error tracking with its report, so a bug found did not depend on anyone\'s memory.',
+                  'Bug tracking with reports, so every issue found could be followed up.',
                 ],
               },
               {
@@ -2176,7 +2171,7 @@ export const translations = {
                 points: [
                   'Manuals to run the application on Windows, macOS and mobile devices, so a new teammate did not depend on someone having time to explain it.',
                   'A translations manual so anyone could add a screen without breaking the language structure.',
-                  'Guidelines for naming, dark mode and image formats, which are the decisions an external team resolves differently every time when nobody writes them down.',
+                  'Guidelines for naming, dark mode and image formats, to keep deliveries consistent.',
                 ],
               },
             ],
@@ -2186,16 +2181,16 @@ export const translations = {
     },
     stack: {
       eyebrow: 'Toolbox',
-      title: 'The toolbox behind the product',
+      title: 'Tools I work with',
       description:
-        'Tools I use day to day across discovery, technical decisions, AI automation and shipping to production.',
+        'What I use for discovery, development, AI automation and delivery.',
       categories: ['Product', 'AI', 'Data', 'Engineering', 'Delivery'],
     },
     contact: {
       eyebrow: 'Contact',
-      title: "Let's talk",
+      title: 'Want to work together?',
       description:
-        'Open to conversations about Product Engineering, frontend architecture and technical leadership roles, especially where product, operations and AI meet.',
+        "I'm open to Software Engineer, Product Engineer and technical leadership roles in fintech, payments and AI products. If you think I'd be a fit, let's talk.",
       cta: 'Send a message',
       form: {
         name: 'Name',
@@ -2212,7 +2207,7 @@ export const translations = {
         error: "Couldn't send. Please try again.",
       },
     },
-    footer: 'Eddie Elorza Ruiz · Product Engineer · Frontend Architecture · AI & Digital Transformation',
+    footer: 'Eddie Elorza Ruiz · Software Engineer · Product Builder · Fintech & AI',
     languageLabel: 'Language',
     themeLabel: 'Color',
     mode: {

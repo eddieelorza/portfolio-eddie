@@ -122,7 +122,7 @@ export default function DesktopHeader() {
                   transition={{ duration: LAYOUT_DURATION, ease: EASE }}
                   className="flex items-center gap-3"
                 >
-                  <ul className="flex items-center gap-1">
+                  <ul className="flex items-center gap-0 xl:gap-1">
                     {links.map((item) => {
                       const isActive = active === item.id;
                       return (
@@ -131,7 +131,7 @@ export default function DesktopHeader() {
                             href={`#${item.id}`}
                             aria-current={isActive ? "true" : undefined}
                             className={cn(
-                              "rounded-full px-3 py-1.5 text-sm transition",
+                              "whitespace-nowrap rounded-full px-1.5 py-1.5 text-[13px] transition xl:px-3 xl:text-sm",
                               isActive
                                 ? "bg-white/[0.08] text-white"
                                 : "text-white/70 hover:bg-white/[0.06] hover:text-white",
@@ -150,7 +150,7 @@ export default function DesktopHeader() {
                       <LanguageToggle />
                       <a
                         href="#contact"
-                        className="rounded-full bg-white px-4 py-1.5 text-xs font-semibold text-ink-950 transition hover:bg-white/90"
+                        className="whitespace-nowrap rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-ink-950 transition hover:bg-white/90 xl:px-4"
                       >
                         {t.nav.cta}
                       </a>

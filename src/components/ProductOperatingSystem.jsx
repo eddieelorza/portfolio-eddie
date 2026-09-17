@@ -2,19 +2,21 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { REVEAL_VIEWPORT } from "../lib/animation/viewport.js";
 import {
+  Activity,
   ArrowRight,
-  Bot,
-  CreditCard,
-  GitBranch,
+  FileText,
+  Layers,
   Link2,
-  Rocket,
+  ListChecks,
+  Network,
   Search,
+  ShieldCheck,
   Sparkles,
-  Users,
   X,
 } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext.jsx";
 import SectionHeading from "./SectionHeading.jsx";
+import { cn } from "../lib/utils.js";
 import useMediaQuery from "../hooks/useMediaQuery.js";
 
 /**
@@ -34,13 +36,15 @@ import useMediaQuery from "../hooks/useMediaQuery.js";
  * same copy, no overflow).
  */
 
+// One per step of the workflow, in order (see t.product.items).
 const ICONS = {
-  payments: CreditCard,
-  discovery: Search,
-  prioritization: GitBranch,
-  ai: Bot,
-  stakeholders: Users,
-  delivery: Rocket,
+  problem: Search,
+  scope: FileText,
+  solution: Network,
+  plan: ListChecks,
+  build: Layers,
+  quality: ShieldCheck,
+  operate: Activity,
 };
 
 // ≈3°/s (~120s per revolution).
@@ -334,7 +338,9 @@ function OrbitalView({ data, activeId, activeItem, onSelect }) {
                   "transform 300ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms ease",
               }}
             >
-              {item.title}
+              {/* Orbit labels sit on one line around a circle; long step
+                  titles collide there, so nodes use the short form. */}
+              {item.short ?? item.title}
             </span>
           </button>
         );
@@ -521,7 +527,13 @@ function GridView({ data }) {
               delay: i * 0.06,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="card card-hover edge-glow"
+            className={cn(
+              "card card-hover edge-glow",
+              // An odd count would strand the last step alone on the grid.
+              data.items.length % 2 === 1 &&
+                i === data.items.length - 1 &&
+                "md:col-span-2",
+            )}
           >
             <div className="flex items-start gap-3">
               <span
