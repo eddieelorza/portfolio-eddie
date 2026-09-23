@@ -530,6 +530,94 @@ export const translations = {
           ],
         },
         {
+          title: 'Entre Todos · Red de apoyo comunitaria',
+          tag: 'Producto propio · MVP',
+          status: 'MVP funcional · demo pública',
+          role: 'Producto, diseño e ingeniería, end-to-end',
+          period: 'Sep 2026',
+          description:
+            'Cuentas una situación con tus palabras —"voy a hacer una carne asada para 12"— y el sistema descubre qué personas, objetos y conocimiento ya existen cerca para resolverla, con un mundo 3D navegable de tu comunidad. Producto propio de principio a fin: modelo de datos, pipeline de resolución y tres niveles de visualización, sin backend ni IA en runtime.',
+          metrics: [
+            'Tres comunidades simuladas con estructura social propia: la misma frase produce soluciones distintas en cada una.',
+            'Pipeline de seis etapas en reglas puras; las dos primeras devuelven objetos planos, listos para sustituirse por un LLM sin tocar el resto.',
+            'Mapa → edificio en Three.js → constelación: tres niveles de la misma comunidad, con el mismo estado, sin recargar.',
+          ],
+          stack: ['HTML/CSS/JS vanilla', 'Canvas 2D', 'Three.js · bajo demanda', 'Sin backend · localStorage'],
+          href: 'https://eddieelorza.github.io/entre-todos',
+          linkLabel: 'Ver demo',
+          galleryVariant: 'desktop',
+          galleryNote: 'Capturas del mundo 3D generadas con Playwright contra el producto real, sin retoques.',
+          gallery: [
+            { image: 'et-comunidad', caption: 'Mi comunidad: el residencial completo, de día, con sus edificios etiquetados' },
+            { image: 'et-edificio', caption: 'Mi edificio en 3D: fachada de cristal, personas en su piso, capacidades del lugar' },
+            { image: 'et-necesidad', caption: '"Necesito un vestido…": la necesidad crea gravedad y el círculo de confianza converge' },
+            { image: 'et-visual-confirm', caption: 'La foto de la persona emerge junto a su nodo con "¿Te sirve?"' },
+            { image: 'et-reveal', caption: 'El momento principal: Community Twin → Constelación, casas → personas → confianza' },
+          ],
+          detail: {
+            intro:
+              'Toda comunidad tiene capacidad ociosa —sillas guardadas, alguien que sabe arreglar bicis, alguien que va a Costco cada sábado— pero usarla hoy exige saber exactamente qué pedir, a quién y dónde. Entre Todos elimina esa fricción: cuentas una situación con tus palabras y el sistema arma una solución con lo que tu comunidad ya tiene.',
+            sections: [
+              {
+                title: 'El problema y la interfaz',
+                body: 'No es un marketplace de vecinos, ni un feed, ni un chatbot: es una interfaz distinta entre una persona y la capacidad colectiva de su comunidad.',
+                points: [
+                  'El usuario nunca elige categorías, solo cuenta una situación: "voy a hacer una carne asada para 12 personas el sábado".',
+                  'El sistema entiende qué hace falta, descubre qué personas, objetos, conocimiento, tiempo y trayectos ya existen cerca, y arma una solución honesta: "tu comunidad ya tiene 7 de las 8 cosas que necesitas".',
+                  'Cada ayuda que sale bien se convierte en una relación de confianza registrada en el grafo, no en un post que se pierde en un feed.',
+                ],
+              },
+              {
+                title: 'El pipeline y el Community Resource Graph',
+                body: 'Seis etapas en reglas puras, sin IA en runtime: entender → detectar necesidades → buscar capacidades → armar soluciones → ordenar → titular y mensaje.',
+                points: [
+                  'Las dos primeras etapas devuelven objetos planos: un modelo de lenguaje puede sustituirlas mañana devolviendo la misma forma, sin tocar el resto del pipeline.',
+                  'El grafo no modela lo que la gente publica, sino lo que la gente es, tiene, sabe y hace por rutina, con evidencia por capacidad ("ha recibido paquetes 3 veces").',
+                  'El grafo aprende: cada situación resuelta suma evidencia, y un trayecto u oferta tuya pasa a ser algo que tu comunidad sabe de ti.',
+                ],
+              },
+              {
+                title: 'Community Simulation Layer',
+                body: 'Tres comunidades con estructura social propia inyectan o suprimen necesidades según el lugar, sin una sola regla escrita por comunidad.',
+                points: [
+                  'Residencial Jacarandas (CDMX): familias en torres; la capacidad oculta está en objetos guardados y rutinas de home office.',
+                  'Colonia Los Pinos (Guadalajara): adultos mayores con pocos coches; la capacidad oculta es tiempo y experiencia de oficio.',
+                  'Residència Internacional de Gràcia (Barcelona): estudiantes de doce países; la capacidad oculta es quien ya pasó por el trámite y los idiomas.',
+                  'La misma frase —"voy a hacer una comida para 10"— descubre necesidades y personas distintas en cada una.',
+                ],
+              },
+              {
+                title: 'Tres niveles de la misma comunidad',
+                body: 'Mapa → Community Twin → Constelación, con un recorrido continuo y la misma identidad visual (tono, iniciales, anillo de confianza) en los tres.',
+                points: [
+                  'Mapa ilustrado propio en Canvas 2D, sin tiles ni lugares reales, con posiciones aproximadas por diseño.',
+                  'Community Twin: el edificio se levanta piso a piso en Three.js cargado bajo demanda; sin conexión, la ficha del edificio da la misma información.',
+                  'Place Capabilities: cada edificio declara lo que puede hacer por sí mismo —recepción 24 h, bicicletero, elevador de carga— y el resolver las combina con personas y objetos.',
+                  'Constelación: la comunidad en Canvas 2D donde cada persona es un nodo y una necesidad crea gravedad hacia quien puede resolverla.',
+                ],
+              },
+              {
+                title: 'Confianza y privacidad por diseño',
+                body: 'Las situaciones sensibles priorizan confianza sobre proximidad, y nada se muestra como número.',
+                points: [
+                  'Trust Graph: relaciones persona a persona, círculos explícitos y emergentes, y contextos —alguien puede ser de confianza para paquetes y no para entrar a casa.',
+                  'Nunca el número de departamento, teléfono, dirección ni ubicación exacta; confianza por comportamiento, no estrellas ni rankings.',
+                  'Autorización antes de conectar: cada persona recibe su propio mensaje editable, y decides a quién pedir y con qué alcance.',
+                ],
+              },
+              {
+                title: 'Estado y qué falta',
+                body: 'Es un MVP de demostración: las tres comunidades y sus personas son ficticias, y nadie responde de verdad.',
+                points: [
+                  'Sin backend ni autenticación: todo el estado vive en localStorage, con reinicio de demo en un botón.',
+                  'Frases fuera de los escenarios conocidos caen en un intérprete genérico por palabras clave; el siguiente paso es sustituir esas dos primeras etapas por un LLM real.',
+                  'Falta validar con usuarios reales que "contar una situación" resuelve más fricción que un marketplace o un grupo de WhatsApp.',
+                ],
+              },
+            ],
+          },
+        },
+        {
           title: 'Tastify · SaaS para restaurantes',
           tag: 'Producto propio · SaaS',
           status: 'Listo para piloto',
@@ -1167,7 +1255,7 @@ export const translations = {
     },
     personal: {
       eyebrow: 'Fuera del código',
-      title: 'Lo que veo y lo que escucho',
+      title: 'Lo que *veo* y lo que escucho',
       description: 'Fotos que tomo cuando viajo y la playlist que suena mientras trabajo.',
       galleryLabel: 'Fotos de viaje',
       deckRole: 'pila de fotos',
@@ -1759,6 +1847,94 @@ export const translations = {
           figures: [
             { value: '10', label: 'hotels' },
           ],
+        },
+        {
+          title: 'Entre Todos · Community support network',
+          tag: 'Own product · MVP',
+          status: 'Working MVP · public demo',
+          role: 'Product, design and engineering, end-to-end',
+          period: 'Sep 2026',
+          description:
+            'You describe a situation in your own words —"I\'m making carne asada for 12 people"— and the system finds which people, objects and knowledge already exist nearby to solve it, with a navigable 3D world of your community. My own product end to end: data model, resolution pipeline and three levels of visualization, with no backend and no AI at runtime.',
+          metrics: [
+            'Three simulated communities with their own social structure: the same sentence produces different solutions in each one.',
+            'A six-stage pipeline of pure rules; the first two return plain objects, ready to be swapped for an LLM without touching the rest.',
+            'Map → building in Three.js → constellation: three levels of the same community, sharing state, no reload.',
+          ],
+          stack: ['Vanilla HTML/CSS/JS', 'Canvas 2D', 'Three.js · on demand', 'No backend · localStorage'],
+          href: 'https://eddieelorza.github.io/entre-todos',
+          linkLabel: 'View demo',
+          galleryVariant: 'desktop',
+          galleryNote: 'Screens of the 3D world captured with Playwright against the real product, unedited.',
+          gallery: [
+            { image: 'et-comunidad', caption: 'My community: the whole residential complex, by day, buildings labeled' },
+            { image: 'et-edificio', caption: 'My building in 3D: glass facade, people on their floor, what the place itself can do' },
+            { image: 'et-necesidad', caption: '"I need a dress…": the need creates gravity and the trust circle converges' },
+            { image: 'et-visual-confirm', caption: "The person's photo appears next to their node with \"Does this work?\"" },
+            { image: 'et-reveal', caption: 'The main moment: Community Twin → Constellation, houses → people → trust' },
+          ],
+          detail: {
+            intro:
+              "Every community has plenty of idle capacity —stored chairs, someone who fixes bikes, someone who goes to Costco every Saturday— but using it today means knowing exactly what to ask, of whom, and where. Entre Todos removes that friction: you describe a situation in your own words and the system builds a solution from what your community already has.",
+            sections: [
+              {
+                title: 'The problem and the interface',
+                body: "It isn't a neighbor marketplace, a feed, or a chatbot: it's a different interface between a person and their community's collective capacity.",
+                points: [
+                  'The user never picks a category, only describes a situation: "I\'m making carne asada for 12 people on Saturday."',
+                  'The system understands what\'s needed, discovers which people, objects, knowledge, time and routes already exist nearby, and builds an honest solution: "your community already has 7 of the 8 things you need."',
+                  'Every piece of help that goes well becomes a trust relationship recorded in the graph, not a post that disappears into a feed.',
+                ],
+              },
+              {
+                title: 'The pipeline and the Community Resource Graph',
+                body: 'Six stages of pure rules, with no AI at runtime: understand → detect needs → discover capabilities → build solutions → rank → headline and message.',
+                points: [
+                  'The first two stages return plain objects: a language model can replace them tomorrow, returning the same shape, without touching the rest of the pipeline.',
+                  'The graph does not model what people post, but what people are, have, know and do by routine, with evidence per capability ("has received packages 3 times").',
+                  'The graph learns: every solved situation adds evidence, and a trip or an offer of yours becomes something your community knows about you.',
+                ],
+              },
+              {
+                title: 'Community Simulation Layer',
+                body: 'Three communities with their own social structure inject or suppress needs depending on the place, with no rule written per community.',
+                points: [
+                  'Residencial Jacarandas (Mexico City): families in towers; hidden capacity sits in stored objects and work-from-home routines.',
+                  'Colonia Los Pinos (Guadalajara): older adults with few cars; hidden capacity is time and craft experience.',
+                  'Residència Internacional de Gràcia (Barcelona): students from twelve countries; hidden capacity is whoever already went through the paperwork, and languages.',
+                  'The same sentence —"I\'m making dinner for 10"— surfaces different needs and different people in each one.',
+                ],
+              },
+              {
+                title: 'Three levels of the same community',
+                body: 'Map → Community Twin → Constellation, one continuous journey with the same visual identity (tone, initials, trust ring) across all three.',
+                points: [
+                  'A hand-illustrated map of my own, in Canvas 2D, with no tiles or real places, positions approximate by design.',
+                  'Community Twin: the building rises floor by floor in Three.js, loaded on demand; offline, the building card gives the same information.',
+                  "Place Capabilities: each building declares what the place itself can do —24h reception, bike storage, a freight elevator— and the resolver combines them with people and objects.",
+                  'Constellation: the community in Canvas 2D, where each person is a node and a need creates gravity toward whoever can solve it.',
+                ],
+              },
+              {
+                title: 'Trust and privacy by design',
+                body: 'Sensitive situations prioritize trust over proximity, and nothing is shown as a number.',
+                points: [
+                  'Trust Graph: person-to-person relationships, explicit and emergent circles, and contexts —someone can be trusted for packages and not for entering your home.',
+                  'Never a unit number, phone, address or exact location; trust by behavior, never stars or rankings.',
+                  'Authorization before connecting: each person gets their own editable message, and you decide who to ask and with what reach.',
+                ],
+              },
+              {
+                title: 'Status and what\'s missing',
+                body: "It's a demo MVP: the three communities and their people are fictional, and nobody responds for real.",
+                points: [
+                  'No backend or authentication: all state lives in localStorage, with a one-button demo reset.',
+                  'Sentences outside the known scenarios fall back to a generic keyword interpreter; the next step is replacing those first two stages with a real LLM.',
+                  'Still needs validating with real users that "describing a situation" removes more friction than a marketplace or a WhatsApp group.',
+                ],
+              },
+            ],
+          },
         },
         {
           title: 'Tastify · SaaS for restaurants',
@@ -2398,7 +2574,7 @@ export const translations = {
     },
     personal: {
       eyebrow: 'Beyond the code',
-      title: 'What I see and what I hear',
+      title: 'What I *see* and what I hear',
       description: 'Photos I take when I travel and the playlist that plays while I work.',
       galleryLabel: 'Travel photos',
       deckRole: 'photo stack',

@@ -13,6 +13,7 @@ import ProjectViewer from "./ProjectViewer.jsx";
  */
 const ICONS = [
   doodle("building"), // CRM comercial hotelero — hotel group
+  doodle("network"), // Entre Todos — community resource graph
   doodle("food"), // Tastify — restaurants SaaS
   doodle("language"), // English OS — study system
   doodle("branch"), // Spine — product reasoning graph in git

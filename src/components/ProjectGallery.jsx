@@ -38,6 +38,11 @@ import spineGuardrailsImg from "../assets/projects/spine/guardrails.webp";
 import spineCheckImg from "../assets/projects/spine/check.webp";
 import spineArquitecturaImg from "../assets/projects/spine/arquitectura.webp";
 import spineAgentesImg from "../assets/projects/spine/agentes.webp";
+import etComunidadImg from "../assets/projects/entre-todos/comunidad.webp";
+import etEdificioImg from "../assets/projects/entre-todos/edificio.webp";
+import etNecesidadImg from "../assets/projects/entre-todos/necesidad.webp";
+import etVisualConfirmImg from "../assets/projects/entre-todos/visual-confirm.webp";
+import etRevealImg from "../assets/projects/entre-todos/reveal.webp";
 /**
  * Screens are keyed by name so translations.js stays free of asset imports:
  * each project lists `gallery: [{ image: "monto", caption }]` and the key is
@@ -86,6 +91,11 @@ export const PROJECT_IMAGES = {
   "spine-check": spineCheckImg,
   "spine-arquitectura": spineArquitecturaImg,
   "spine-agentes": spineAgentesImg,
+  "et-comunidad": etComunidadImg,
+  "et-edificio": etEdificioImg,
+  "et-necesidad": etNecesidadImg,
+  "et-visual-confirm": etVisualConfirmImg,
+  "et-reveal": etRevealImg,
 };
 
 /**
