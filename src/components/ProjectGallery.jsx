@@ -43,6 +43,12 @@ import etEdificioImg from "../assets/projects/entre-todos/edificio.webp";
 import etNecesidadImg from "../assets/projects/entre-todos/necesidad.webp";
 import etVisualConfirmImg from "../assets/projects/entre-todos/visual-confirm.webp";
 import etRevealImg from "../assets/projects/entre-todos/reveal.webp";
+import acBienvenidaImg from "../assets/projects/aura-clash/bienvenida.webp";
+import acCrearImg from "../assets/projects/aura-clash/crear.webp";
+import acControlImg from "../assets/projects/aura-clash/control.webp";
+import acRemateImg from "../assets/projects/aura-clash/remate.webp";
+import acDespertarImg from "../assets/projects/aura-clash/despertar.webp";
+import acResultadoImg from "../assets/projects/aura-clash/resultado.webp";
 /**
  * Screens are keyed by name so translations.js stays free of asset imports:
  * each project lists `gallery: [{ image: "monto", caption }]` and the key is
@@ -96,6 +102,12 @@ export const PROJECT_IMAGES = {
   "et-necesidad": etNecesidadImg,
   "et-visual-confirm": etVisualConfirmImg,
   "et-reveal": etRevealImg,
+  "ac-bienvenida": acBienvenidaImg,
+  "ac-crear": acCrearImg,
+  "ac-control": acControlImg,
+  "ac-remate": acRemateImg,
+  "ac-despertar": acDespertarImg,
+  "ac-resultado": acResultadoImg,
 };
 
 /**

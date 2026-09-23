@@ -20,6 +20,7 @@ const ICONS = [
   doodle("card"), // Paga Fácil — payments platform
   doodle("boxes"), // Sistema Regional — independent microfrontends
   doodle("chat"), // Octobile — internal messaging app
+  doodle("sparkle"), // Aura Clash — gesture-controlled energy duel
 ];
 
 /** Neutral, and deliberately not one of the above, so a project added

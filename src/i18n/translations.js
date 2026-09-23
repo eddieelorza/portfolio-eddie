@@ -1244,6 +1244,95 @@ export const translations = {
             ],
           },
         },
+        {
+          title: 'Aura Clash',
+          tag: 'Producto propio · Prototipo jugable',
+          status: 'Prototipo jugable · Etapa 1',
+          role: 'Producto, diseño e ingeniería, end-to-end',
+          period: 'Sep 2026',
+          description:
+            'Videojuego de navegador inspirado en las "batallas de aura" virales —dos personas se enfrentan con poses y gestos exagerados y el entorno decide quién tiene más presencia—, traducido a un duelo con reglas objetivas: cerrar el puño carga energía, abrir la mano la libera. El gesto se reconoce en el propio dispositivo, sin cámara obligatoria, y dos personas pueden duelarse por enlace o QR sobre WebRTC sin servidor propio.',
+          metrics: [
+            'Combate determinista a 60 ticks/s, con la misma capa de acciones para cámara, teclado y botones en pantalla.',
+            'Duelos remotos por lockstep con retraso de entrada derivado del RTT, verificados por hash de estado cada 120 ticks.',
+            'Reconocimiento de gestos en el dispositivo con MediaPipe: nada de video sale del navegador.',
+            'Investigación cultural del fenómeno documentada con fuentes y correcciones a supuestos iniciales, antes de diseñar una sola mecánica.',
+          ],
+          stack: ['TypeScript', 'Vite', 'Canvas 2D', 'MediaPipe Tasks Vision', 'WebRTC · PeerJS', 'Vitest'],
+          galleryVariant: 'desktop',
+          galleryNote: 'Capturas del prototipo real, generadas con Playwright contra el juego en ejecución, sin retoques.',
+          gallery: [
+            { image: 'ac-bienvenida', caption: 'Bienvenida: la promesa en una línea, sin registro previo' },
+            { image: 'ac-crear', caption: 'Crear luchador: alias, avatar y aura — todo cosmético' },
+            { image: 'ac-control', caption: 'Cámara, teclado o botones: misma capa de acciones para las tres' },
+            { image: 'ac-remate', caption: 'Impacto en combate — daño, interrupción y texto de estado en vivo' },
+            { image: 'ac-despertar', caption: 'Ambos con el especial listo: el momento de mayor tensión del duelo' },
+            { image: 'ac-resultado', caption: 'Resultado con desglose de por qué se recibió cada punto de daño' },
+          ],
+          detail: {
+            intro:
+              'La fantasía es simple: tu mano es el mando. Cerrar el puño carga energía, abrirla la dispara. El reto era que esa fantasía funcionara sin cámara igual de bien que con ella, y que el origen cultural del proyecto —un fenómeno viral real, no una estética anime genérica— se tradujera con honestidad en vez de diluirse en un producto que dice inspirarse en algo sin entenderlo.',
+            sections: [
+              {
+                title: 'El fenómeno y la traducción a producto',
+                body: '"Farmear aura" es jerga de internet para acumular puntos invisibles de presencia haciendo algo que se ve impresionante con calma; las batallas de aura la llevaron a la calle: dos personas se paran al centro de un corro y el público decide quién tiene más aura.',
+                points: [
+                  'El original se juzga por la reacción del público a una actuación libre, sin reglamento único entre eventos.',
+                  'Aura Clash no finge ser la batalla presencial: convierte el mismo lenguaje —un gesto pequeño que desata algo grande— en un duelo con reglas objetivas, que es lo que un prototipo sin audiencia real puede juzgar de forma justa.',
+                  'El modo experimental Aura Showcase, con rondas de actuación puntuadas por ritmo y variedad, es la pieza que sí se acerca al formato de actuación evaluada del fenómeno original.',
+                  'Gestos de anime que inspiraron el diseño (sellos de Naruto, señas de Jujutsu Kaisen, el Kamehameha) se tomaron como patrón genérico —cargar y empujar, un gesto único para un ultimate—, nunca como copia de la seña, el nombre o el efecto de un personaje.',
+                ],
+              },
+              {
+                title: 'Arquitectura: reglas separadas de los sentidos',
+                body: 'La simulación de combate corre a 60 ticks por segundo con aritmética determinista; el dibujo en Canvas 2D corre a la tasa que dé el navegador.',
+                points: [
+                  'Cámara, teclado y botones en pantalla resuelven contra la misma capa de acciones: el combate nunca sabe de dónde vino la acción, solo que llegó.',
+                  'Esa separación es lo que permite que un bot juegue con las mismas reglas que un humano, y que dos dispositivos remotos se mantengan sincronizados sin reenviar el estado completo cada frame.',
+                ],
+              },
+              {
+                title: 'Reconocimiento de gestos en el dispositivo',
+                body: 'MediaPipe corre en el navegador y solo produce puntos de la mano; el video nunca sale del dispositivo.',
+                points: [
+                  'En combate se sigue una sola mano y nada más, decisión deliberada de privacidad y de presupuesto de cómputo.',
+                  'Los gestos de cara y cuerpo del laboratorio experimental se miden contra la propia cara neutral del jugador, calibrada en un segundo — no contra un modelo genérico de expresión, y sin inferir identidad ni emoción.',
+                  'Cada gesto tiene un equivalente exacto de teclado o botón táctil: ninguna mecánica depende solo de la cámara.',
+                ],
+              },
+              {
+                title: 'Red: lockstep determinista sin servidor propio',
+                body: 'La decisión de producto fue no operar un servidor de partidas todavía; la de ingeniería que la hace posible es lockstep con retraso de entrada.',
+                points: [
+                  'Los dos dispositivos corren la misma simulación y se intercambian solo una máscara de acción por tick, nunca posiciones ni vida; el retraso se deriva del RTT medido en vez de ser fijo.',
+                  'Cada 120 ticks ambos lados comparan un hash del estado; si no coincide, la partida se anula en vez de arriesgar un resultado divergente.',
+                  'Un bug real encontrado en el camino: cuando dos ataques llegaban en el mismo tick, el orden de resolución fijo dejaba que ser host o invitado no fuera neutral. Se corrigió y se verificó con 300 duelos guionados jugados en ambos sentidos, exigiendo resultados espejo.',
+                ],
+              },
+              {
+                title: 'Calidad, offline y responsive',
+                body: 'Cerca de 96 tests cubren balance de bots, la simulación y la red bajo condiciones adversas simuladas.',
+                points: [
+                  'La app es instalable y funciona sin conexión tras la primera visita, con un service worker que usa una estrategia de caché distinta por tipo de recurso.',
+                  'Los problemas de layout en pantallas angostas no se corrigieron a ojo: se midieron las cajas reales en varios anchos antes de tocar el CSS.',
+                ],
+              },
+              {
+                title: 'Qué falta',
+                body: 'Es un prototipo jugable, no un producto terminado, y lo dice la propia interfaz.',
+                points: [
+                  'Sin servidor de partidas no hay ranking posible; las salas son casuales por diseño y sin protección contra un cliente modificado.',
+                  'No hay TURN: dos dispositivos en redes restrictivas pueden simplemente no conectar. Solo se probó extremo a extremo entre pestañas del mismo navegador y sobre el broker público real.',
+                  'El reconocimiento de cara y cuerpo del laboratorio solo se probó con datos sintéticos, nunca con una cara o cuerpo real.',
+                ],
+              },
+            ],
+          },
+          figures: [
+            { value: '60', label: 'ticks/s de combate' },
+            { value: '96', label: 'tests automatizados' },
+          ],
+        },
       ],
     },
     stack: {
@@ -2562,6 +2651,95 @@ export const translations = {
               },
             ],
           },
+        },
+        {
+          title: 'Aura Clash',
+          tag: 'Own product · Playable prototype',
+          status: 'Playable prototype · Stage 1',
+          role: 'Product, design and engineering, end to end',
+          period: 'Sep 2026',
+          description:
+            'A browser fighting game inspired by the viral "aura battles" — two people face off with exaggerated poses and gestures, and the crowd decides who has more presence — translated into a duel with objective rules: closing your fist charges energy, opening your hand releases it. The gesture is recognized on your own device, camera optional, and two people can duel by link or QR over WebRTC with no server of my own.',
+          metrics: [
+            'Deterministic combat at 60 ticks/s, with the same action layer for camera, keyboard and on-screen buttons.',
+            'Remote duels over lockstep with input delay derived from RTT, verified by a state hash every 120 ticks.',
+            'On-device gesture recognition with MediaPipe: no video ever leaves the browser.',
+            'Cultural research into the phenomenon documented with sources and corrections to early assumptions, before a single mechanic was designed.',
+          ],
+          stack: ['TypeScript', 'Vite', 'Canvas 2D', 'MediaPipe Tasks Vision', 'WebRTC · PeerJS', 'Vitest'],
+          galleryVariant: 'desktop',
+          galleryNote: 'Screens of the real prototype, captured with Playwright against the running game, unedited.',
+          gallery: [
+            { image: 'ac-bienvenida', caption: 'Welcome: the pitch in one line, no sign-up first' },
+            { image: 'ac-crear', caption: 'Create your fighter: alias, avatar and aura — all cosmetic' },
+            { image: 'ac-control', caption: 'Camera, keyboard or buttons: the same action layer for all three' },
+            { image: 'ac-remate', caption: 'A hit landing — damage, interruption and live combat text' },
+            { image: 'ac-despertar', caption: 'Both fighters with their special ready: the duel’s tensest moment' },
+            { image: 'ac-resultado', caption: 'Results screen with a breakdown of why each point of damage was taken' },
+          ],
+          detail: {
+            intro:
+              'The fantasy is simple: your hand is the controller. Closing your fist charges energy, opening it fires. The hard part was making that fantasy work without a camera as well as with one, and translating the project’s real cultural origin — an actual viral phenomenon, not a generic anime aesthetic — honestly instead of watering it down into a product that claims inspiration without understanding it.',
+            sections: [
+              {
+                title: 'The phenomenon and the product translation',
+                body: '"Farming aura" is internet slang for racking up invisible presence points by doing something that looks impressive while staying calm; aura battles took that to the street: two people stand in the middle of a crowd and the crowd decides who has more aura.',
+                points: [
+                  'The original is judged by the crowd’s reaction to a free-form performance, with no single rulebook across events.',
+                  'Aura Clash doesn’t pretend to be the in-person battle: it turns the same language — a small gesture that unleashes something big — into a duel with objective rules, which is what a prototype with no real audience can actually judge fairly.',
+                  'The experimental Aura Showcase mode, with performance rounds scored on rhythm and variety, is the piece that does get closer to the original judged-performance format.',
+                  'Anime gestures that inspired the design (Naruto’s hand seals, Jujutsu Kaisen’s domain-expansion signs, the Kamehameha) were taken as a generic pattern — charge and release, a unique gesture for an ultimate — never copied as a specific character’s sign, name or effect.',
+                ],
+              },
+              {
+                title: 'Architecture: rules kept separate from the senses',
+                body: 'The combat simulation runs at 60 ticks per second on deterministic arithmetic; Canvas 2D rendering runs at whatever rate the browser gives it.',
+                points: [
+                  'Camera, keyboard and on-screen buttons all resolve against the same action layer: combat never knows where an action came from, only that it arrived.',
+                  'That separation is what lets a bot play by the exact same rules as a human, and what lets two remote devices stay in sync without resending the full state every frame.',
+                ],
+              },
+              {
+                title: 'On-device gesture recognition',
+                body: 'MediaPipe runs in the browser and only outputs hand landmarks; video never leaves the device.',
+                points: [
+                  'Battles track one hand and nothing else — a deliberate privacy and compute-budget decision.',
+                  'The lab’s face and body gestures are measured against the player’s own neutral face, calibrated in about a second — not against a generic expression model, and without inferring identity or emotion.',
+                  'Every gesture has an exact keyboard or touch-button equivalent: no mechanic depends on the camera alone.',
+                ],
+              },
+              {
+                title: 'Networking: deterministic lockstep with no server of my own',
+                body: 'The product decision was to not run a match server yet; the engineering decision that makes that possible is lockstep with input delay.',
+                points: [
+                  'Both devices run the same simulation and exchange only an action mask per tick, never positions or health; the delay is derived from measured RTT instead of being fixed.',
+                  'Every 120 ticks both sides compare a state hash; a mismatch annuls the match instead of risking a diverging result.',
+                  'A real bug found along the way: when two attacks landed on the same tick, a fixed resolution order meant being host or guest wasn’t neutral. Fixed and verified with 300 scripted duels played both ways round, requiring mirrored results.',
+                ],
+              },
+              {
+                title: 'Quality, offline and responsive',
+                body: 'Close to 96 tests cover bot balance, the simulation itself, and the network under simulated adverse conditions.',
+                points: [
+                  'The app is installable and works offline after the first visit, via a service worker with a different caching strategy per resource type.',
+                  'Narrow-screen layout bugs weren’t eyeballed: real bounding boxes were measured at several widths before touching the CSS.',
+                ],
+              },
+              {
+                title: 'What’s missing',
+                body: 'This is a playable prototype, not a finished product, and the interface itself says so.',
+                points: [
+                  'With no match server there is no possible ranking; rooms are casual by design and have no protection against a modified client.',
+                  'There is no TURN server: two devices on restrictive networks may simply fail to connect. Only tested end to end between tabs on one browser and over the real public broker.',
+                  'The lab’s face and body recognition has only been tested with synthetic data, never against a real face or body.',
+                ],
+              },
+            ],
+          },
+          figures: [
+            { value: '60', label: 'combat ticks/s' },
+            { value: '96', label: 'automated tests' },
+          ],
         },
       ],
     },
