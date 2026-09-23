@@ -1265,9 +1265,12 @@ export const translations = {
             { image: 'ac-bienvenida', caption: 'Bienvenida: la promesa en una línea, sin registro previo' },
             { image: 'ac-crear', caption: 'Crear luchador: alias, avatar y aura — todo cosmético' },
             { image: 'ac-control', caption: 'Cámara, teclado o botones: misma capa de acciones para las tres' },
+            { image: 'ac-tutorial', caption: 'Tutorial interactivo: primer golpe contra un muñeco de práctica' },
             { image: 'ac-remate', caption: 'Impacto en combate — daño, interrupción y texto de estado en vivo' },
+            { image: 'ac-combo', caption: 'Combo en curso, encadenando ataques' },
             { image: 'ac-despertar', caption: 'Ambos con el especial listo: el momento de mayor tensión del duelo' },
             { image: 'ac-resultado', caption: 'Resultado con desglose de por qué se recibió cada punto de daño' },
+            { image: 'ac-gif', caption: 'Un intercambio real, sin cortes: carga, impacto y "¡CLASH!"' },
           ],
           detail: {
             intro:
@@ -2673,9 +2676,12 @@ export const translations = {
             { image: 'ac-bienvenida', caption: 'Welcome: the pitch in one line, no sign-up first' },
             { image: 'ac-crear', caption: 'Create your fighter: alias, avatar and aura — all cosmetic' },
             { image: 'ac-control', caption: 'Camera, keyboard or buttons: the same action layer for all three' },
+            { image: 'ac-tutorial', caption: 'Interactive tutorial: first hit against a practice dummy' },
             { image: 'ac-remate', caption: 'A hit landing — damage, interruption and live combat text' },
+            { image: 'ac-combo', caption: 'A combo in progress, chaining attacks' },
             { image: 'ac-despertar', caption: 'Both fighters with their special ready: the duel’s tensest moment' },
             { image: 'ac-resultado', caption: 'Results screen with a breakdown of why each point of damage was taken' },
+            { image: 'ac-gif', caption: 'A real exchange, uncut: charge, impact and "¡CLASH!"' },
           ],
           detail: {
             intro:

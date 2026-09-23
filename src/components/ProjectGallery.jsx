@@ -49,6 +49,9 @@ import acControlImg from "../assets/projects/aura-clash/control.webp";
 import acRemateImg from "../assets/projects/aura-clash/remate.webp";
 import acDespertarImg from "../assets/projects/aura-clash/despertar.webp";
 import acResultadoImg from "../assets/projects/aura-clash/resultado.webp";
+import acTutorialImg from "../assets/projects/aura-clash/tutorial.webp";
+import acComboImg from "../assets/projects/aura-clash/combo.webp";
+import acBattleGif from "../assets/projects/aura-clash/battle.gif";
 /**
  * Screens are keyed by name so translations.js stays free of asset imports:
  * each project lists `gallery: [{ image: "monto", caption }]` and the key is
@@ -108,6 +111,9 @@ export const PROJECT_IMAGES = {
   "ac-remate": acRemateImg,
   "ac-despertar": acDespertarImg,
   "ac-resultado": acResultadoImg,
+  "ac-tutorial": acTutorialImg,
+  "ac-combo": acComboImg,
+  "ac-gif": acBattleGif,
 };
 
 /**
